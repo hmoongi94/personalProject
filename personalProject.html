@@ -112,8 +112,12 @@
     input[1].style.visibility = "hidden"
       // check시
     input[1].addEventListener("change",function(){
-      category.style.left = "0"
-      category.style.zIndex = "1"
+      if(category.style.left === "-10vw"){
+      category.style.left = "0"}
+      else{
+        category.style.left = "-10vw"
+      }
+      
     })
 
       // 햄버거메뉴
@@ -156,7 +160,7 @@
     div[3].style.boxSizing = "border-box"
     div[3].style.top = "14vh"
     div[3].style.left = "-10vw"
-    div[3].style.zIndex = -1
+    div[3].style.zIndex = 1
 
     li[0].style.height = "5vh"
     li[1].style.height = "5vh"
