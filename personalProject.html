@@ -45,6 +45,7 @@
           <li><a href = "#">운동용어</a></li>
           <li><a href = "#">부위별 운동</a></li>
           <li><a href = "#">식단</a></li>
+          <li>닫기</li>
        </ul>
       </div>
 
@@ -67,6 +68,7 @@
     let span = document.getElementsByTagName("span")
     // console.dir(span)
     let category = document.getElementById("category")
+    let li = document.getElementsByTagName("li")
 
 
     // head
@@ -114,6 +116,7 @@
       category.style.zIndex = "1"
     })
 
+      // 햄버거메뉴
     label[0].style.display = "block"
     label[0].style.width = "4vw"
     label[0].style.height = "4vh"
@@ -144,6 +147,7 @@
     span[2].style.position = "absolute"
     span[2].style.top = "3vh"
 
+      // 카테고리 목록
     div[3].style.position = "fixed"
     div[3].style.width = "10vw"
     div[3].style.height = "86vh"
@@ -153,6 +157,20 @@
     div[3].style.top = "14vh"
     div[3].style.left = "-10vw"
     div[3].style.zIndex = -1
+
+    li[0].style.height = "5vh"
+    li[1].style.height = "5vh"
+    li[2].style.height = "5vh"
+
+    li[3].style.listStyleType = "none"
+    li[3].style.fontSize = "1.5vw"
+    li[3].style.position = "relative"
+    li[3].style.top = "48vh"
+    li[3].style.left = "5vw"
+      // 카테고리 나왔을 때 다시 체크 시,
+    li[3].addEventListener("click",function(){
+      div[3].style.left = "-10vw"
+    })
     
 
   </script>
