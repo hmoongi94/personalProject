@@ -17,16 +17,15 @@
       flex-direction:column;
     }
 
-
-
   </style>
 </head>
 <body>
   <div id="root">
     <div>
       <h1>운동사전</h1>
-      <h1>ㅇㅇ</h1>
-      <h1>dd</h1>
+      <input type="text" placeholder="검색">
+      <input type="button">
+      
     </div>
   </div>
 
@@ -37,14 +36,15 @@
     // console.dir(div)
     let h1 = document.getElementsByTagName("h1")
     // console.dir(h1)
+    let input =document.getElementsByTagName("input")
+    console.dir(input)
 
     div[1].style.width = "100vw"
     div[1].style.height = "10vh"
     div[1].style.backgroundColor = "rgba(30,30,30,1)"
     div[1].style.display = "flex"
-    div[1].style.justifyContent = "center"
+    div[1].style.justifyContent = "flex-start"
     div[1].style.alignItems = "center"
-    div[1].style.gridAutoFlow = "row"
     console.dir(div[1])
 
     h1[0].style.color = "white"
@@ -53,6 +53,9 @@
     h1[0].style.display = "flex"
     h1[0].style.justifyContent = "center"
     h1[0].style.alignItems = "center"
+
+    input[1].style.width = "3vw"
+    
     
 
   </script>
