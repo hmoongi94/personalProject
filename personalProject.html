@@ -17,6 +17,10 @@
       flex-direction:column;
     }
 
+    ul{
+      list-style: none;
+    }
+
   </style>
 </head>
 <body>
@@ -46,29 +50,39 @@
           <li><a href = "#">부위별 운동</a></li>
           <li><a href = "#">식단</a></li>
           <li>닫기</li>
-       </ul>
+        </ul>
       </div>
 
-    </div>
-  
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
 
-  <script>
-    let root = document.getElementById("root")
-    // console.dir(root)
-    let div = document.getElementsByTagName("div")
-    // console.dir(div)
-    let h1 = document.getElementsByTagName("h1")
-    // console.dir(h1)
-    let input = document.getElementsByTagName("input")
-    // console.dir(input)
-    let button = document.getElementsByTagName("button")
-    // console.dir(button)
-    let label = document.getElementsByTagName("label")
-    // console.dir(label)
-    let span = document.getElementsByTagName("span")
-    // console.dir(span)
-    let category = document.getElementById("category")
-    let li = document.getElementsByTagName("li")
+      
+      
+    </div>
+    
+    
+    <script>
+      let root = document.getElementById("root")
+      // console.dir(root)
+      let div = document.getElementsByTagName("div")
+      // console.dir(div)
+      let h1 = document.getElementsByTagName("h1")
+      // console.dir(h1)
+      let input = document.getElementsByTagName("input")
+      // console.dir(input)
+      let button = document.getElementsByTagName("button")
+      // console.dir(button)
+      let label = document.getElementsByTagName("label")
+      // console.dir(label)
+      let span = document.getElementsByTagName("span")
+      // console.dir(span)
+      let category = document.getElementById("category")
+      let li = document.getElementsByTagName("li")
+      let ul = document.getElementsByTagName("ul")
+      console.log(div)
 
 
     // head
@@ -78,7 +92,7 @@
     div[1].style.display = "flex"
     div[1].style.justifyContent = "flex-start"
     div[1].style.alignItems = "center"
-    console.dir(div[1])
+    // console.dir(div[1])
 
     h1[0].style.color = "white"
     h1[0].style.width = "15vw"
@@ -107,6 +121,7 @@
     div[2].style.backgroundColor = "white"
     div[2].style.display = "flex"
     div[2].style.alignItems = "center"
+    div[2].style.backgroundColor = "pink"
 
     input[1].style.display = "flex"
     input[1].style.visibility = "hidden"
@@ -175,6 +190,11 @@
     li[3].addEventListener("click",function(){
       div[3].style.left = "-10vw"
     })
+
+      // 보이는 카테고리
+    
+    
+       
     
 
   </script>
