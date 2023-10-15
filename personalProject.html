@@ -169,25 +169,42 @@
       // 카테고리 목록
     div[3].style.position = "fixed"
     div[3].style.width = "100vw"
-    div[3].style.height = "40vh"
-    div[3].style.background = "#333"
-    div[3].style.padding = "30px 25px 25px 25px"
+    div[3].style.height = "42vh"
+    div[3].style.background = "#fff"
+    // div[3].style.padding = "30px 25px 25px 25px"
     div[3].style.boxSizing = "border-box"
+    div[3].style.border = "solid 0.5px"
     div[3].style.top = "14vh"
-    // div[3].style.left = "-10vw"
     div[3].style.zIndex = 1
 
-    li[0].style.height = "15vh"
-    li[0].style.fontSize = "4vh"
-    li[1].style.height = "15vh"
-    li[1].style.fontSize = "3vh"
-    li[2].style.height = "15vh"
-    li[2].style.fontSize = "4vh"
+      // 햄버거메뉴 눌렀을 때 세부카테고리
+    li[0].style.width = "12vw"
+    li[0].style.height = "14vh"
+    li[0].style.fontSize = "3vh"
+    li[0].style.backgroundColor = "#16191c"
+    li[0].style.display = "flex"
+    li[0].style.alignItems = "center"
+    // li[0].style.backgroundColor = "red"
 
+    li[1].style.width = "12vw"
+    li[1].style.height = "14vh"
+    li[1].style.fontSize = "3vh"
+    li[1].style.backgroundColor = "#16191c"
+    li[1].style.display = "flex"
+    li[1].style.alignItems = "center"
+
+    li[2].style.width = "12vw"
+    li[2].style.height = "14vh"
+    li[2].style.fontSize = "3vh"
+    li[2].style.backgroundColor = "#16191c"
+    li[2].style.display = "flex"
+    li[2].style.alignItems = "center"
+
+      // 닫기버튼
     li[3].style.fontSize = "1.5vw"
     li[3].style.position = "relative"
-    li[3].style.top = "-15vh"
-    li[3].style.left = "90vw"
+    li[3].style.top = "-5vh"
+    li[3].style.left = "95vw"
       // 카테고리 나왔을 때 다시 체크 시,
     li[3].addEventListener("click",function(){
       div[3].style.left = "-100vw"
