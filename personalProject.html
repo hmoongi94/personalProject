@@ -127,10 +127,10 @@
     input[1].style.visibility = "hidden"
       // check시
     input[1].addEventListener("change",function(){
-      if(category.style.left === "-10vw"){
+      if(category.style.left === "-100vw"){
       category.style.left = "0"}
       else{
-        category.style.left = "-10vw"
+        category.style.left = "-100vw"
       }
       
     })
@@ -168,32 +168,34 @@
 
       // 카테고리 목록
     div[3].style.position = "fixed"
-    div[3].style.width = "10vw"
-    div[3].style.height = "86vh"
+    div[3].style.width = "100vw"
+    div[3].style.height = "40vh"
     div[3].style.background = "#333"
-    div[3].style.padding = "150px 25px 25px 25px"
+    div[3].style.padding = "30px 25px 25px 25px"
     div[3].style.boxSizing = "border-box"
     div[3].style.top = "14vh"
-    div[3].style.left = "-10vw"
+    // div[3].style.left = "-10vw"
     div[3].style.zIndex = 1
 
-    li[0].style.height = "5vh"
-    li[1].style.height = "5vh"
-    li[2].style.height = "5vh"
+    li[0].style.height = "15vh"
+    li[0].style.fontSize = "4vh"
+    li[1].style.height = "15vh"
+    li[1].style.fontSize = "3vh"
+    li[2].style.height = "15vh"
+    li[2].style.fontSize = "4vh"
 
-    li[3].style.listStyleType = "none"
     li[3].style.fontSize = "1.5vw"
     li[3].style.position = "relative"
-    li[3].style.top = "48vh"
-    li[3].style.left = "5vw"
+    // li[3].style.top = "48vh"
+    // li[3].style.left = "5vw"
       // 카테고리 나왔을 때 다시 체크 시,
     li[3].addEventListener("click",function(){
-      div[3].style.left = "-10vw"
+      div[3].style.left = "-100vw"
     })
 
       // 보이는 카테고리
-    console.dir(li)
-    console.dir(ul)
+    // console.dir(li)
+    // console.dir(ul)
     ul[1].style.width = "75vw"
     ul[1].style.display = "flex"
     ul[1].style.flexDirection = "row"
