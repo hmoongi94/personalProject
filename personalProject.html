@@ -20,6 +20,21 @@
     ul{
       list-style: none;
     }
+    ul:nth-child(1){
+      width:100vw;
+      height:42vh;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    
+    ul:nth-child(1)>div{
+      width: 86vw;
+      height: 14vh;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
 
     li{
       flex-wrap: wrap;
@@ -57,26 +72,37 @@
 
       <div id="category">
         <ul>
+
           <li>
             <a href = "#"><span>운동용어</span></a>
-
+          </li>
+          <div>
             <p>운동자세 용어</p>
             <p>운동 기구</p>
             <p>운동 신체부위 <br>용어</p>
             <p>운동 방식 용어</p>
             <p>그립의 종류</p>
             <p>근육명칭과 운동종류</p>
-          </li>
+          </div>
+
           <li>
             <a href = "#"><span>부위별 운동</span></a>
-            <p></p>
           </li>
+          <div>
+
+          </div>
+
           <li>
             <a href = "#"><span>식단</span></a>
             <p></p>
           </li>
+          <div>
+
+          </div>
+
           <li>닫기</li>
         </ul>
+
       </div>
 
       <!-- 보이는 카테고리 -->
@@ -107,6 +133,7 @@
       let span = document.getElementsByTagName("span")
       // console.dir(span)
       let category = document.getElementById("category")
+      let category1 = document.getElementById("category1")
       let li = document.getElementsByTagName("li")
       let ul = document.getElementsByTagName("ul")
       let p = document.getElementsByTagName("p")
@@ -207,7 +234,7 @@
     div[3].style.zIndex = 1
 
       // 햄버거메뉴 눌렀을 때 세부카테고리
-    li[0].style.width = "100vw"
+    li[0].style.width = "14vw"
     li[0].style.height = "14vh"
     li[0].style.fontSize = "3vh"
     li[0].style.backgroundColor = "#fff"
@@ -220,7 +247,7 @@
     a[0].style.backgroundColor = "#16191c"
 
 
-    li[1].style.width = "100vw"
+    li[1].style.width = "14vw"
     li[1].style.height = "14vh"
     li[1].style.fontSize = "3vh"
     li[1].style.backgroundColor = "#fff"
@@ -233,7 +260,7 @@
     a[1].style.backgroundColor = "#16191c"
 
 
-    li[2].style.width = "100vw"
+    li[2].style.width = "14vw"
     li[2].style.height = "14vh"
     li[2].style.fontSize = "3vh"
     li[2].style.backgroundColor = "#fff"
