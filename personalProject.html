@@ -46,9 +46,18 @@
 
       <div id="category">
         <ul>
-          <li><a href = "#">운동용어</a></li>
-          <li><a href = "#">부위별 운동</a></li>
-          <li><a href = "#">식단</a></li>
+          <li>
+            <a href = "#"><span>운동용어</span></a>
+            <p>운동자세 용어</p>
+          </li>
+          <li>
+            <a href = "#"><span>부위별 운동</span></a>
+            <p></p>
+          </li>
+          <li>
+            <a href = "#"><span>식단</span></a>
+            <p></p>
+          </li>
           <li>닫기</li>
         </ul>
       </div>
@@ -82,7 +91,8 @@
       let category = document.getElementById("category")
       let li = document.getElementsByTagName("li")
       let ul = document.getElementsByTagName("ul")
-      console.log(div)
+      let p = document.getElementsByTagName("p")
+      // console.dir()
 
 
     // head
@@ -178,22 +188,23 @@
     div[3].style.zIndex = 1
 
       // 햄버거메뉴 눌렀을 때 세부카테고리
-    li[0].style.width = "12vw"
+    li[0].style.width = "100vw"
     li[0].style.height = "14vh"
     li[0].style.fontSize = "3vh"
     li[0].style.backgroundColor = "#16191c"
     li[0].style.display = "flex"
     li[0].style.alignItems = "center"
-    // li[0].style.backgroundColor = "red"
+    
+    
 
-    li[1].style.width = "12vw"
+    li[1].style.width = "100vw"
     li[1].style.height = "14vh"
     li[1].style.fontSize = "3vh"
     li[1].style.backgroundColor = "#16191c"
     li[1].style.display = "flex"
     li[1].style.alignItems = "center"
 
-    li[2].style.width = "12vw"
+    li[2].style.width = "100vw"
     li[2].style.height = "14vh"
     li[2].style.fontSize = "3vh"
     li[2].style.backgroundColor = "#16191c"
