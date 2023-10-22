@@ -31,8 +31,8 @@
       flex-wrap: wrap;
     }
 
-    #category>ul>li:nth-child(1)>a>span:hover {
-      color: red;
+    #category>ul>li:nth-child(1):hover~div:nth-child(1)>p{
+       color: red
     }
 
     #category>ul>li:nth-child(2)>a>span:hover {
@@ -166,6 +166,7 @@
       let p = document.getElementsByTagName("p")
       let a = document.getElementsByTagName("a")
       // console.dir()
+      console.dir(root)
 
 
       // head
