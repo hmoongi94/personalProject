@@ -19,3 +19,9 @@ let ul = document.getElementsByTagName("ul")
 let p = document.getElementsByTagName("p")
 let a = document.getElementsByTagName("a")
 
+console.dir(li)
+console.dir(p)
+
+li[0].addEventListener("mouseover",function(target){
+  p[0].style.visibility = visible
+})
