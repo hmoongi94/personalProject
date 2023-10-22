@@ -264,13 +264,13 @@
       ul[1].style.alignItems = "center"
       
       console.dir(p)
-      li[0].addEventListener("click", () => {
-        p[0].style.visibility = "initial"
-        p[1].style.visibility = "initial"
-        p[2].style.visibility = "initial"
-        p[3].style.visibility = "initial"
-        p[4].style.visibility = "initial"
-        p[5].style.visibility = "initial"
+      li[0].addEventListener("mouseover", () => {
+        p[0].style.visibility = "inherit"
+        p[1].style.visibility = "inherit"
+        p[2].style.visibility = "inherit"
+        p[3].style.visibility = "inherit"
+        p[4].style.visibility = "inherit"
+        p[5].style.visibility = "inherit"
         p[6].style.visibility = "hidden"
         p[7].style.visibility = "hidden"
         p[8].style.visibility = "hidden"
@@ -280,7 +280,7 @@
         p[12].style.visibility = "hidden"
         p[13].style.visibility = "hidden"
       })
-      li[1].addEventListener("mouseover", (event) => {
+      li[1].addEventListener("mouseover", () => {
         
         p[0].style.visibility = "hidden"
         p[1].style.visibility = "hidden"
@@ -313,7 +313,7 @@
         p[12].style.visibility = "visible"
         p[13].style.visibility = "visible"
       })
-      // 눌러지지가않음
+
     </script>
 </body>
 
