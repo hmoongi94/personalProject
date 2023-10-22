@@ -264,7 +264,7 @@
       ul[1].style.alignItems = "center"
       
       console.dir(p)
-      li[0].addEventListener("mouseover", () => {
+      li[0].addEventListener("click", () => {
         p[0].style.visibility = "initial"
         p[1].style.visibility = "initial"
         p[2].style.visibility = "initial"
@@ -280,7 +280,8 @@
         p[12].style.visibility = "hidden"
         p[13].style.visibility = "hidden"
       })
-      li[1].addEventListener("mouseover", () => {
+      li[1].addEventListener("mouseover", (event) => {
+        
         p[0].style.visibility = "hidden"
         p[1].style.visibility = "hidden"
         p[2].style.visibility = "hidden"
@@ -294,9 +295,9 @@
         p[10].style.visibility = "visibile"
         p[11].style.visibility = "hidden"
         p[12].style.visibility = "hidden"
-        p[13].style.visibility = "hidden"        
+        p[13].style.visibility = "hidden"       
       })
-      li[2].addEventListener("click",()=>{
+      li[2].addEventListener("mouseover",()=>{
         p[0].style.visibility = "hidden"
         p[1].style.visibility = "hidden"
         p[2].style.visibility = "hidden"
