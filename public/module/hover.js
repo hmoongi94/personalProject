@@ -22,9 +22,3 @@ let a = document.getElementsByTagName("a")
 console.dir(li)
 console.dir(p)
 
-li[0].addEventListener("mouseover", ()=>{
-  p[0].style.visibility = "visible"
-})
-li[1].addEventListener("mouseover",()=>{
-  p[1].style.visibility = "visible"
-})
