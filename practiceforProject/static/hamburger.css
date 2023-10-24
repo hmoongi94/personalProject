@@ -1,0 +1,15 @@
+/* 스타일은 필요에 따라 추가적으로 수정 가능 */
+.hamburger-menu {
+  width: 30px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.bar {
+  width: 100%;
+  height: 4px;
+  background-color: #333;
+}
