@@ -13,3 +13,11 @@
   height: 4px;
   background-color: grey;
 }
+
+.menu {
+  display: none;
+  /* 스타일을 추가하여 메뉴를 원하는 형태로 꾸밀 수 있습니다. */
+}
+.menu.open {
+  display: block;
+}
