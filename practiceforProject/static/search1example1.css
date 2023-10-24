@@ -1,0 +1,21 @@
+/* 스타일은 필요에 따라 수정 가능 */
+.search-container {
+  text-align: center;
+  margin: 20px;
+}
+
+#search-input {
+  width: 80%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#results {
+  list-style: none;
+  padding: 0;
+}
+
+#results li {
+  margin: 5px;
+  cursor: pointer;
+}
