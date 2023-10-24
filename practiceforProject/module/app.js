@@ -9,6 +9,7 @@ menuItems.forEach(item => {
         // getAttribute로 href의 문자열을 전부 가져오고 substring으로 문자열을 추출하는데 #category1과 같이 #은 추출하고 싶지 않으므로 substring(1)을 사용하여 인덱스1번부터의 문자열을 추출한다.
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
+          // scrollTo(option)메서드의 옵션은 top, left, behavior: auto/smooth로 설정됨. top,left는 px단위로 설정이 가능함.
             window.scrollTo({
                 top: targetSection.offsetTop,
                 behavior: "smooth"
