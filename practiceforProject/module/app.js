@@ -21,8 +21,9 @@ menuItems.forEach(item => {
 // 스크롤 이벤트를 사용하여 메뉴 고정
 const header = document.querySelector("header");
 window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) {
+    if (window.scrollY > 1000) {
         header.classList.add("fixed");
+        // classList.add("fixed")는 position:fixed의 속성을 주고 remove는 제거하고 하는 것이아닌 클래스이름이 "fixed"인 클래스를 만들고 제거하는 것일 뿐이다. css에서 .fixed{}안에 값을 주면 그 안에 값이 스크롤의 위치에 따라서 값이 부여되고 빠지고 그런다.
     } else {
         header.classList.remove("fixed");
     }
