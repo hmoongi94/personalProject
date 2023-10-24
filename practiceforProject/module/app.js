@@ -6,6 +6,7 @@ menuItems.forEach(item => {
         event.preventDefault();
         // a태그에는 링크로 연결하는 동작이 default값으로 설정되어있는데, preventDefault를 사용하면 이 동작을 막고 아래에 작성한 동작을 실행함.
         const targetId = event.target.getAttribute("href").substring(1); // # 제거
+        // getAttribute로 href의 문자열을 전부 가져오고 substring으로 문자열을 추출하는데 #category1과 같이 #은 추출하고 싶지 않으므로 substring(1)을 사용하여 인덱스1번부터의 문자열을 추출한다.
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
             window.scrollTo({
