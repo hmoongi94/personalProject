@@ -6,12 +6,14 @@
     <title>운동 사전</title>
     <link rel="stylesheet" href="./static/style.css" />
     <link rel="stylesheet" href="./static/hamburger.css" />
+    <link rel="stylesheet" href="./static/searchexample1.css">
   </head>
   <body>
     <header>
       <nav>
         <ul id="topmenu">운동사전</ul>
       </nav>
+
       <nav>
         <ul id="menu">
           <div class="hamburger-menu">
@@ -23,7 +25,13 @@
           <li><a href="#category1">운동 용어</a></li>
           <li><a href="#category2">부위별 운동</a></li>
           <li><a href="#category3">식단</a></li>
-          <!-- 다른 카테고리 항목 추가 -->
+
+          <div class="search-container">
+            <input type="text" id="search-input" placeholder="운동을 검색하세요" />
+            <button type="submit" id="search-button">검색</button>
+            <!-- <ul id="results"></ul> -->
+          </div>
+          
         </ul>
       </nav>
 

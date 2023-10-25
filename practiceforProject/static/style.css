@@ -6,6 +6,7 @@ header {
   right: 0;
   background: #333;
 }
+
 ul#menu {
   display: flex;
   list-style: none;
