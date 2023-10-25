@@ -6,14 +6,17 @@
     <title>운동 사전</title>
     <link rel="stylesheet" href="./static/style.css" />
     <link rel="stylesheet" href="./static/hamburger.css" />
-    <link rel="stylesheet" href="./static/searchexample1.css">
+    <link rel="stylesheet" href="./static/searchexample1.css" />
   </head>
   <body>
     <header>
       <nav>
         <ul id="topmenu">
-          <img src="./img/exerciseLogo.png" alt="exerciseLogo"> 초심자들을 위한 Work-out Dictionary
-          
+          <img src="./img/exerciseLogo.png" alt="exerciseLogo" />
+          초심자들을 위한 Work-out Dictionary
+          <button id="dark-mode-toggle" data-mode="day">
+            <img id="dark-mode-icon" src="day-icon.png" alt="다크 모드 토글" />
+          </button>
         </ul>
       </nav>
 
@@ -30,11 +33,14 @@
           <li><a href="#category3">식단</a></li>
 
           <div class="search-container">
-            <input type="text" id="search-input" placeholder="운동을 검색하세요" />
+            <input
+              type="text"
+              id="search-input"
+              placeholder="운동을 검색하세요"
+            />
             <button type="submit" id="search-button">검색</button>
             <!-- <ul id="results"></ul> -->
           </div>
-          
         </ul>
       </nav>
 
@@ -45,7 +51,6 @@
           <li><a href="#">메뉴 항목 3</a></li>
         </ul>
       </nav>
-
     </header>
     <main>
       <section id="category1">

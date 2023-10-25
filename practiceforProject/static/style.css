@@ -57,6 +57,10 @@ ul#menu li a {
   text-decoration: none;
 }
 
+main{
+  color: white;
+}
+
 /* .fixed{
   background-color: red;
   position:fixed;
