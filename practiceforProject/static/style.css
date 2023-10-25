@@ -4,6 +4,7 @@ body{
   margin:0;
   padding: 0;
   box-sizing: border-box;
+  background: #232529;
 }
 
 header {
@@ -11,15 +12,16 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  background: #333;
+  /* background: #333; */
 }
 
 header nav {
   width: 100vw;
   height: 50px;
-  border-bottom: 2px solid grey; /* 테두리를 오른쪽에 추가 */
+  border-bottom: 2px solid #35383f; /* 테두리를 오른쪽에 추가 */
   display: flex;
   flex-wrap: wrap;
+  font-family:'Times New Roman', Times, serif
   /* margin:0;
   padding:0; */
 }
