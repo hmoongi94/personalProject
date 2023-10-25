@@ -10,11 +10,13 @@
   margin-left: 235px;
   cursor: pointer;
   padding: 0;
+  background-color: white;
 }
 
 #dark-mode-toggle img{
   width: 50px; /* 이미지 크기 조정 */
   height: 48px;
+  margin-left: 50px;
 }
 
 /* 이미지에 따라 아이콘 변경 */

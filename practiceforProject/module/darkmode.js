@@ -1,7 +1,7 @@
 // dark-mode.js
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 const body = document.body;
-const darkModeIcon = document.getElementById('dark-mode-icon');
+const dayModeIcon = document.getElementById('day-mode-icon');
 
 darkModeToggle.addEventListener('click', () => {
     const currentMode = darkModeToggle.getAttribute('data-mode');
@@ -10,11 +10,13 @@ darkModeToggle.addEventListener('click', () => {
     if (currentMode === 'day') {
         darkModeToggle.setAttribute('data-mode', 'dark');
         body.classList.remove('day-mode');
-        darkModeIcon.src = './img/dark-icon.png';
+        dayModeIcon.src = './img/dark-icon.png';
+        dayModeIcon.style.marginLeft = "50px";
     } else {
         darkModeToggle.setAttribute('data-mode', 'day');
         body.classList.add('day-mode');
-        darkModeIcon.src = './img/day-icon.png';
+        dayModeIcon.src = './img/day-icon.png';
+        dayModeIcon.style.marginLeft= "0px";
     }
 });
 
