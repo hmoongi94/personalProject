@@ -1,27 +1,23 @@
-/* style.css */
-.day-mode {
-  background-color: white; /* 다크 모드 배경색 */
-  color: #232529; /* 다크 모드 텍스트 색상 */
+body {
+  background-color: white; /* 라이트 모드 배경색 */
+  color: black; /* 라이트 모드 텍스트 색상 */
 }
 
-.dark-mode{
-  background-color: #232529;
-  color: white;
+.dark-mode {
+  background-color: black; /* 다크 모드 배경색 */
+  color: white; /* 다크 모드 텍스트 색상 */
 }
 
 #dark-mode-toggle {
-  width: 100px;
-  height:50px;
-  margin-left: 235px;
+  background: none;
+  border: none;
   cursor: pointer;
   padding: 0;
-  background-color: white;
 }
 
-#dark-mode-toggle img{
-  width: 50px; /* 이미지 크기 조정 */
-  height: 48px;
-  margin-left: 50px;
+#dark-mode-icon {
+  width: 30px; /* 이미지 크기 조정 */
+  height: 30px;
 }
 
 /* 이미지에 따라 아이콘 변경 */
