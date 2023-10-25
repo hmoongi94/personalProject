@@ -5,10 +5,11 @@ body{
   padding: 0;
   box-sizing: border-box;
   background: #232529;
+  display: flex;
 }
 
 header {
-  /* position: fixed; */
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -58,6 +59,7 @@ header nav {
 }
 
 main{
+  padding-top:100px;
   color: white;
 }
 
