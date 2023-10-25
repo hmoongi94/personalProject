@@ -1,26 +1,27 @@
-body {
-  background-color: white; /* 라이트 모드 배경색 */
-  color: black; /* 라이트 모드 텍스트 색상 */
+.day-mode {
+  background-color: white; /* 다크 모드 배경색 */
+  color: #232529; /* 다크 모드 텍스트 색상 */
 }
 
-.dark-mode {
-  background-color: black; /* 다크 모드 배경색 */
-  color: white; /* 다크 모드 텍스트 색상 */
+.font-color-black{
+  color:#232529;
 }
 
 #dark-mode-toggle {
-  background: none;
+  width:50px;
+  height: 50px;
   border: none;
   cursor: pointer;
   padding: 0;
 }
 
-#dark-mode-icon {
-  width: 30px; /* 이미지 크기 조정 */
-  height: 30px;
+#dark-mode-toggle> img{
+  width: 50px; /* 이미지 크기 조정 */
+  height: 50px;
+  margin:0;
 }
 
 /* 이미지에 따라 아이콘 변경 */
-#dark-mode-toggle.dark-mode #dark-mode-icon {
+/* #dark-mode-toggle.dark-mode #dark-mode-icon {
   content: url("dark-mode-icon.png");
-}
+} */

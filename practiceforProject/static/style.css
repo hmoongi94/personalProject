@@ -44,15 +44,15 @@ header nav {
   margin-right: 300px;
 }
 
-ul#menu {
+#menu {
   display: flex;
   list-style: none;
   padding: 0;
 }
-ul#menu li {
+#menu li {
   margin: 0 10px;
 }
-ul#menu li a {
+#menu li a {
   color: white;
   text-decoration: none;
 }
