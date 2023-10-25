@@ -4,6 +4,11 @@
   color: #232529; /* 다크 모드 텍스트 색상 */
 }
 
+.dark-mode{
+  background-color: #232529;
+  color: white;
+}
+
 #dark-mode-toggle {
   width: 100px;
   height:50px;
