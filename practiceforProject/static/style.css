@@ -5,6 +5,7 @@ body{
   padding: 0;
   box-sizing: border-box;
   background: #232529;
+  display: flex;
 }
 
 header {
@@ -58,6 +59,7 @@ header nav {
 }
 
 main{
+  padding-top:100px;
   color: white;
 }
 
