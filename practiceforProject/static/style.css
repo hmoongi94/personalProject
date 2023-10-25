@@ -1,10 +1,19 @@
 /* styles.css */
+body{
+  width: 100vw;
+  box-sizing: border-box;
+}
+
 header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   background: #333;
+}
+
+header nav {
+  border-bottom: 2px solid grey; /* 테두리를 오른쪽에 추가 */
 }
 
 ul#menu {
