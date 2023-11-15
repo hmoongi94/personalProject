@@ -1,12 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const path = require('path')
 
 const app = express();
 const PORT = 3000;
-
-app.use(express.static(path.join(__dirname, './static')))
 
 // MongoDB 연결
 mongoose.connect('mongodb://localhost:27017/mydatabase', {
