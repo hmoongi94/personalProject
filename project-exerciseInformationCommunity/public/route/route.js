@@ -10,13 +10,13 @@ module.exports = {
   mainpageRequest: router.get('/')
 }
 
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
     const indexHtmlFilePath = path.join(__dirname, '../static/index.html')
     fs.readFile(indexHtmlFilePath,(err,data)=>{
       if(err){
-        res.status(500).send('Internal Server Error')
-      } else{
-        res.send(JSON.parse(data))
+        res.status(500).send('index.html파일을 읽지 못함.')
+      } else {
+        res.sendFile(indexHtmlFilePath)
       }
     })
   });
