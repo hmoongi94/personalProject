@@ -12,12 +12,16 @@ module.exports = {
 
 router.get('/', (req, res) => {
     const indexHtmlFilePath = path.join(__dirname, '../static/index.html')
-    fs.readFile(indexHtmlFilePath,(err,data)=>{
+    const indexJSFilePath = path.join(__dirname, '../static/index.js')
+    fs.readFile(indexJSFilePath,'utf8',(err,data)=>{
       if(err){
-        res.status(500).send('index.html파일을 읽지 못함.')
-      } else {
+        console.log("js파일을 읽지못함")
+      } else{
         res.sendFile(indexHtmlFilePath)
       }
     })
-  });
+   
+      
+    })
+  ;
   
