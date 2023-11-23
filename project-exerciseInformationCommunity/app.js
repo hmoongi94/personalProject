@@ -4,13 +4,13 @@ const path = require('path')
 const port = 5001
 
 // 미들웨어
-// app.use(express.static(path.join(__dirname, './public/static')))
+app.use(express.static(path.join(__dirname, './public/static')))
 app.use(express.json())
 
 // 라우트
-const {mainpageRequest} = require('./public/route/route.js')
+// const {mainpageRequest} = require('./public/route/route.js')
 
-app.get('/', mainpageRequest)
+// app.get('/', mainpageRequest)
 
 
 
