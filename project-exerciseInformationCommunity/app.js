@@ -11,7 +11,8 @@ app.use(bodyParser.json());
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
   console.log(req.body)
-  console.log(email, password)
+  console.log(email)
+  console.log(password)
 
   // 여기서 email과 password를 사용하여 사용자 인증 등의 로직을 수행
   // 실제로는 데이터베이스에서 사용자를 찾아 비밀번호를 확인하는 등의 과정이 필요
@@ -22,6 +23,9 @@ app.post('/login', (req, res) => {
 
 app.post('/signup', (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body)
+  console.log(email)
+  console.log(password)
 
   // 여기서 email과 password를 사용하여 회원가입 로직을 수행
   // 실제로는 데이터베이스에 사용자 정보를 저장하는 등의 과정이 필요
