@@ -7,5 +7,5 @@
 1. project-exerciseDictionary-> 운동사전
   1)프로젝트 설계하기
 
-
-
+기능) 
+커뮤니티 게시판, 검색, 운동정보
