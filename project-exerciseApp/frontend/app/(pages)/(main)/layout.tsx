@@ -1,4 +1,6 @@
-import { ChildrenProp } from '@/app/types/ChildrenProp';
+import { ChildrenProp } from "@/app/types/ChildrenProp";
+import { Footer } from "@/components/mainpage/layout/footer/Footer";
+import { Header } from "@/components/mainpage/layout/header/Header";
 
 export default function CustomerLayout({ children }: ChildrenProp) {
   // const sendRequest = async (url: string, token: string) => {
@@ -17,7 +19,9 @@ export default function CustomerLayout({ children }: ChildrenProp) {
   // };
   return (
     <>
-      {children} 
+      <Footer />
+      {children}
+      <Header />
     </>
   );
 }
