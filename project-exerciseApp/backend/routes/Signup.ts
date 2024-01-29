@@ -8,12 +8,19 @@ customerSignup.post("/signup", async (req, res) => {
   let conn;
   const { userId, userPassword, userPassword1, userEmail, userPhoneNumber } =
     req.body;
+  console.log(userPhoneNumber);
 
   // userPassword와 userPassword1이 다를 경우 예외 처리
   if (userPassword !== userPassword1) {
     return res
       .status(250)
       .json({ success: false, message: "비밀번호가 일치하지 않습니다." });
+  }
+
+  if (userPhoneNumber.length > 12) {
+    return res
+      .status(251)
+      .json({ success: false, message: "전화번호를 제대로 입력해주세요." });
   }
 
   try {
