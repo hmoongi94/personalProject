@@ -1,6 +1,6 @@
-import { ChildrenProp } from "@/app/types/ChildrenProp";
-import Footer from "@/app/components/mainpage/layout/footer/Footer";
-import Header from "@/app/components/mainpage/layout/header/Header";
+import { ChildrenProp } from "@/app/interface/ChildrenProp";
+import Footer from "@/app/ui/layout/footer/Footer";
+import Header from "@/app/ui/layout/header/Header";
 
 export default function CustomerLayout({ children }: ChildrenProp) {
   // const sendRequest = async (url: string, token: string) => {
