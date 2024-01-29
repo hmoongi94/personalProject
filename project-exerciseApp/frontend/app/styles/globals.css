@@ -1,13 +1,18 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
-:root {
+/* @import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities'; */
+
+/* :root {
   --neon-blue: #74f94c;
   --bg: white;
-}
+} */
 
+/* 
 body {
   background-color: #000;
   color: #74f94c;
-}
+} */

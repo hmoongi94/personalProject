@@ -19,9 +19,9 @@ export default function CustomerLayout({ children }: ChildrenProp) {
   // };
   return (
     <>
-      <Footer />
-      {children}
       <Header />
+      {children}
+      <Footer />
     </>
   );
 }
