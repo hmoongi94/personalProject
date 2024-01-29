@@ -12,7 +12,7 @@ customerSignup.post("/signup", async (req, res) => {
   // userPassword와 userPassword1이 다를 경우 예외 처리
   if (userPassword !== userPassword1) {
     return res
-      .status(400)
+      .status(250)
       .json({ success: false, message: "비밀번호가 일치하지 않습니다." });
   }
 
