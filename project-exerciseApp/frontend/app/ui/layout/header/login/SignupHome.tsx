@@ -40,16 +40,16 @@ const SignUpHome: React.FC = () => {
       });
       
       if (!response.ok) {
-        throw new Error('회원가입 실패');
+        throw new Error('서버 응답 오류');
       }
 
       const data = await response.json();
       
       if (data.success) {
-        alert('회원가입 성공');
+        alert(data.message);
         router.push('/login');
       } else {
-        alert('회원가입 실패');
+        alert(data.message);
       }
     } catch (error) {
       console.error(error);
