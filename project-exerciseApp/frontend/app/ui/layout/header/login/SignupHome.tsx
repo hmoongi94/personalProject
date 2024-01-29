@@ -14,7 +14,7 @@ const SignUpHome: React.FC = () => {
     userPassword: '',
     userPassword1: '',
     userEmail: '',
-    userPhoneNum: '',
+    userPhoneNumber: '',
   });
   const handleInputChange = (field: string, value: string) => {
     setSignup({
@@ -35,16 +35,16 @@ const SignUpHome: React.FC = () => {
           userPassword: Signup.userPassword,
           userPassword1: Signup.userPassword1,
           userEmail: Signup.userEmail,
-          userPhoneNum: Signup.userPhoneNum
+          userPhoneNumber: Signup.userPhoneNumber
         }),
       });
-      console.log(response)
+      
       if (!response.ok) {
         throw new Error('회원가입 실패');
       }
 
       const data = await response.json();
-      console.log(data);
+      
       if (data.success) {
         alert('회원가입 성공');
         router.push('/login');
