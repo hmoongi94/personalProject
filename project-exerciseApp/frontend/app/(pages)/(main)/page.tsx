@@ -1,3 +1,11 @@
+'use client'
+
+import Menu from "@/app/ui/mainpage/menu";
+
 export default function Main() {
-  return <div className="text-red-500">testasdsad</div>;
+  return (
+    <>
+      <Menu />
+    </>
+  );
 }
