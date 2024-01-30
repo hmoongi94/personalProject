@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <header className="flex border-b-2 border-wine p-4 justify-between">
       <Link href="/">
-        <h1 className="text-xl cursor-pointer">Home</h1>
+        <h1 className="text-xl cursor-pointer text-gray-950">Home</h1>
       </Link>
       <ul className="flex ml-auto">
         <Link href="/login" className="mr-3">
