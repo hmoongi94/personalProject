@@ -36,7 +36,6 @@ const ExerciseDetailpage = () => {
   }, [exerciseIndex]);
 
   return <ExerciseDetailUI exercisedetaildata={exercisedata} />;
-  // return <div>테스트</div>
 };
 
 export default ExerciseDetailpage;
