@@ -9,6 +9,9 @@ import customerSignup from "./routes/Signup";
 // 메인페이지
 import exercisedata from "./routes/exerciseguide/exercisedata";
 
+// 메인페이지기능
+import exercisedetail from "./routes/exerciseguide/exercisedetaildata";
+
 const app = express();
 const port = 3560;
 
@@ -22,6 +25,10 @@ app.use(express.static("public"));
 app.post("/signup", customerSignup);
 // 메인페이지
 app.get("/exercisedata", exercisedata);
+
+// 메인페이지 기능
+  // exerciseguide
+  app.get("/exercisedetail/:exerciseIndex", exercisedetail)
 
 app.listen(port, () => {
   console.log(`Express 서버가 ${port}번 포트에서 실행중입니다.`);
