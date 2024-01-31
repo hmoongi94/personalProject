@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
-const ExerciseDiary = dynamic(()=>import('./exercisediary/exercisediary'))
-const ExerciseGuide = dynamic(()=>import('./exerciseguide/exerciseguide'))
-const Timer = dynamic(()=>import('./timer/timer'))
+const ExerciseDiary = dynamic(() => import("./exercisediary/exercisediary"));
+const ExerciseGuide = dynamic(() => import("./exerciseguide/exerciseguide"));
+const Timer = dynamic(() => import("./timer/timer"));
 
 interface ExerciseData {
   index: number;
   name: string;
   category: string;
   description: string;
+  imgurl: string;
 }
 
 const MainMenu = () => {
@@ -29,7 +30,6 @@ const MainMenu = () => {
           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
         }
 
-        console.log(data)
         setExtractexerciseData(data);
       } catch (error) {
         console.error("데이터를 불러오는 동안 에러발생:", error);
@@ -43,7 +43,7 @@ const MainMenu = () => {
   const renderComponent = () => {
     switch (activeMenu) {
       case "exerciseGuide":
-        return <ExerciseGuide />;
+        return <ExerciseGuide exerciseData={extractexerciseData} />;
       case "timer":
         return <Timer />;
       case "exerciseDiary":
