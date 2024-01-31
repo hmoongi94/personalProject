@@ -2,8 +2,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import LoginButton from "./Loginbutton";
-import InputText from "./Inputtext";
+import LoginButton from "../login/Loginbutton";
+import InputText from "../login/Inputtext";
 
 const SignUpHome: React.FC = () => {
   const router = useRouter();

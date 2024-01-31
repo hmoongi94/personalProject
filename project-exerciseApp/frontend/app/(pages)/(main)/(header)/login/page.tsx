@@ -1,4 +1,4 @@
-import LoginHome from "@/app/ui/layout/header/login/LoginHome";
+import LoginHome from "@/app/ui/login/LoginHome";
 
 const Login = () => {
   return (
