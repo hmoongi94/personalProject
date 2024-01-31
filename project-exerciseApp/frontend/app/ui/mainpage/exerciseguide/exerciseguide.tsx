@@ -21,7 +21,7 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({ exerciseData }) => {
       <div className="w-full h-full flex justify-center items-center">
         {/* exerciseData를 이용한 내용 추가 */}
         {exerciseData.map((exercise, index) => (
-          <Link href={`/exerciseguide/${exercise.index}`} key={index}>
+          <Link href={`/exercisedetail/${exercise.index}`} key={index}>
             <div key={exercise.index} className="border w-4/5">
               <p className="flex justify-center">{exercise.name}</p>
               <Image

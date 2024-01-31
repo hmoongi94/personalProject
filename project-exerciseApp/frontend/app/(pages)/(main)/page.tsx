@@ -16,7 +16,7 @@ interface ExerciseData {
   imgurl: string;
 }
 
-const MainMenu = () => {
+const MainPage = () => {
   const [activeMenu, setActiveMenu] = useState("mainLogo");
   const [extractexerciseData, setExtractexerciseData] = useState<
     ExerciseData[]
@@ -42,7 +42,7 @@ const MainMenu = () => {
     fetchExerciseData();
   }, []);
 
-  // * 동적 렌더링(운동가이드, 타이머, 운동일지)
+  // * 동적 렌더링(운동가이드, 타이머, 운동일지) -> 메인페이지 구성
   const renderComponent = () => {
     switch (activeMenu) {
       case "mainLogo":
@@ -58,6 +58,7 @@ const MainMenu = () => {
     }
   };
 
+  // *메뉴만 Ui를 만들고 동적렌더링으로 메인페이지를 구상
   return (
     <div className="w-screen h-screen">
       <nav className="w-full border-b-2 border-wine p-4">
@@ -72,4 +73,4 @@ const MainMenu = () => {
   );
 };
 
-export default MainMenu;
+export default MainPage;
