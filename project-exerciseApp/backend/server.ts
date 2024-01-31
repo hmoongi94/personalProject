@@ -7,7 +7,7 @@ import multer from "multer";
 // 고객페이지
 import customerSignup from "./routes/Signup";
 // 메인페이지
-import exercisedata from "./routes/exercisedata";
+import exercisedata from "./routes/exerciseguide/exercisedata";
 
 const app = express();
 const port = 3560;
