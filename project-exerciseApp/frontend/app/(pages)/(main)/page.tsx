@@ -1,11 +1,11 @@
 'use client'
 
-import Menu from "@/app/ui/mainpage/menu";
+import MainMenu from "@/app/ui/mainpage/mainMenu";
 
 export default function Main() {
   return (
     <>
-      <Menu />
+      <MainMenu />
     </>
   );
 }

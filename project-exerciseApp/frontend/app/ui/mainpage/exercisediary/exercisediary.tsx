@@ -13,7 +13,7 @@ const ExerciseDiary = () => {
   const [selectedDate, setSelectedDate] = useState('');
 
   // 날짜를 클릭하면 해당 날짜의 기록을 표시하는 함수
-  const handleDateClick = (date) => {
+  const handleDateClick = (date: React.SetStateAction<string>) => {
     setSelectedDate(date);
     const noteForDate = calendar.find((item) => item.date === date)?.note || '';
     setNewNote(noteForDate);

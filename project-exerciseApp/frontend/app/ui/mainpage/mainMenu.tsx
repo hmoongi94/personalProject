@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
-const ExerciseDiary = dynamic(() => import("./exercisediary/exercisediary"));
-const ExerciseGuide = dynamic(() => import("./exerciseguide/exerciseguide"));
-const Timer = dynamic(() => import("./timer/timer"));
+const ExerciseDiary = dynamic(()=>import('./exercisediary/exercisediary'))
+const ExerciseGuide = dynamic(()=>import('./exerciseguide/exerciseguide'))
+const Timer = dynamic(()=>import('./timer/timer'))
+
+interface ExerciseData {
+  index: number;
+  name: string;
+  category: string;
+  description: string;
+}
 
 const MainMenu = () => {
   const [activeMenu, setActiveMenu] = useState("exerciseGuide");
+  const [extractexerciseData, setExtractexerciseData] = useState<
+    ExerciseData[]
+  >([]);
 
   // * 종류별 운동 데이터 불러오기.
   useEffect(() => {
@@ -18,13 +28,16 @@ const MainMenu = () => {
         if (!Array.isArray(data)) {
           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
         }
+
+        console.log(data)
+        setExtractexerciseData(data);
       } catch (error) {
         console.error("데이터를 불러오는 동안 에러발생:", error);
       }
     };
 
     fetchExerciseData();
-  },[]);
+  }, []);
 
   // * 동적 렌더링(운동가이드, 타이머, 운동일지)
   const renderComponent = () => {
@@ -33,6 +46,8 @@ const MainMenu = () => {
         return <ExerciseGuide />;
       case "timer":
         return <Timer />;
+      case "exerciseDiary":
+        return <ExerciseDiary />;
       default:
         return null;
     }
@@ -44,7 +59,7 @@ const MainMenu = () => {
         <ul className="w-full flex flex-row justify-around">
           <li onClick={() => setActiveMenu("exerciseGuide")}>Exercise Guide</li>
           <li onClick={() => setActiveMenu("timer")}>Breaktime Timer</li>
-          <li onClick={() => setActiveMenu("calendar")}>Exercise Diary</li>
+          <li onClick={() => setActiveMenu("exerciseDiary")}>Exercise Diary</li>
         </ul>
       </nav>
       {renderComponent()}
