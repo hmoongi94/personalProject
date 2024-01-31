@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 const ExerciseDiary = dynamic(() => import("@/app/ui/mainpage//exercisediary/exercisediary"));
 const ExerciseGuide = dynamic(() => import("@/app/ui/mainpage//exerciseguide/exerciseguide"));
 const Timer = dynamic(() => import("@/app/ui/mainpage/timer/timer"));
-const Logo = dynamic(() => import("@/app/ui/mainpage/logo/logo"));
 
 interface ExerciseData {
   index: number;
@@ -17,7 +16,7 @@ interface ExerciseData {
 }
 
 const MainPage = () => {
-  const [activeMenu, setActiveMenu] = useState("mainLogo");
+  const [activeMenu, setActiveMenu] = useState("exerciseGuide");
   const [extractexerciseData, setExtractexerciseData] = useState<
     ExerciseData[]
   >([]);
@@ -45,8 +44,6 @@ const MainPage = () => {
   // * 동적 렌더링(운동가이드, 타이머, 운동일지) -> 메인페이지 구성
   const renderComponent = () => {
     switch (activeMenu) {
-      case "mainLogo":
-        return <Logo />
       case "exerciseGuide":
         return <ExerciseGuide exerciseData={extractexerciseData} />;
       case "timer":
