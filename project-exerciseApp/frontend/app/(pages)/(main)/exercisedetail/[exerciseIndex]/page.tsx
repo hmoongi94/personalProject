@@ -35,8 +35,8 @@ const ExerciseDetailpage = () => {
     fetchProductData();
   }, [exerciseIndex]);
 
-  // return <ExerciseDetailUI exercisedetaildata={exercisedata} />;
-  return <div>테스트</div>
+  return <ExerciseDetailUI exercisedetaildata={exercisedata} />;
+  // return <div>테스트</div>
 };
 
 export default ExerciseDetailpage;

@@ -1,19 +1,26 @@
-import { useRouter } from 'next/router';
-
-interface exerciseDetailProps{
+interface ExerciseDetailProps {
   name: string;
   imgurl: string;
   description: string;
 }
 
-const ExerciseDetailUI:React.FC<exerciseDetailProps>  = (exercisedetaildata) => {
+// ExerciseDetailUI 컴포넌트의 속성을 정의하는 인터페이스
+interface ExerciseDetailUIProps {
+  exercisedetaildata: ExerciseDetailProps[];
+}
 
+const ExerciseDetailUI: React.FC<ExerciseDetailUIProps> = ({ exercisedetaildata }) => {
   return (
     <div>
       <h1>Exercise Detail Page</h1>
-      {/* <h2>{exercisedetaildata.imgurl}</h2> */}
-      <h2>{exercisedetaildata.name}</h2>
-      <h2>{exercisedetaildata.description}</h2>
+      {/* 배열의 각 객체에 대한 JSX를 생성 */}
+      {exercisedetaildata.map((exercise, index) => (
+        <div key={index}>
+          <h2>{exercise.name}</h2>
+          {/* <img src={exercise.imgurl} alt={exercise.name} /> */}
+          <p>{exercise.description}</p>
+        </div>
+      ))}
     </div>
   );
 };
