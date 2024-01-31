@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Calendar = () => {
+const ExerciseDiary = () => {
   // 달력의 날짜와 해당 날짜에 기록된 내용을 state로 관리
   const [calendar, setCalendar] = useState([
     { date: '2024-02-01', note: 'Meeting with team' },
@@ -60,4 +60,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default ExerciseDiary;
