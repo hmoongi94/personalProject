@@ -138,7 +138,6 @@ const MainPage = () => {
               filterExercisesByCategory={filterExercisesByCategory}
             />
             <ExerciseGuide
-              exerciseData={extractexerciseData}
               filteredExerciseData={filteredExerciseData}
             />
           </div>

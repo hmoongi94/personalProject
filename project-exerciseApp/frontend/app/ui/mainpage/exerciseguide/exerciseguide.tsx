@@ -11,7 +11,6 @@ interface ExerciseData {
 }
 
 interface ExerciseGuideProps {
-  exerciseData: ExerciseData[];
   filteredExerciseData: ExerciseData[];
 }
 
