@@ -30,9 +30,9 @@ const MainPage = () => {
   const [extractexerciseData, setExtractexerciseData] = useState<
     ExerciseData[]
   >([]);
-  // const [initialExerciseData, setInitialExerciseData] = useState<
-  //   ExerciseData[]
-  // >([]);
+  const [initialExerciseData, setInitialExerciseData] = useState<
+    ExerciseData[]
+  >([]);
   // SearchParams
   const searchParams = useSearchParams();
   // Define primaryCategories
@@ -59,7 +59,8 @@ const MainPage = () => {
           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
         }
 
-        // setInitialExerciseData(data);
+        console.log(data)
+        setInitialExerciseData(data);
         setExtractexerciseData(data);
         setFilteredExerciseData(data);
 
@@ -137,13 +138,11 @@ const MainPage = () => {
               selectedCategory={selectedCategory}
               filterExercisesByCategory={filterExercisesByCategory}
             />
-            <ExerciseGuide
-              filteredExerciseData={filteredExerciseData}
-            />
+            <ExerciseGuide filteredExerciseData={filteredExerciseData} />
           </div>
         );
       case "timer":
-        return <Timer />;
+        return  <Timer initialExerciseData={initialExerciseData}/>;
       case "exerciseDiary":
         return <ExerciseDiary />;
       default:

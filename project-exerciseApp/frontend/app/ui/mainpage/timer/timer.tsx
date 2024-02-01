@@ -1,10 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-const Timer = () => {
+interface ExerciseData {
+  index: number;
+  name: string;
+  category: string;
+  description: string;
+  imgurl: string;
+}
+
+interface TimerProps {
+  initialExerciseData: ExerciseData[];
+}
+
+const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
+  console.log(initialExerciseData);
+
   const [countdown, setCountdown] = useState(0);
   const [initialCountdown, setInitialCountdown] = useState(0);
   const [isActive, setIsActive] = useState(false);
-  const [executionCount, setExecutionCount] = useState(-2); // New state variable
+  const [executionCount, setExecutionCount] = useState(-2);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -23,24 +37,32 @@ const Timer = () => {
   useEffect(() => {
     if (countdown === 0) {
       setIsActive(false);
-      setCountdown(initialCountdown);
-      setExecutionCount((prevCount) => prevCount + 1); // Increment execution count
+      setExecutionCount((prevCount) => prevCount + 1);
     }
-  }, [countdown, initialCountdown]);
+  }, [countdown]);
 
   const handleStartStop = () => {
     setIsActive((prevIsActive) => !prevIsActive);
   };
 
   const handleReset = () => {
-    setCountdown(initialCountdown);
+    setCountdown(0); // Reset countdown to 0
+    setInitialCountdown(0);
     setIsActive(false);
-    setExecutionCount(0); // Reset execution count to its initial value
+    setExecutionCount(0);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = Number(e.target.value);
+    setInitialCountdown(Math.max(newValue, 0)); // Ensure the input value is not below 0
+    setCountdown(Math.max(newValue, 0));
   };
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
-      <h1 className="text-2xl font-bold mb-4">BreakTime: {countdown} seconds</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        BreakTime: {countdown} seconds
+      </h1>
       <p className="mb-2">Execution Count: {executionCount}</p>
       <label className="flex items-center mb-4">
         Set Countdown:
@@ -48,21 +70,17 @@ const Timer = () => {
           className="ml-2 p-2 border border-gray-300 rounded text-slate-950"
           type="number"
           value={initialCountdown}
-          onChange={(e) => {
-            const newValue = Number(e.target.value);
-            setInitialCountdown(newValue);
-            setCountdown(newValue);
-          }}
+          onChange={handleInputChange}
         />
       </label>
       <div className="flex space-x-4">
         <button
           className={`${
-            isActive ? 'bg-blue-500' : 'bg-green-500'
+            isActive ? "bg-blue-500" : "bg-green-500"
           } text-white px-4 py-2 rounded`}
           onClick={handleStartStop}
         >
-          {isActive ? 'Pause' : 'Start'}
+          {isActive ? "Pause" : "Start"}
         </button>
         <button
           className="bg-red-500 text-white px-4 py-2 rounded"
