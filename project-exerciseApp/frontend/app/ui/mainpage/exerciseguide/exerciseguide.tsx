@@ -16,8 +16,9 @@ interface ExerciseGuideProps {
 }
 
 const ExerciseGuide: React.FC<ExerciseGuideProps> = ({ exerciseData }) => {
-  const primaryCategories = Array.from(
-    new Set(exerciseData.map((exercise) => exercise.category.split(",")[0]))
+  // Extract all unique categories
+  const allCategories = Array.from(
+    new Set(exerciseData.flatMap((exercise) => exercise.category.split(",")))
   );
 
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -25,7 +26,6 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({ exerciseData }) => {
     useState<ExerciseData[]>(exerciseData);
 
   useEffect(() => {
-    // exerciseData가 변경될 때 filteredExerciseData를 업데이트합니다.
     setFilteredExerciseData(
       exerciseData.filter(
         (exercise) =>
@@ -43,7 +43,7 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({ exerciseData }) => {
     <div className="w-screen h-4/5">
       {/* CategoryNavigation component */}
       <CategoryNavigation
-        categories={primaryCategories}
+        categories={allCategories}
         selectedCategory={selectedCategory}
         filterExercisesByCategory={filterExercisesByCategory}
       />
