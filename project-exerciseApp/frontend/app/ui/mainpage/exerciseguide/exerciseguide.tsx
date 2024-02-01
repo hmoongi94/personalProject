@@ -42,8 +42,9 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({
             <div key={exercise.index} className="border">
               <p className="flex justify-center">{exercise.name}</p>
               <Image
+                className="flex justify-center"
                 src={`/${exercise.imgurl}.png`}
-                alt="homepageCardImage"
+                alt="exerciseCardImage"
                 width={250}
                 height={250}
                 priority
