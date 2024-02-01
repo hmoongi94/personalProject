@@ -12,6 +12,9 @@ const ExerciseGuide = dynamic(
 );
 const Timer = dynamic(() => import("@/app/ui/mainpage/timer/timer"));
 const Search = dynamic(() => import("@/app/ui/mainpage/exerciseguide/search"));
+const CategoryNavigation = dynamic(
+  () => import("@/app/ui/mainpage/exerciseguide/categoryNavigation")
+);
 
 interface ExerciseData {
   index: number;
@@ -23,30 +26,54 @@ interface ExerciseData {
 
 const MainPage = () => {
   const [activeMenu, setActiveMenu] = useState("exerciseGuide");
+  // Define datas
   const [extractexerciseData, setExtractexerciseData] = useState<
     ExerciseData[]
   >([]);
+  const [initialExerciseData, setInitialExerciseData] = useState<
+    ExerciseData[]
+  >([]);
+  // Define primaryCategories
+  const [primaryCategories, setPrimaryCategories] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const searchParams = useSearchParams();
 
-  // // * 종류별 운동 데이터 불러오기.
-  // useEffect(() => {
-  //   const fetchInitialExerciseData = async () => {
-  //     try {
-  //       const response = await fetch("http://localhost:3560/exercisedata");
-  //       const data = await response.json();
+  // Define filteredExerciseData state
+  const [filteredExerciseData, setFilteredExerciseData] = useState<
+    ExerciseData[]
+  >([]);
+  // Define filterExercisesByCategory
+  const filterExercisesByCategory = (category: string | null) => {
+    setSelectedCategory(category);
+  };
 
-  //       if (!Array.isArray(data)) {
-  //         throw new Error("데이터 형식 오류: 배열이 아닙니다.");
-  //       }
+  // * Fetch initial exercise data only once
+  useEffect(() => {
+    const fetchInitialExerciseData = async () => {
+      try {
+        const response = await fetch("http://localhost:3560/exercisedata");
+        const data = await response.json();
 
-  //       setExtractexerciseData(data);
-  //     } catch (error) {
-  //       console.error("데이터를 불러오는 동안 에러발생:", error);
-  //     }
-  //   };
+        if (!Array.isArray(data)) {
+          throw new Error("데이터 형식 오류: 배열이 아닙니다.");
+        }
 
-  //   fetchInitialExerciseData();
-  // }, []);
+        setInitialExerciseData(data);
+        setExtractexerciseData(data);
+        setFilteredExerciseData(data);
+
+        // Derive primaryCategories from initial data
+        const categories = Array.from(
+          new Set(data.flatMap((exercise) => exercise.category.split(",")))
+        );
+        setPrimaryCategories(categories);
+      } catch (error) {
+        console.error("데이터를 불러오는 동안 에러발생:", error);
+      }
+    };
+
+    fetchInitialExerciseData();
+  }, []);
 
   // * 검색으로 운동 데이터 불러오기.
   useEffect(() => {
@@ -55,7 +82,7 @@ const MainPage = () => {
         const queryParam = searchParams.get("query");
 
         if (!queryParam) {
-        //* If the query is empty, fetch initial data
+          // If the query is empty, fetch initial data
           const response = await fetch("http://localhost:3560/exercisedata");
           const data = await response.json();
 
@@ -65,7 +92,7 @@ const MainPage = () => {
 
           setExtractexerciseData(data);
         } else {
-          //* If the query is not empty, fetch searched data
+          // If the query is not empty, fetch searched data
           const response = await fetch(
             `http://localhost:3560/searchexercisedata?query=${queryParam}`
           );
@@ -85,6 +112,17 @@ const MainPage = () => {
     fetchSearchedExerciseData();
   }, [searchParams]);
 
+  // * Filter exercise data based on selectedCategory
+  useEffect(() => {
+    setFilteredExerciseData(
+      extractexerciseData.filter(
+        (exercise) =>
+          selectedCategory === null ||
+          exercise.category.includes(selectedCategory)
+      )
+    );
+  }, [selectedCategory, extractexerciseData]);
+
   // * 동적 렌더링(운동가이드, 타이머, 운동일지) -> 메인페이지 구성
   const renderComponent = () => {
     switch (activeMenu) {
@@ -93,7 +131,15 @@ const MainPage = () => {
           <div>
             <div className="flex justify-center">Exercise Guide</div>
             <Search placeholder="Search..." />
-            <ExerciseGuide exerciseData={extractexerciseData} />
+            <CategoryNavigation
+              categories={primaryCategories}
+              selectedCategory={selectedCategory}
+              filterExercisesByCategory={filterExercisesByCategory}
+            />
+            <ExerciseGuide
+              exerciseData={extractexerciseData}
+              filteredExerciseData={filteredExerciseData}
+            />
           </div>
         );
       case "timer":
