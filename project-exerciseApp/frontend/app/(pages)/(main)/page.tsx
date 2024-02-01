@@ -30,13 +30,14 @@ const MainPage = () => {
   const [extractexerciseData, setExtractexerciseData] = useState<
     ExerciseData[]
   >([]);
-  const [initialExerciseData, setInitialExerciseData] = useState<
-    ExerciseData[]
-  >([]);
+  // const [initialExerciseData, setInitialExerciseData] = useState<
+  //   ExerciseData[]
+  // >([]);
+  // SearchParams
+  const searchParams = useSearchParams();
   // Define primaryCategories
   const [primaryCategories, setPrimaryCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const searchParams = useSearchParams();
 
   // Define filteredExerciseData state
   const [filteredExerciseData, setFilteredExerciseData] = useState<
@@ -58,7 +59,7 @@ const MainPage = () => {
           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
         }
 
-        setInitialExerciseData(data);
+        // setInitialExerciseData(data);
         setExtractexerciseData(data);
         setFilteredExerciseData(data);
 
