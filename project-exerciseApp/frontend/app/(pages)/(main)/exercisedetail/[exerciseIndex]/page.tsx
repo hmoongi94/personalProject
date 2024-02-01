@@ -1,6 +1,6 @@
 "use client";
 
-import ExerciseDetailUI from "@/app/ui/mainpage/exercisedetail/exercisedetail";
+import ExerciseDetailUI from "@/app/ui/exercisedetail/exercisedetail";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 
