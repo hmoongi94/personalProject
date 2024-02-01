@@ -42,22 +42,25 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   useEffect(() => {
     if (countdown === 0) {
       setIsActive(false);
-      setCountdown(initialCountdown)
+      setCountdown(initialCountdown);
     }
   }, [countdown, initialCountdown]);
 
   const handleStartStop = () => {
-    if(isActive===false && countdown === initialCountdown){
+    if (isActive === false && countdown === initialCountdown) {
       setExecutionCount((prevCount) => prevCount + 1);
     }
     setIsActive((prevIsActive) => !prevIsActive);
-    setInitialCountdown(countdown)
+    // setInitialCountdown(countdown)
   };
 
-  const handleReset = () => {
+  const handleBreaktimeReset = () => {
     setCountdown(0); // Reset countdown to 0
     setInitialCountdown(0);
     setIsActive(false);
+  };
+
+  const handleExecutionReset = () => {
     setExecutionCount(0);
   };
 
@@ -113,12 +116,20 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
           </select>
         </label>
         <p className="mb-2">Set Execution Count: {executionCount}</p>
-        <button
-          className="bg-purple-500 text-white px-4 py-2 rounded ml-24"
-          onClick={handleRecord}
-        >
-          Record
-        </button>
+        <div className="flex space-x-4 ml-20">
+          <button
+            className="bg-purple-500 text-white px-4 py-2 rounded"
+            onClick={handleRecord}
+          >
+            Record
+          </button>
+          <button
+            className="bg-red-500 text-white px-4 py-2 rounded"
+            onClick={handleExecutionReset}
+          >
+            Reset
+          </button>
+        </div>
       </div>
       <div>
         <h1 className="text-2xl font-bold mb-4">
@@ -144,7 +155,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
           </button>
           <button
             className="bg-red-500 text-white px-4 py-2 rounded"
-            onClick={handleReset}
+            onClick={handleBreaktimeReset}
           >
             Reset
           </button>
