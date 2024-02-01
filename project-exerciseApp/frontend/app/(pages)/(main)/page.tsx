@@ -28,41 +28,55 @@ const MainPage = () => {
   >([]);
   const searchParams = useSearchParams();
 
-  // * 종류별 운동 데이터 불러오기.
-  useEffect(() => {
-    const fetchInitialExerciseData = async () => {
-      try {
-        const response = await fetch("http://localhost:3560/exercisedata");
-        const data = await response.json();
+  // // * 종류별 운동 데이터 불러오기.
+  // useEffect(() => {
+  //   const fetchInitialExerciseData = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:3560/exercisedata");
+  //       const data = await response.json();
 
-        if (!Array.isArray(data)) {
-          throw new Error("데이터 형식 오류: 배열이 아닙니다.");
-        }
+  //       if (!Array.isArray(data)) {
+  //         throw new Error("데이터 형식 오류: 배열이 아닙니다.");
+  //       }
 
-        setExtractexerciseData(data);
-      } catch (error) {
-        console.error("데이터를 불러오는 동안 에러발생:", error);
-      }
-    };
+  //       setExtractexerciseData(data);
+  //     } catch (error) {
+  //       console.error("데이터를 불러오는 동안 에러발생:", error);
+  //     }
+  //   };
 
-    fetchInitialExerciseData();
-  }, []);
+  //   fetchInitialExerciseData();
+  // }, []);
 
   // * 검색으로 운동 데이터 불러오기.
   useEffect(() => {
     const fetchSearchedExerciseData = async () => {
       try {
         const queryParam = searchParams.get("query");
-        const response = await fetch(
-          `http://localhost:3560/searchexercisedata?query=${queryParam}`
-        );
-        const data = await response.json();
 
-        if (!Array.isArray(data)) {
-          throw new Error("데이터 형식 오류: 배열이 아닙니다.");
+        if (!queryParam) {
+        //* If the query is empty, fetch initial data
+          const response = await fetch("http://localhost:3560/exercisedata");
+          const data = await response.json();
+
+          if (!Array.isArray(data)) {
+            throw new Error("데이터 형식 오류: 배열이 아닙니다.");
+          }
+
+          setExtractexerciseData(data);
+        } else {
+          //* If the query is not empty, fetch searched data
+          const response = await fetch(
+            `http://localhost:3560/searchexercisedata?query=${queryParam}`
+          );
+          const data = await response.json();
+
+          if (!Array.isArray(data)) {
+            throw new Error("데이터 형식 오류: 배열이 아닙니다.");
+          }
+
+          setExtractexerciseData(data);
         }
-
-        setExtractexerciseData(data);
       } catch (error) {
         console.error("데이터를 불러오는 동안 에러발생:", error);
       }

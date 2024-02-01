@@ -12,11 +12,18 @@ searchexercisedata.get("/searchexercisedata", async (req, res) => {
 
   try {
     conn = await pool.getConnection();
-    // Modify your SQL query to use the searchData parameter if needed
-    const result = await conn.query("SELECT * FROM exercise WHERE name = ?", [searchData]);
-
-    console.log(result)
-    res.status(200).json(result);
+    if (searchData) {
+      const result = await conn.query(
+        "SELECT * FROM exercise WHERE name LIKE ? OR category LIKE ?",
+        [`%${searchData}%`, `%${searchData}%`]
+      );
+      console.log(result);
+      res.status(200).json(result);
+    } else {
+      const result = await conn.query("SELECT * FROM exercise", [searchData]);
+      console.log(result);
+      res.status(200).json(result);
+    }
   } catch (error) {
     console.error("Error fetching exercise data:", error);
     res.status(500).json({ error: "Error fetching exercise data" });
