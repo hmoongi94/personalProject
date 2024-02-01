@@ -13,7 +13,7 @@ interface TimerProps {
 }
 
 const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
-  console.log(initialExerciseData);
+  // console.log(initialExerciseData);
 
   const [countdown, setCountdown] = useState(0);
   const [initialCountdown, setInitialCountdown] = useState(0);
@@ -45,12 +45,20 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
     setIsActive((prevIsActive) => !prevIsActive);
   };
 
-  const handleReset = () => {
-    setCountdown(0); // Reset countdown to 0
-    setInitialCountdown(0);
-    setIsActive(false);
-    setExecutionCount(0);
-  };
+const handleReset = () => {
+  setExecutionCount((prevCount) => {
+    if (countdown === 0) {
+      // If countdown is already 0, reset execution count to 0
+      return 0;
+    } else {
+      // Otherwise, reset countdown to 0 and keep execution count the same
+      setCountdown(0);
+      setInitialCountdown(0);
+      setIsActive(false);
+      return prevCount;
+    }
+  });
+};
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
