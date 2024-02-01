@@ -30,32 +30,29 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({ exerciseData }) => {
 
   return (
     <div className="w-screen h-4/5">
-      <h1 className="w-full flex justify-center text-3xl">Exercise Guide</h1>
+      {/* <h1 className="w-full flex justify-center">Exercise Guide</h1> */}
 
       {/* Primary Category Navigation */}
-      <div className="flex justify-end">
-        <div className="flex justify-center my-4 mr-48">
+      <div className="flex justify-center my-4">
+        <button
+          onClick={() => filterExercisesByCategory(null)}
+          className={`mx-2 px-4 py-2 rounded ${
+            selectedCategory === null ? "bg-pink-500" : "bg-pink-300"
+          }`}
+        >
+          All
+        </button>
+        {primaryCategories.map((category, index) => (
           <button
-            onClick={() => filterExercisesByCategory(null)}
+            key={index}
+            onClick={() => filterExercisesByCategory(category)}
             className={`mx-2 px-4 py-2 rounded ${
-              selectedCategory === null ? "bg-pink-500" : "bg-pink-300"
+              selectedCategory === category ? "bg-pink-500" : "bg-pink-300"
             }`}
           >
-            All
+            {category}
           </button>
-          {primaryCategories.map((category, index) => (
-            <button
-              key={index}
-              onClick={() => filterExercisesByCategory(category)}
-              className={`mx-2 px-4 py-2 rounded ${
-                selectedCategory === category ? "bg-pink-500" : "bg-pink-300"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-        <Search placeholder="Search exercises..." />
+        ))}
       </div>
 
       {/* Exercise Cards */}
@@ -65,7 +62,7 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({ exerciseData }) => {
             (exercise) =>
               selectedCategory === null ||
               exercise.category.includes(selectedCategory)
-            // includes 메서드를 사용해서 등,하체 이런식으로 두개 합쳐져 있는 카테고리들도 다 뽑아낼 수 있다.
+              // includes 메서드를 사용해서 등,하체 이런식으로 두개 합쳐져 있는 카테고리들도 다 뽑아낼 수 있다.
           )
           .map((exercise, index) => (
             <Link href={`/exercisedetail/${exercise.index}`} key={index}>

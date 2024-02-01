@@ -1,11 +1,17 @@
-'use client'
+"use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 
-const ExerciseDiary = dynamic(() => import("@/app/ui/mainpage//exercisediary/exercisediary"));
-const ExerciseGuide = dynamic(() => import("@/app/ui/mainpage//exerciseguide/exerciseguide"));
+const ExerciseDiary = dynamic(
+  () => import("@/app/ui/mainpage//exercisediary/exercisediary")
+);
+const ExerciseGuide = dynamic(
+  () => import("@/app/ui/mainpage//exerciseguide/exerciseguide")
+);
 const Timer = dynamic(() => import("@/app/ui/mainpage/timer/timer"));
+const Search = dynamic(() => import("@/app/ui/mainpage/exerciseguide/search"));
 
 interface ExerciseData {
   index: number;
@@ -20,10 +26,11 @@ const MainPage = () => {
   const [extractexerciseData, setExtractexerciseData] = useState<
     ExerciseData[]
   >([]);
+  const searchParams = useSearchParams();
 
   // * 종류별 운동 데이터 불러오기.
   useEffect(() => {
-    const fetchExerciseData = async () => {
+    const fetchInitialExerciseData = async () => {
       try {
         const response = await fetch("http://localhost:3560/exercisedata");
         const data = await response.json();
@@ -38,14 +45,43 @@ const MainPage = () => {
       }
     };
 
-    fetchExerciseData();
+    fetchInitialExerciseData();
   }, []);
+
+  // * 검색으로 운동 데이터 불러오기.
+  useEffect(() => {
+    const fetchSearchedExerciseData = async () => {
+      try {
+        const queryParam = searchParams.get("query");
+        const response = await fetch(
+          `http://localhost:3560/searchexercisedata?query=${queryParam}`
+        );
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+          throw new Error("데이터 형식 오류: 배열이 아닙니다.");
+        }
+
+        setExtractexerciseData(data);
+      } catch (error) {
+        console.error("데이터를 불러오는 동안 에러발생:", error);
+      }
+    };
+
+    fetchSearchedExerciseData();
+  }, [searchParams]);
 
   // * 동적 렌더링(운동가이드, 타이머, 운동일지) -> 메인페이지 구성
   const renderComponent = () => {
     switch (activeMenu) {
       case "exerciseGuide":
-        return <ExerciseGuide exerciseData={extractexerciseData} />;
+        return (
+          <div>
+            <div className="flex justify-center">Exercise Guide</div>
+            <Search placeholder="Search..." />
+            <ExerciseGuide exerciseData={extractexerciseData} />
+          </div>
+        );
       case "timer":
         return <Timer />;
       case "exerciseDiary":
