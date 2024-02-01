@@ -156,7 +156,7 @@ const MainPage = () => {
       <nav className="w-full border-b-2 border-wine p-4">
         <ul className="w-full flex flex-row justify-around">
           <li onClick={() => setActiveMenu("exerciseGuide")}>Exercise Guide</li>
-          <li onClick={() => setActiveMenu("timer")}>Breaktime Timer</li>
+          <li onClick={() => setActiveMenu("timer")}>Breaktime Timer & record my Workout</li>
           <li onClick={() => setActiveMenu("exerciseDiary")}>Exercise Diary</li>
         </ul>
       </nav>
