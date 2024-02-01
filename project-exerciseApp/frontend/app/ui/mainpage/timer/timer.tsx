@@ -64,7 +64,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
     setExecutionCount(0);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBreaktimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
     setInitialCountdown(Math.max(newValue, 0)); // Ensure the input value is not below 0
     setCountdown(Math.max(newValue, 0));
@@ -115,6 +115,15 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
             ))}
           </select>
         </label>
+        <label className="flex items-center mb-4">
+          Enter Reps:
+          <input
+            className="ml-2 p-2 border border-gray-300 rounded text-slate-950"
+            type="number"
+            // value={inputValue}
+            // onChange={handleRepsChange}
+          />
+        </label>
         <p className="mb-2">Set Execution Count: {executionCount}</p>
         <div className="flex space-x-4 ml-20">
           <button
@@ -141,7 +150,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
             className="ml-2 p-2 border border-gray-300 rounded text-slate-950"
             type="number"
             value={initialCountdown}
-            onChange={handleInputChange}
+            onChange={handleBreaktimeChange}
           />
         </label>
         <div className="flex space-x-4 ml-20">
