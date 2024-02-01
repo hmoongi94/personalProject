@@ -59,7 +59,7 @@ const MainPage = () => {
           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
         }
 
-        console.log(data)
+        // console.log(data)
         setInitialExerciseData(data);
         setExtractexerciseData(data);
         setFilteredExerciseData(data);

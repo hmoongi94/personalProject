@@ -13,7 +13,7 @@ interface TimerProps {
 }
 
 const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
-  console.log(initialExerciseData);
+  // console.log(initialExerciseData);
 
   const [countdown, setCountdown] = useState(0);
   const [initialCountdown, setInitialCountdown] = useState(0);
@@ -23,7 +23,6 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
 
   // Extract names from initialExerciseData
   const exerciseNames = initialExerciseData.map((exercise) => exercise.name);
-  // console.log(exerciseNames)
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -75,6 +74,27 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
     setSelectedExercise(e.target.value);
   };
 
+  const handleRecord = () => {
+    // Send the data to the server (replace the URL with your actual server endpoint)
+    fetch("http://localhost:3560/recordData", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        executionCount,
+        selectedExercise,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Recorded successfully:", data);
+      })
+      .catch((error) => {
+        console.error("Error recording data:", error);
+      });
+  };
+
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
       <h1 className="text-2xl font-bold mb-4">
@@ -90,7 +110,9 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
         >
           <option value="" disabled>Select an exercise</option>
           {exerciseNames.map((name) => (
-            <option key={name} value={name}>{name}</option>
+            <option key={name} value={name}>
+              {name}
+            </option>
           ))}
         </select>
       </label>
@@ -117,6 +139,12 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
           onClick={handleReset}
         >
           Reset
+        </button>
+        <button
+          className="bg-purple-500 text-white px-4 py-2 rounded"
+          onClick={handleRecord}
+        >
+          Record
         </button>
       </div>
     </div>
