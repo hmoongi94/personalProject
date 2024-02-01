@@ -19,7 +19,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   const [countdown, setCountdown] = useState(0);
   const [initialCountdown, setInitialCountdown] = useState(0);
   const [isActive, setIsActive] = useState(false);
-  const [executionCount, setExecutionCount] = useState(-2);
+  const [executionCount, setExecutionCount] = useState(0);
   const [selectedExercise, setSelectedExercise] = useState<string | null>(null);
 
   // Extract names from initialExerciseData
@@ -47,7 +47,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   }, [countdown, initialCountdown]);
 
   const handleStartStop = () => {
-    if(isActive===false){
+    if(isActive===false && countdown === initialCountdown){
       setExecutionCount((prevCount) => prevCount + 1);
     }
     setIsActive((prevIsActive) => !prevIsActive);
