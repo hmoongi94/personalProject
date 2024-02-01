@@ -14,23 +14,32 @@ interface ExerciseGuideProps {
   filteredExerciseData: ExerciseData[];
 }
 
-const ExerciseGuide: React.FC<ExerciseGuideProps> = ({ filteredExerciseData }) => {
+const ExerciseGuide: React.FC<ExerciseGuideProps> = ({
+  filteredExerciseData,
+}) => {
   const itemsPerPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredExerciseData.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredExerciseData.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="w-screen h-4/5">
+    <div className="w-screen h-11/12">
       {/* 운동 카드들 */}
-      <div className="w-full h-full flex justify-center items-center flex-wrap">
+      <div className="w-full h-full flex flex-wrap justify-center items-center">
         {currentItems.map((exercise, index) => (
-          <Link href={`/exercisedetail/${exercise.index}`} key={index}>
-            <div key={exercise.index} className="border w-4/5 my-4">
+          <Link
+            href={`/exercisedetail/${exercise.index}`}
+            key={index}
+            className="w-1/4 mr-20 ml-20 h-1/3"
+          >
+            <div key={exercise.index} className="border">
               <p className="flex justify-center">{exercise.name}</p>
               <Image
                 src={`/${exercise.imgurl}.png`}
@@ -46,11 +55,18 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({ filteredExerciseData }) =
 
       {/* Pagination */}
       <div className="flex justify-center mt-4">
-        {Array.from({ length: Math.ceil(filteredExerciseData.length / itemsPerPage) }, (_, index) => (
-          <button key={index} onClick={() => paginate(index + 1)} className="mx-2">
-            {index + 1}
-          </button>
-        ))}
+        {Array.from(
+          { length: Math.ceil(filteredExerciseData.length / itemsPerPage) },
+          (_, index) => (
+            <button
+              key={index}
+              onClick={() => paginate(index + 1)}
+              className="mx-2"
+            >
+              {index + 1}
+            </button>
+          )
+        )}
       </div>
     </div>
   );
