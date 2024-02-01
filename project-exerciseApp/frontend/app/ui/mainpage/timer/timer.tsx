@@ -1,3 +1,4 @@
+import { count } from "console";
 import React, { useState, useEffect } from "react";
 
 interface ExerciseData {
@@ -41,27 +42,23 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   useEffect(() => {
     if (countdown === 0) {
       setIsActive(false);
-      setExecutionCount((prevCount) => prevCount + 1);
+      setCountdown(initialCountdown)
     }
-  }, [countdown]);
+  }, [countdown, initialCountdown]);
 
   const handleStartStop = () => {
+    if(isActive===false){
+      setExecutionCount((prevCount) => prevCount + 1);
+    }
     setIsActive((prevIsActive) => !prevIsActive);
+    setInitialCountdown(countdown)
   };
 
   const handleReset = () => {
-    setExecutionCount((prevCount) => {
-      if (countdown === 0) {
-        // If countdown is already 0, reset execution count to 0
-        return 0;
-      } else {
-        // Otherwise, reset countdown to 0 and keep execution count the same
-        setCountdown(0);
-        setInitialCountdown(0);
-        setIsActive(false);
-        return prevCount;
-      }
-    });
+    setCountdown(0); // Reset countdown to 0
+    setInitialCountdown(0);
+    setIsActive(false);
+    setExecutionCount(0);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,56 +93,62 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center">
-      <h1 className="text-2xl font-bold mb-4">
-        BreakTime: {countdown} seconds
-      </h1>
-      <p className="mb-2">Execution Count: {executionCount}</p>
-      <label className="flex items-center mb-4">
-        Select Exercise:
-        <select
-          className="ml-2 p-2 border border-gray-300 rounded text-slate-950"
-          value={selectedExercise || ""}
-          onChange={handleExerciseSelect}
-        >
-          <option value="" disabled>Select an exercise</option>
-          {exerciseNames.map((name) => (
-            <option key={name} value={name}>
-              {name}
+    <div className="w-full h-full flex justify-evenly items-center">
+      <div>
+        <label className="flex items-center mb-4">
+          Select Exercise:
+          <select
+            className="ml-2 p-2 border border-gray-300 rounded text-slate-950"
+            value={selectedExercise || ""}
+            onChange={handleExerciseSelect}
+          >
+            <option value="" disabled>
+              Select an exercise
             </option>
-          ))}
-        </select>
-      </label>
-      <label className="flex items-center mb-4">
-        Set Countdown:
-        <input
-          className="ml-2 p-2 border border-gray-300 rounded text-slate-950"
-          type="number"
-          value={initialCountdown}
-          onChange={handleInputChange}
-        />
-      </label>
-      <div className="flex space-x-4">
+            {exerciseNames.map((name) => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <p className="mb-2">Set Execution Count: {executionCount}</p>
         <button
-          className={`${
-            isActive ? "bg-blue-500" : "bg-green-500"
-          } text-white px-4 py-2 rounded`}
-          onClick={handleStartStop}
-        >
-          {isActive ? "Pause" : "Start"}
-        </button>
-        <button
-          className="bg-red-500 text-white px-4 py-2 rounded"
-          onClick={handleReset}
-        >
-          Reset
-        </button>
-        <button
-          className="bg-purple-500 text-white px-4 py-2 rounded"
+          className="bg-purple-500 text-white px-4 py-2 rounded ml-24"
           onClick={handleRecord}
         >
           Record
         </button>
+      </div>
+      <div>
+        <h1 className="text-2xl font-bold mb-4">
+          BreakTime: {countdown} seconds
+        </h1>
+        <label className="flex items-center mb-4">
+          Countdown:
+          <input
+            className="ml-2 p-2 border border-gray-300 rounded text-slate-950"
+            type="number"
+            value={initialCountdown}
+            onChange={handleInputChange}
+          />
+        </label>
+        <div className="flex space-x-4 ml-20">
+          <button
+            className={`${
+              isActive ? "bg-blue-500" : "bg-green-500"
+            } text-white px-4 py-2 rounded`}
+            onClick={handleStartStop}
+          >
+            {isActive ? "Pause" : "Start"}
+          </button>
+          <button
+            className="bg-red-500 text-white px-4 py-2 rounded"
+            onClick={handleReset}
+          >
+            Reset
+          </button>
+        </div>
       </div>
     </div>
   );
