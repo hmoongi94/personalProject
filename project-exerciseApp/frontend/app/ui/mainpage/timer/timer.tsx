@@ -25,6 +25,18 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   const [selectedExercise, setSelectedExercise] = useState<string | null>(null);
   const [repsValue, setRepsValue] = useState<number>(0);
 
+  // * 새로고침
+  const handleRefresh = () => {
+    setCountdown(0);
+    setInitialCountdown(0);
+    setIsActive(false);
+    setExecutionCount(0);
+    setSelectedExercise(null);
+    setRepsValue(0);
+    setTags([]);
+    setTotalReps(0);
+  };
+
   // * 타이머 동작
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -156,6 +168,14 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
 
   return (
     <div className="w-full h-full flex justify-evenly items-center">
+      <div>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+          onClick={handleRefresh}
+        >
+          Refresh
+        </button>
+      </div>
       <div>
         {/* 운동 종류 선택 */}
         <label className="flex items-center mb-4">
