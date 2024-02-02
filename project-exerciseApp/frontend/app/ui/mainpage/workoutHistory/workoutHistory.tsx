@@ -49,12 +49,15 @@ const WorkoutHistory: React.FC = () => {
     // console.log(selectedDate)
   }, [selectedDate]);
 
-  const handleDateChange = (date: Date | Date[]) => {
+  const handleDateChange = (
+    date: Date | Date[] | null,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     if (Array.isArray(date)) {
       // Handle date as an array if needed
       return;
     }
-    setSelectedDate(date);
+     setSelectedDate(date || new Date())
   };
 
   return (
