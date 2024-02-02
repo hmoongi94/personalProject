@@ -14,6 +14,8 @@ interface TimerProps {
 
 const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   // console.log(initialExerciseData);
+  //* Extract names from initialExerciseData
+  const exerciseNames = initialExerciseData.map((exercise) => exercise.name);
 
   // * 상태들
   const [countdown, setCountdown] = useState(0);
@@ -23,10 +25,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   const [selectedExercise, setSelectedExercise] = useState<string | null>(null);
   const [repsValue, setRepsValue] = useState<number>(0);
 
-  //* Extract names from initialExerciseData
-  const exerciseNames = initialExerciseData.map((exercise) => exercise.name);
-
-  // * 카운트다운이 0이 되었을 때 동작들
+  // * 타이머 동작
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
@@ -41,12 +40,30 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
     };
   }, [isActive, countdown]);
 
+  // * 타이머가 0이 되었을때
   useEffect(() => {
     if (countdown === 0) {
       setIsActive(false);
       setCountdown(initialCountdown);
     }
   }, [countdown, initialCountdown]);
+
+  // 태그를 관리하기 위한 state 추가
+  const [tags, setTags] = useState<React.ReactElement[]>([]);
+  const [setCount, setSetCount] = useState(0);
+  const [currentSet, setCurrentSet] = useState<number | null>(null);
+
+  const createPTagForSet = (
+    setCount: number,
+    repsValue: number
+  ): React.ReactElement => {
+    const tagContent = `${setCount}세트: ${repsValue} reps`;
+    return (
+      <p key={`set-${setCount}`} className="mb-2">
+        {tagContent}
+      </p>
+    );
+  };
 
   const handleStartStop = () => {
     if (
@@ -55,6 +72,10 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
       initialCountdown !== 0
     ) {
       setExecutionCount((prevCount) => prevCount + 1);
+      setSetCount((prevSetCount) => prevSetCount + 1);
+      setCurrentSet(setCount);
+      const tag = createPTagForSet(setCount, repsValue);
+      setTags((prevTags) => [...prevTags, tag]);
     }
 
     if (isActive === false && initialCountdown === 0) {
@@ -73,6 +94,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
 
   const handleExecutionReset = () => {
     setExecutionCount(0);
+    setTags([]);
   };
 
   const handleBreaktimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,6 +137,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   return (
     <div className="w-full h-full flex justify-evenly items-center">
       <div>
+        {/* 운동 종류 선택 */}
         <label className="flex items-center mb-4">
           Select Exercise:
           <select
@@ -131,6 +154,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
               </option>
             ))}
           </select>
+          {/* 세트당 Reps값 입력 */}
         </label>
         <label className="flex items-center mb-4">
           Enter Reps:
@@ -142,8 +166,14 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
           />
         </label>
 
+        {/* 진행 세트 수 표시 */}
         <p className="mb-2">Set Execution Count: {executionCount}</p>
 
+        {tags.map((tag, index) => (
+          <React.Fragment key={index}>{tag}</React.Fragment>
+        ))}
+
+        {/* 데이터 서버로 보내기 */}
         <div className="flex space-x-4 ml-20">
           <button
             className="bg-purple-500 text-white px-4 py-2 rounded"
@@ -151,6 +181,8 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
           >
             Record
           </button>
+
+          {/* 표시 된 값 Reset하기 */}
           <button
             className="bg-red-500 text-white px-4 py-2 rounded"
             onClick={handleExecutionReset}
@@ -159,6 +191,8 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
           </button>
         </div>
       </div>
+
+      {/* 휴식 타이머 */}
       <div>
         <h1 className="text-2xl font-bold mb-4">
           BreakTime: {countdown} seconds
@@ -172,14 +206,14 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
             onChange={handleBreaktimeChange}
           />
         </label>
-        <div className="flex space-x-4 ml-20">
+        <div className="flex space-x-4">
           <button
             className={`${
               isActive ? "bg-blue-500" : "bg-green-500"
             } text-white px-4 py-2 rounded`}
             onClick={handleStartStop}
           >
-            {isActive ? "Pause" : "Start"}
+            {isActive ? "Pause" : "SetDone-BreaktimeStart"}
           </button>
           <button
             className="bg-red-500 text-white px-4 py-2 rounded"
