@@ -20,6 +20,7 @@ const WorkoutHistory: React.FC = () => {
     const fetchData = async () => {
       try {
         const formattedDate = selectedDate.toISOString().split("T")[0];
+        console.log(formattedDate)
 
         const response = await fetch(
           `http://localhost:3560/workoutHistory?date=${formattedDate}`

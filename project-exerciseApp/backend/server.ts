@@ -11,7 +11,7 @@ import customerLogin from "./routes/Login";
 import exercisedata from "./routes/exerciseguide/exercisedata";
 import exercisedetail from "./routes/exerciseguide/exercisedetaildata";
 import searchexercisedata from "./routes/exerciseguide/searchexercisedata";
-import recordData from "./routes/record/recordData";
+import recordData from "./routes/timer/recordData";
 
 const app = express();
 const port = 3560;

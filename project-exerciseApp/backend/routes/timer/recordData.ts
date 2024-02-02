@@ -32,12 +32,7 @@ recordData.post("/recordData", async (req, res) => {
 
     // * 현재 날짜 및 시간을 생성 (년 월 일 형식)
     const currentDate = new Date();
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-    };
-    const formattedDate = currentDate.toLocaleDateString("ko-KR", options);
+    const formattedDate = currentDate.toISOString().split("T")[0];
 
     // * record 테이블에 insert
     const insertResult = await conn.query(
