@@ -1,10 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-const WorkoutHistory = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [workoutData, setWorkoutData] = useState([]);
+import "./calender.css"; 
+
+interface WorkoutEntry {
+  id: number;
+  exerciseName: string;
+  reps: number;
+  sets: number;
+}
+
+const WorkoutHistory: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [workoutData, setWorkoutData] = useState<WorkoutEntry[]>([]);
 
   useEffect(() => {
     // Fetch workout data for the selected date from the server
@@ -17,7 +26,7 @@ const WorkoutHistory = () => {
         );
 
         if (response.ok) {
-          const data = await response.json();
+          const data: WorkoutEntry[] = await response.json();
           setWorkoutData(data);
         } else {
           console.error("Error fetching workout data:", response.statusText);
@@ -30,13 +39,17 @@ const WorkoutHistory = () => {
     fetchData();
   }, [selectedDate]);
 
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: Date | Date[]) => {
+    if (Array.isArray(date)) {
+      // Handle date as an array if needed
+      return;
+    }
     setSelectedDate(date);
   };
 
   return (
-    <div>
-      <h1>Workout History</h1>
+    <div className="w-full h-full flex flex-col justify-start items-center">
+      <h1 className="text-3xl mb-10">Workout History</h1>
       <div>
         <Calendar onChange={handleDateChange} value={selectedDate} />
       </div>
