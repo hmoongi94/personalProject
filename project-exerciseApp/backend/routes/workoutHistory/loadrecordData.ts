@@ -17,11 +17,38 @@ workoutHistory.post("/workoutHistory", async (req: Request, res: Response) => {
 
     // Fetch workout data for the selected date
     conn = await pool.getConnection();
-    const result = await conn.query(
+
+    interface GroupedEntry {
+      name: string;
+      totalReps: number;
+      totalSets: number;
+    }
+
+    const rawData = await conn.query(
       "SELECT e.name, r.totalReps, r.totalSets FROM record r JOIN exercise e ON r.exerciseIndex = e.exerciseIndex WHERE r.userIndex = ? AND r.date = ?",
       [userIndex, date]
     );
-    console.log(result)
+    // console.log(rawData);
+
+    const result: GroupedEntry[] = rawData.reduce(
+      (acc: GroupedEntry[], entry: GroupedEntry) => {
+        const existingEntry = acc.find((group) => group.name === entry.name);
+
+        if (existingEntry) {
+          existingEntry.totalReps += entry.totalReps;
+          existingEntry.totalSets += entry.totalSets;
+        } else {
+          acc.push({
+            name: entry.name,
+            totalReps: entry.totalReps,
+            totalSets: entry.totalSets,
+          });
+        }
+
+        return acc;
+      },
+      []
+    );
 
     res.status(200).json(result);
   } catch (error) {
