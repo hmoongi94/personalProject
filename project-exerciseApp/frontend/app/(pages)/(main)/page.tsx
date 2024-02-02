@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
+import React, { Suspense } from "react";
 
 const WorkoutHistory = dynamic(
   () => import("@/app/ui/mainpage/workoutHistory/workoutHistory")
@@ -138,11 +139,13 @@ const MainPage = () => {
               selectedCategory={selectedCategory}
               filterExercisesByCategory={filterExercisesByCategory}
             />
-            <ExerciseGuide filteredExerciseData={filteredExerciseData} />
+            <Suspense fallback={<div>Loading...</div>}>
+              <ExerciseGuide filteredExerciseData={filteredExerciseData} />
+            </Suspense>
           </div>
         );
       case "timer":
-        return  <Timer initialExerciseData={initialExerciseData}/>;
+        return <Timer initialExerciseData={initialExerciseData} />;
       case "exerciseDiary":
         return <WorkoutHistory />;
       default:
@@ -156,7 +159,9 @@ const MainPage = () => {
       <nav className="w-full border-b-2 border-wine p-4">
         <ul className="w-full flex flex-row justify-around">
           <li onClick={() => setActiveMenu("exerciseGuide")}>Exercise Guide</li>
-          <li onClick={() => setActiveMenu("timer")}>Breaktime Timer & record my Workout</li>
+          <li onClick={() => setActiveMenu("timer")}>
+            Breaktime Timer & record my Workout
+          </li>
           <li onClick={() => setActiveMenu("exerciseDiary")}>Exercise Diary</li>
         </ul>
       </nav>
