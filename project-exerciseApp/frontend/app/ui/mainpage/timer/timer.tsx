@@ -161,12 +161,29 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
         executionCount,
       }),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Recorded successfully:", data);
+      .then(async (response) => {
+        if (response.ok) {
+          // 서버 응답이 성공인 경우
+          const data = await response.json();
+          console.log("Recorded successfully:", data);
+
+          // 여기서 값 초기화 로직 추가
+          setRepsValue(0);
+          setExecutionCount(0);
+          setSelectedExercise(null);
+          setTags([]);
+          setTotalReps(0);
+        } else {
+          // 서버 응답이 실패인 경우
+          const error = await response.json();
+          console.error("Error recording data:", error);
+          // 실패했을 때 추가적으로 수행할 작업이 있다면 여기에 추가
+        }
       })
       .catch((error) => {
+        // 네트워크 오류 등으로 인한 실패
         console.error("Error recording data:", error);
+        // 실패했을 때 추가적으로 수행할 작업이 있다면 여기에 추가
       });
   };
 
