@@ -18,7 +18,7 @@ workoutHistory.post("/workoutHistory", async (req: Request, res: Response) => {
     // Fetch workout data for the selected date
     conn = await pool.getConnection();
     const result = await conn.query(
-      "SELECT exerciseName, reps, sets FROM record WHERE userIndex = ? AND date = ?",
+      "SELECT exerciseIndex, totalReps, totalSet FROM record WHERE userIndex = ? AND date = ?",
       [userIndex, date]
     );
 

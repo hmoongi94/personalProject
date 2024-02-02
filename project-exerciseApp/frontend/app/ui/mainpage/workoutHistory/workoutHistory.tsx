@@ -6,9 +6,9 @@ import "./calender.css";
 
 interface WorkoutEntry {
   id: number;
-  exerciseName: string;
-  reps: number;
-  sets: number;
+  exerciseIndex: string;
+  totalRep: number;
+  totalSet: number;
 }
 
 const WorkoutHistory: React.FC = () => {
@@ -26,7 +26,7 @@ const WorkoutHistory: React.FC = () => {
         const response = await fetch(
           `http://localhost:3560/workoutHistory?date=${formattedDate}`,
           {
-            method: "GET",
+            method: "POST",
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
@@ -68,8 +68,8 @@ const WorkoutHistory: React.FC = () => {
         <ul>
           {workoutData.map((entry) => (
             <li key={entry.id}>
-              Exercise: {entry.exerciseName}, Reps: {entry.reps}, Sets:{" "}
-              {entry.sets}
+              Exercise: {entry.exerciseIndex}, totalReps: {entry.totalRep}, totalSets:{" "}
+              {entry.totalSet}
             </li>
           ))}
         </ul>
