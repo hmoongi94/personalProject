@@ -1,4 +1,3 @@
-import { count } from "console";
 import React, { useState, useEffect } from "react";
 
 interface ExerciseData {
@@ -16,15 +15,18 @@ interface TimerProps {
 const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   // console.log(initialExerciseData);
 
+  // * 상태들
   const [countdown, setCountdown] = useState(0);
   const [initialCountdown, setInitialCountdown] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [executionCount, setExecutionCount] = useState(0);
   const [selectedExercise, setSelectedExercise] = useState<string | null>(null);
+  const [repsValue, setRepsValue] = useState<number>(0);
 
-  // Extract names from initialExerciseData
+  //* Extract names from initialExerciseData
   const exerciseNames = initialExerciseData.map((exercise) => exercise.name);
 
+  // * 카운트다운이 0이 되었을 때 동작들
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
@@ -47,9 +49,18 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   }, [countdown, initialCountdown]);
 
   const handleStartStop = () => {
-    if (isActive === false && countdown === initialCountdown) {
+    if (
+      isActive === false &&
+      countdown === initialCountdown &&
+      initialCountdown !== 0
+    ) {
       setExecutionCount((prevCount) => prevCount + 1);
     }
+
+    if (isActive === false && initialCountdown === 0) {
+      setIsActive((prevIsActive) => !prevIsActive);
+    }
+
     setIsActive((prevIsActive) => !prevIsActive);
     // setInitialCountdown(countdown)
   };
@@ -74,6 +85,12 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
     setSelectedExercise(e.target.value);
   };
 
+  const handleRepsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = Number(e.target.value);
+    setRepsValue(Math.max(newValue, 0)); // Ensure the reps value is not below 0
+  };
+
+  // * 기록할 데이터 서버로 보내주기
   const handleRecord = () => {
     // Send the data to the server (replace the URL with your actual server endpoint)
     fetch("http://localhost:3560/recordData", {
@@ -120,11 +137,13 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
           <input
             className="ml-2 p-2 border border-gray-300 rounded text-slate-950"
             type="number"
-            // value={inputValue}
-            // onChange={handleRepsChange}
+            value={repsValue}
+            onChange={handleRepsChange}
           />
         </label>
+
         <p className="mb-2">Set Execution Count: {executionCount}</p>
+
         <div className="flex space-x-4 ml-20">
           <button
             className="bg-purple-500 text-white px-4 py-2 rounded"
