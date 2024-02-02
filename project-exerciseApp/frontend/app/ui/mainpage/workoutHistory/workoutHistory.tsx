@@ -19,7 +19,6 @@ const WorkoutHistory: React.FC = () => {
     const fetchData = async () => {
       try {
         const formattedDate = selectedDate.toLocaleDateString()
-        console.log(formattedDate)
         const token = localStorage.getItem("token");
 
         const response = await fetch(

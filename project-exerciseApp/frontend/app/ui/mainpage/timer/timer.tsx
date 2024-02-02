@@ -148,6 +148,12 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
       return;
     }
 
+    // 토큰이 없을 경우 alert 창 띄우기
+    if (!token) {
+      alert("로그인이 필요합니다. 로그인 후 다시 시도해주세요.");
+      return;
+    }
+
     // Send the data to the server (replace the URL with your actual server endpoint)
     fetch("http://localhost:3560/recordData", {
       method: "POST",
