@@ -68,11 +68,21 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
     if (
       isActive === false &&
       countdown === initialCountdown &&
+      initialCountdown !== 0 &&
+      (!selectedExercise || repsValue === 0)
+    ) {
+      alert("진행할 운동을 선택하시고 Reps를 정해주세요.");
+      return; // 중단하고 함수 종료
+    }
+
+    if (
+      isActive === false &&
+      countdown === initialCountdown &&
       initialCountdown !== 0
     ) {
       setExecutionCount((prevCount) => prevCount + 1);
 
-      const tag = createPTagForSet(executionCount+1, repsValue);
+      const tag = createPTagForSet(executionCount + 1, repsValue);
       setTags((prevTags) => [...prevTags, tag]);
 
       // Total Reps 갱신
@@ -94,8 +104,10 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   };
 
   const handleExecutionReset = () => {
+    setRepsValue(0);
     setExecutionCount(0);
     setTotalReps(0);
+    setSelectedExercise(null);
     setTags([]);
   };
 
@@ -116,6 +128,12 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
 
   // * 기록할 데이터 서버로 보내주기
   const handleRecord = () => {
+    // 아직 보낼 데이터가 없을 때 조건 걸기.
+    if (totalReps === 0) {
+      alert("아직 진행한 세트가 없습니다.");
+      return;
+    }
+
     // Send the data to the server (replace the URL with your actual server endpoint)
     fetch("http://localhost:3560/recordData", {
       method: "POST",
@@ -169,7 +187,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
         </label>
 
         {/* 진행 세트 수 표시 */}
-        <p className="mb-2">Set Execution Count: {executionCount}</p>
+        {/* <p className="mb-2">Set Execution Count: {executionCount}</p> */}
 
         {tags.map((tag, index) => (
           <React.Fragment key={index}>{tag}</React.Fragment>
