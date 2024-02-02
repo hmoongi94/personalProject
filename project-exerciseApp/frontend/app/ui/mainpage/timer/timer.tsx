@@ -140,6 +140,8 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
 
   // * 기록할 데이터 서버로 보내주기
   const handleRecord = () => {
+    const token = localStorage.getItem("token"); // 사용자 토큰 가져오기
+
     // 아직 보낼 데이터가 없을 때 조건 걸기.
     if (totalReps === 0) {
       alert("아직 진행한 세트가 없습니다.");
@@ -151,6 +153,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         totalReps,
