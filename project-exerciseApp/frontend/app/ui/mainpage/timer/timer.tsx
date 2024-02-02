@@ -50,7 +50,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
 
   // 태그를 관리하기 위한 state 추가
   const [tags, setTags] = useState<React.ReactElement[]>([]);
-  const [setCount, setSetCount] = useState(0);
+  const [setCount, setSetCount] = useState(1);
   const [currentSet, setCurrentSet] = useState<number | null>(null);
 
   const createPTagForSet = (
@@ -94,6 +94,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
 
   const handleExecutionReset = () => {
     setExecutionCount(0);
+    setSetCount(1)
     setTags([]);
   };
 
