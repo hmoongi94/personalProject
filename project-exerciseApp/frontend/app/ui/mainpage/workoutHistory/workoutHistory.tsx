@@ -2,7 +2,7 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-import "./calender.css"; 
+import "./calender.css";
 
 interface WorkoutEntry {
   id: number;
@@ -20,10 +20,18 @@ const WorkoutHistory: React.FC = () => {
     const fetchData = async () => {
       try {
         const formattedDate = selectedDate.toISOString().split("T")[0];
-        console.log(formattedDate)
+
+        const token = localStorage.getItem("token"); // Get the token from local storage
 
         const response = await fetch(
-          `http://localhost:3560/workoutHistory?date=${formattedDate}`
+          `http://localhost:3560/workoutHistory?date=${formattedDate}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
 
         if (response.ok) {
@@ -38,6 +46,7 @@ const WorkoutHistory: React.FC = () => {
     };
 
     fetchData();
+    console.log(selectedDate)
   }, [selectedDate]);
 
   const handleDateChange = (date: Date | Date[]) => {

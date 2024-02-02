@@ -12,6 +12,7 @@ import exercisedata from "./routes/exerciseguide/exercisedata";
 import exercisedetail from "./routes/exerciseguide/exercisedetaildata";
 import searchexercisedata from "./routes/exerciseguide/searchexercisedata";
 import recordData from "./routes/timer/recordData";
+import workoutHistory from "./routes/workoutHistory/loadrecordData";
 
 const app = express();
 const port = 3560;
@@ -33,7 +34,10 @@ app.get("/exercisedata", exercisedata);
   app.get("/exercisedetail/:exerciseIndex", exercisedetail)
   // 검색 데이터
   app.get("/searchexercisedata", searchexercisedata)
+  // 타이머에서 내 운동 기록
   app.post("/recordData", recordData)
+  // workouthistory에서 기록보기
+  app.post("/workoutHistory", workoutHistory)
 
 app.listen(port, () => {
   console.log(`Express 서버가 ${port}번 포트에서 실행중입니다.`);
