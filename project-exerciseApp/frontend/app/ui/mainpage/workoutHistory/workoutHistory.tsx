@@ -18,7 +18,8 @@ const WorkoutHistory: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const formattedDate = selectedDate.toISOString().split("T")[0];
+        const formattedDate = selectedDate.toLocaleDateString()
+        console.log(formattedDate)
         const token = localStorage.getItem("token");
 
         const response = await fetch(
@@ -52,8 +53,8 @@ const WorkoutHistory: React.FC = () => {
       <div>
         <Calendar onChange={(date) => setSelectedDate(date as Date)} value={selectedDate} />
       </div>
-      <div>
-        <h2>Selected Date: {selectedDate.toISOString().split("T")[0]}</h2>
+      <div className="w-full">
+        <h2>Selected Date: {selectedDate.toLocaleDateString()}</h2>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart
             data={workoutData}
