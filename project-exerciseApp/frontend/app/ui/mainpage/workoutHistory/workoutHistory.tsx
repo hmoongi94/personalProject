@@ -6,9 +6,9 @@ import "./calender.css";
 
 interface WorkoutEntry {
   id: number;
-  exerciseIndex: string;
-  totalRep: number;
-  totalSet: number;
+  name: string;
+  totalReps: number;
+  totalSets: number;
 }
 
 const WorkoutHistory: React.FC = () => {
@@ -46,7 +46,7 @@ const WorkoutHistory: React.FC = () => {
     };
 
     fetchData();
-    console.log(selectedDate)
+    // console.log(selectedDate)
   }, [selectedDate]);
 
   const handleDateChange = (date: Date | Date[]) => {
@@ -68,8 +68,8 @@ const WorkoutHistory: React.FC = () => {
         <ul>
           {workoutData.map((entry) => (
             <li key={entry.id}>
-              Exercise: {entry.exerciseIndex}, totalReps: {entry.totalRep}, totalSets:{" "}
-              {entry.totalSet}
+              Exercise: {entry.name}, totalReps: {entry.totalReps}, totalSets:{" "}
+              {entry.totalSets}
             </li>
           ))}
         </ul>

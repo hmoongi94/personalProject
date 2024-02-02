@@ -36,7 +36,7 @@ recordData.post("/recordData", async (req, res) => {
 
     // * record 테이블에 insert
     const insertResult = await conn.query(
-      "INSERT INTO record (userIndex, exerciseIndex, totalReps, totalSet, date) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO record (userIndex, exerciseIndex, totalReps, totalSets, date) VALUES (?, ?, ?, ?, ?)",
       [userIndex, exerciseIndex, totalReps, executionCount, formattedDate]
     );
 

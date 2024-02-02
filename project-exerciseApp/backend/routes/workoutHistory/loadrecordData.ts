@@ -10,7 +10,7 @@ workoutHistory.post("/workoutHistory", async (req: Request, res: Response) => {
   try {
     // Check for a valid token
     const userIndex = tokenChecker(req, res);
-    console.log(userIndex)
+    console.log(userIndex);
     if (!userIndex) return;
 
     const { date } = req.query;
@@ -18,9 +18,10 @@ workoutHistory.post("/workoutHistory", async (req: Request, res: Response) => {
     // Fetch workout data for the selected date
     conn = await pool.getConnection();
     const result = await conn.query(
-      "SELECT exerciseIndex, totalReps, totalSet FROM record WHERE userIndex = ? AND date = ?",
+      "SELECT e.name, r.totalReps, r.totalSets FROM record r JOIN exercise e ON r.exerciseIndex = e.exerciseIndex WHERE r.userIndex = ? AND r.date = ?",
       [userIndex, date]
     );
+    console.log(result)
 
     res.status(200).json(result);
   } catch (error) {
