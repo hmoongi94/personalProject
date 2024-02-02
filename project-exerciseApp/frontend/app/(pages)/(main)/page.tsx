@@ -18,7 +18,7 @@ const CategoryNavigation = dynamic(
 );
 
 interface ExerciseData {
-  index: number;
+  exerciseIndex: number;
   name: string;
   category: string;
   description: string;

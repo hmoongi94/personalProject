@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 interface ExerciseData {
-  index: number;
+  exerciseIndex: number;
   name: string;
   category: string;
   description: string;
