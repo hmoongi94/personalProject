@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 
-const ExerciseDiary = dynamic(
-  () => import("@/app/ui/mainpage/exercisediary/exercisediary")
+const Record = dynamic(
+  () => import("@/app/ui/mainpage/showmyrecord/showMyRecord")
 );
 const ExerciseGuide = dynamic(
   () => import("@/app/ui/mainpage/exerciseguide/exerciseguide")
@@ -144,7 +144,7 @@ const MainPage = () => {
       case "timer":
         return  <Timer initialExerciseData={initialExerciseData}/>;
       case "exerciseDiary":
-        return <ExerciseDiary />;
+        return <Record />;
       default:
         return null;
     }
