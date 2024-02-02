@@ -153,8 +153,9 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        executionCount,
+        totalReps,
         selectedExercise,
+        executionCount,
       }),
     })
       .then((response) => response.json())

@@ -41,6 +41,7 @@ const LoginHome = () => {
       const data = await response.json();
 
       if (data.success) {
+        localStorage.setItem('token', data.token);
         location.href='/'
         alert('로그인 성공');
       } else {

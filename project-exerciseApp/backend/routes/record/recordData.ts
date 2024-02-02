@@ -6,9 +6,10 @@ const recordData = express();
 recordData.post("/recordData", async (req, res) => {
   let conn;
   
-  const { executionCount, selectedExercise } = req.body;
-  // console.log(executionCount)
-  // console.log(selectedExercise)
+  const { totalReps, selectedExercise, executionCount } = req.body;
+  console.log(totalReps)
+  console.log(selectedExercise)
+  console.log(executionCount)
 
   // * record 테이블에 insert
   try {

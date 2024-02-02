@@ -5,10 +5,10 @@ import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 
 const ExerciseDiary = dynamic(
-  () => import("@/app/ui/mainpage//exercisediary/exercisediary")
+  () => import("@/app/ui/mainpage/exercisediary/exercisediary")
 );
 const ExerciseGuide = dynamic(
-  () => import("@/app/ui/mainpage//exerciseguide/exerciseguide")
+  () => import("@/app/ui/mainpage/exerciseguide/exerciseguide")
 );
 const Timer = dynamic(() => import("@/app/ui/mainpage/timer/timer"));
 const Search = dynamic(() => import("@/app/ui/mainpage/exerciseguide/search"));

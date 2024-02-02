@@ -4,12 +4,11 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import multer from "multer";
 
-// 고객페이지
+// 로그인, 회원가입
 import customerSignup from "./routes/Signup";
+import customerLogin from "./routes/Login";
 // 메인페이지
 import exercisedata from "./routes/exerciseguide/exercisedata";
-
-// 메인페이지기능
 import exercisedetail from "./routes/exerciseguide/exercisedetaildata";
 import searchexercisedata from "./routes/exerciseguide/searchexercisedata";
 import recordData from "./routes/record/recordData";
@@ -25,6 +24,7 @@ app.use(express.static("public"));
 // *라우팅
 // 로그인, 회원가입
 app.post("/signup", customerSignup);
+app.post("/login", customerLogin)
 // 메인페이지
 app.get("/exercisedata", exercisedata);
 
