@@ -48,10 +48,9 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
     }
   }, [countdown, initialCountdown]);
 
-  // 태그를 관리하기 위한 state 추가
+  //* 태그를 관리하기 위한 state 추가
   const [tags, setTags] = useState<React.ReactElement[]>([]);
-  const [setCount, setSetCount] = useState(1);
-  const [currentSet, setCurrentSet] = useState<number | null>(null);
+  const [totalReps, setTotalReps] = useState(0);
 
   const createPTagForSet = (
     setCount: number,
@@ -72,10 +71,12 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
       initialCountdown !== 0
     ) {
       setExecutionCount((prevCount) => prevCount + 1);
-      setSetCount((prevSetCount) => prevSetCount + 1);
-      setCurrentSet(setCount);
-      const tag = createPTagForSet(setCount, repsValue);
+
+      const tag = createPTagForSet(executionCount+1, repsValue);
       setTags((prevTags) => [...prevTags, tag]);
+
+      // Total Reps 갱신
+      setTotalReps((prevTotalReps) => prevTotalReps + repsValue);
     }
 
     if (isActive === false && initialCountdown === 0) {
@@ -94,7 +95,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
 
   const handleExecutionReset = () => {
     setExecutionCount(0);
-    setSetCount(1)
+    setTotalReps(0);
     setTags([]);
   };
 
@@ -173,6 +174,8 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
         {tags.map((tag, index) => (
           <React.Fragment key={index}>{tag}</React.Fragment>
         ))}
+
+        <p>Total Reps: {totalReps}</p>
 
         {/* 데이터 서버로 보내기 */}
         <div className="flex space-x-4 ml-20">
