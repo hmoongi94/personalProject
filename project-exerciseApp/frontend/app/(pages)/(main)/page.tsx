@@ -139,7 +139,7 @@ const MainPage = () => {
     switch (activeMenu) {
       case "exerciseGuide":
         return (
-          <div className="w-full h-full">
+          <div className="w-full h-10/12">
             <div className="flex justify-center">Exercise Guide</div>
             <Search placeholder="Search..." />
             <CategoryNavigation
@@ -163,7 +163,7 @@ const MainPage = () => {
 
   // *메뉴만 Ui를 만들고 동적렌더링으로 메인페이지를 구상
   return (
-    <div className="w-full h-full">
+    <div className="w-screen h-screen">
       <nav className="w-full border-b-2 border-wine p-4">
         <ul className="w-full flex flex-row justify-around">
           <li onClick={() => setActiveMenu("exerciseGuide")}>Exercise Guide</li>
