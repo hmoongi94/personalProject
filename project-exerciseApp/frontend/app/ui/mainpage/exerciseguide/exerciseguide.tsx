@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface ExerciseData {
-  index: number;
+  exerciseIndex: number;
   name: string;
   category: string;
   description: string;
@@ -35,7 +35,7 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({
       <div className="flex w-2/3 h-1/2">
         {currentItems.map((exercise, index) => (
           <Link
-            href={`/exercisedetail/${exercise.index}`}
+            href={`/exercisedetail/${exercise.exerciseIndex}`}
             key={index}
             className="w-1/2"
           >

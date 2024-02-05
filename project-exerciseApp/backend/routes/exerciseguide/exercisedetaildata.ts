@@ -14,7 +14,7 @@ exercisedetail.get("/exercisedetail/:exerciseIndex", async (req, res) => {
     conn = await pool.getConnection();
 
     // MySQL 쿼리 실행
-    const result = await conn.query("SELECT imgurl,name,description FROM exercise WHERE `index`=?", [
+    const result = await conn.query("SELECT imgurl,name,description FROM exercise WHERE `exerciseIndex`=?", [
       exerciseIndex
     ]);
 

@@ -4,14 +4,15 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import multer from "multer";
 
-// 고객페이지
+// 로그인, 회원가입
 import customerSignup from "./routes/Signup";
+import customerLogin from "./routes/Login";
 // 메인페이지
 import exercisedata from "./routes/exerciseguide/exercisedata";
-
-// 메인페이지기능
 import exercisedetail from "./routes/exerciseguide/exercisedetaildata";
 import searchexercisedata from "./routes/exerciseguide/searchexercisedata";
+import recordData from "./routes/timer/recordData";
+import workoutHistory from "./routes/workoutHistory/loadrecordData";
 
 const app = express();
 const port = 3560;
@@ -24,6 +25,7 @@ app.use(express.static("public"));
 // *라우팅
 // 로그인, 회원가입
 app.post("/signup", customerSignup);
+app.post("/login", customerLogin)
 // 메인페이지
 app.get("/exercisedata", exercisedata);
 
@@ -32,6 +34,10 @@ app.get("/exercisedata", exercisedata);
   app.get("/exercisedetail/:exerciseIndex", exercisedetail)
   // 검색 데이터
   app.get("/searchexercisedata", searchexercisedata)
+  // 타이머에서 내 운동 기록
+  app.post("/recordData", recordData)
+  // workouthistory에서 기록보기
+  app.post("/workoutHistory", workoutHistory)
 
 app.listen(port, () => {
   console.log(`Express 서버가 ${port}번 포트에서 실행중입니다.`);

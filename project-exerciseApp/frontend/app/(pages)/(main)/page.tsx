@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
+import React, { Suspense } from "react";
 
-const ExerciseDiary = dynamic(
-  () => import("@/app/ui/mainpage//exercisediary/exercisediary")
+const WorkoutHistory = dynamic(
+  () => import("@/app/ui/mainpage/workoutHistory/workoutHistory")
 );
 const ExerciseGuide = dynamic(
-  () => import("@/app/ui/mainpage//exerciseguide/exerciseguide")
+  () => import("@/app/ui/mainpage/exerciseguide/exerciseguide")
 );
 const Timer = dynamic(() => import("@/app/ui/mainpage/timer/timer"));
 const Search = dynamic(() => import("@/app/ui/mainpage/exerciseguide/search"));
@@ -17,7 +18,7 @@ const CategoryNavigation = dynamic(
 );
 
 interface ExerciseData {
-  index: number;
+  exerciseIndex: number;
   name: string;
   category: string;
   description: string;
@@ -25,14 +26,15 @@ interface ExerciseData {
 }
 
 const MainPage = () => {
+  const [isToken, setIsToken] = useState(false);
   const [activeMenu, setActiveMenu] = useState("exerciseGuide");
   // Define datas
   const [extractexerciseData, setExtractexerciseData] = useState<
     ExerciseData[]
   >([]);
-  // const [initialExerciseData, setInitialExerciseData] = useState<
-  //   ExerciseData[]
-  // >([]);
+  const [initialExerciseData, setInitialExerciseData] = useState<
+    ExerciseData[]
+  >([]);
   // SearchParams
   const searchParams = useSearchParams();
   // Define primaryCategories
@@ -48,6 +50,13 @@ const MainPage = () => {
     setSelectedCategory(category);
   };
 
+  // * 토큰 검사
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsToken(!!token); // token이 있으면 true, 없으면 false로 설정
+    // console.log(isToken)
+  }, [isToken]);
+
   // * Fetch initial exercise data only once
   useEffect(() => {
     const fetchInitialExerciseData = async () => {
@@ -59,7 +68,8 @@ const MainPage = () => {
           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
         }
 
-        // setInitialExerciseData(data);
+        // console.log(data)
+        setInitialExerciseData(data);
         setExtractexerciseData(data);
         setFilteredExerciseData(data);
 
@@ -137,15 +147,15 @@ const MainPage = () => {
               selectedCategory={selectedCategory}
               filterExercisesByCategory={filterExercisesByCategory}
             />
-            <ExerciseGuide
-              filteredExerciseData={filteredExerciseData}
-            />
+            <Suspense fallback={<div>Loading...</div>}>
+              <ExerciseGuide filteredExerciseData={filteredExerciseData} />
+            </Suspense>
           </div>
         );
       case "timer":
-        return <Timer />;
+        return <Timer initialExerciseData={initialExerciseData} />;
       case "exerciseDiary":
-        return <ExerciseDiary />;
+        return <WorkoutHistory />;
       default:
         return null;
     }
@@ -157,8 +167,25 @@ const MainPage = () => {
       <nav className="w-full border-b-2 border-wine p-4">
         <ul className="w-full flex flex-row justify-around">
           <li onClick={() => setActiveMenu("exerciseGuide")}>Exercise Guide</li>
-          <li onClick={() => setActiveMenu("timer")}>Breaktime Timer</li>
-          <li onClick={() => setActiveMenu("exerciseDiary")}>Exercise Diary</li>
+          <li onClick={() => setActiveMenu("timer")}>
+            Breaktime Timer & record my Workout
+          </li>
+          <li
+            onClick={() => {
+              if (isToken) {
+                setActiveMenu("exerciseDiary");
+              } else {
+                const userConfirmed = window.confirm(
+                  "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?"
+                );
+                if (userConfirmed) {
+                  window.location.href = "/login";
+                }
+              }
+            }}
+          >
+            Workout history
+          </li>
         </ul>
       </nav>
       {renderComponent()}

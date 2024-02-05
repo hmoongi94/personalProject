@@ -18,7 +18,7 @@ const InputText: FC<InputTextProps> = ({ title, inputchange }) => {
       <input
         type="text"
         id="Idiputtext"
-        className="w-3/5 border-solid border-2"
+        className="w-3/5 border-solid border-2 text-slate-900"
         onChange={(e) => {
           inputchange(e.target.value);
         }}
