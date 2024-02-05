@@ -30,23 +30,22 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="w-screen h-11/12">
+    <div className="w-[100vw] h-[65vh] flex flex-col flex-wrap justify-center items-center">
       {/* 운동 카드들 */}
-      <div className="w-full h-full flex flex-wrap justify-center items-center">
+      <div className="flex w-2/3 h-1/2">
         {currentItems.map((exercise, index) => (
           <Link
             href={`/exercisedetail/${exercise.index}`}
             key={index}
-            className="w-1/4 mr-20 ml-20 h-1/3"
+            className="w-1/2"
           >
-            <div key={exercise.index} className="border">
+            <div key={exercise.index} className="border w-full h-full">
               <p className="flex justify-center">{exercise.name}</p>
               <Image
-                className="flex justify-center"
                 src={`/${exercise.imgurl}.png`}
                 alt="exerciseCardImage"
-                width={250}
-                height={250}
+                width={200}
+                height={200}
                 priority
               />
             </div>
@@ -55,7 +54,7 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-12">
         {Array.from(
           { length: Math.ceil(filteredExerciseData.length / itemsPerPage) },
           (_, index) => (
