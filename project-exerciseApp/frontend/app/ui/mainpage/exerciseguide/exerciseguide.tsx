@@ -30,14 +30,14 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="w-screen h-11/12">
+    <div className="w-screen h-11/12 flex flex-col justify-center items-center">
       {/* 운동 카드들 */}
-      <div className="w-full h-full flex flex-wrap justify-center items-center">
+      <div className="w-2/3 h-full flex flex-wrap justify-center items-center">
         {currentItems.map((exercise, index) => (
           <Link
             href={`/exercisedetail/${exercise.exerciseIndex}`}
             key={index}
-            className="w-1/4 mr-20 ml-20 h-1/3"
+            className="mr-20 ml-20 h-1/3"
           >
             <div key={exercise.exerciseIndex} className="border">
               <p className="flex justify-center">{exercise.name}</p>

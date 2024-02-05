@@ -139,7 +139,7 @@ const MainPage = () => {
     switch (activeMenu) {
       case "exerciseGuide":
         return (
-          <div className="w-full h-4/5">
+          <div className="w-full h-10/12">
             <div className="flex justify-center">Exercise Guide</div>
             <Search placeholder="Search..." />
             <CategoryNavigation
