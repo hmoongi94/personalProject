@@ -150,7 +150,12 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
 
     // 토큰이 없을 경우 alert 창 띄우기
     if (!token) {
-      alert("로그인이 필요합니다. 로그인 후 다시 시도해주세요.");
+      const userConfirmed = window.confirm(
+        "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?"
+      );
+      if (userConfirmed) {
+        window.location.href = "/login";
+      }
       return;
     }
 

@@ -26,6 +26,7 @@ interface ExerciseData {
 }
 
 const MainPage = () => {
+  const [isToken, setIsToken] = useState(false);
   const [activeMenu, setActiveMenu] = useState("exerciseGuide");
   // Define datas
   const [extractexerciseData, setExtractexerciseData] = useState<
@@ -48,6 +49,13 @@ const MainPage = () => {
   const filterExercisesByCategory = (category: string | null) => {
     setSelectedCategory(category);
   };
+
+  // * 토큰 검사
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsToken(!!token); // token이 있으면 true, 없으면 false로 설정
+    // console.log(isToken)
+  }, [isToken]);
 
   // * Fetch initial exercise data only once
   useEffect(() => {
@@ -162,7 +170,22 @@ const MainPage = () => {
           <li onClick={() => setActiveMenu("timer")}>
             Breaktime Timer & record my Workout
           </li>
-          <li onClick={() => setActiveMenu("exerciseDiary")}>Exercise Diary</li>
+          <li
+            onClick={() => {
+              if (isToken) {
+                setActiveMenu("exerciseDiary");
+              } else {
+                const userConfirmed = window.confirm(
+                  "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?"
+                );
+                if (userConfirmed) {
+                  window.location.href = "/login";
+                }
+              }
+            }}
+          >
+            Workout history
+          </li>
         </ul>
       </nav>
       {renderComponent()}
