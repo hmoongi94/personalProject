@@ -39,7 +39,7 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({
             key={index}
             className="w-1/2"
           >
-            <div key={exercise.index} className="border w-full h-full">
+            <div className="border w-full h-full">
               <p className="flex justify-center">{exercise.name}</p>
               <Image
                 src={`/${exercise.imgurl}.png`}
