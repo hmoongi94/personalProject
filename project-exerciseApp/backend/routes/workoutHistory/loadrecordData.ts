@@ -20,7 +20,6 @@ workoutHistory.post("/workoutHistory", async (req: Request, res: Response) => {
 
     interface GroupedEntry {
       name: string;
-      caloryPerReps: number;
       totalReps: number;
       totalSets: number;
     }
@@ -41,7 +40,6 @@ workoutHistory.post("/workoutHistory", async (req: Request, res: Response) => {
         } else {
           acc.push({
             name: entry.name,
-            caloryPerReps: entry.caloryPerReps,
             totalReps: entry.totalReps,
             totalSets: entry.totalSets,
           });

@@ -15,7 +15,6 @@ interface WorkoutEntry {
   name: string;
   totalReps: number;
   totalSets: number;
-  caloryPerReps: number;
 }
 
 interface ChartProps {

@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import pool from "../../database";
 import { tokenChecker } from "../../utils/tokenChecker";
 
@@ -28,9 +28,14 @@ caloryData.post("/workoutHistory/calories", async (req, res) => {
         caloryPerRepsTotal: entry.caloryPerRepsTotal,
       })
     );
-    // console.log(result)
 
-    res.status(200).json(result);
+    const totalCaloryPerRepsTotal: number = result.reduce(
+      (total: number, entry: { caloryPerRepsTotal: number }) =>
+        total += entry.caloryPerRepsTotal,
+      0
+    );
+
+    res.status(200).json({ result: result, totalCaloryPerRepsTotal: totalCaloryPerRepsTotal });
   } catch (error) {
     console.error("Error fetching calories data:", error);
     res.status(500).json({ error: "Error fetching calories data" });

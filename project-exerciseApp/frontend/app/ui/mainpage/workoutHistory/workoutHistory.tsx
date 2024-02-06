@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+
 import "./calender.css";
-import WorkoutChart from "./chart/workoutChart"
+import WorkoutChart from "./chart/workoutChart";
 import CaloriesChart from "./chart/carloriesChart";
 
 interface WorkoutEntry {
@@ -20,13 +11,25 @@ interface WorkoutEntry {
   name: string;
   totalReps: number;
   totalSets: number;
-  caloryPerReps: number;
+}
+
+interface CaloryEntry {
+  name: string;
+  caloryPerRepsTotal: number;
+}
+
+interface CaloryData {
+  result: CaloryEntry[];
+  totalCaloryPerRepsTotal: number;
 }
 
 const WorkoutHistory: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [workoutData, setWorkoutData] = useState<WorkoutEntry[]>([]);
-  const [caloriesData, setCaloriesData] = useState<WorkoutEntry[]>([]);
+  const [caloriesData, setCaloriesData] = useState<CaloryData>({
+    result: [],
+    totalCaloryPerRepsTotal: 0,
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,10 +50,8 @@ const WorkoutHistory: React.FC = () => {
 
         if (response.ok) {
           const data: WorkoutEntry[] = await response.json();
-          // console.log(data)
           setWorkoutData(data);
 
-          // Fetch additional data with caloryPerReps * totalReps
           const caloriesResponse = await fetch(
             `http://localhost:3560/workoutHistory/calories?date=${formattedDate}`,
             {
@@ -63,9 +64,8 @@ const WorkoutHistory: React.FC = () => {
           );
 
           if (caloriesResponse.ok) {
-            const caloriesData: WorkoutEntry[] = await caloriesResponse.json();
+            const caloriesData: CaloryData = await caloriesResponse.json();
             setCaloriesData(caloriesData);
-            console.log(caloriesData)
           } else {
             console.error(
               "Error fetching calories data:",
@@ -76,7 +76,7 @@ const WorkoutHistory: React.FC = () => {
           console.error("Error fetching workout data:", response.statusText);
         }
       } catch (error) {
-        console.error("Error fetching workout data:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -91,11 +91,14 @@ const WorkoutHistory: React.FC = () => {
           onChange={(date) => setSelectedDate(date as Date)}
           value={selectedDate}
         />
-        <CaloriesChart data={caloriesData} />
+        <div className="flex flex-col items-center">
+          <CaloriesChart data={caloriesData.result} />
+          <div>total consume calories: {caloriesData.totalCaloryPerRepsTotal}</div>
+        </div>
       </div>
       <div className="w-full">
         <h2>Selected Date: {selectedDate.toLocaleDateString()}</h2>
-        <WorkoutChart data={workoutData} /> {/* 새로운 차트 컴포넌트 사용 */}
+        <WorkoutChart data={workoutData} />
       </div>
     </div>
   );
