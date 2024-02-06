@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-import "./calender.css";
+import "./calendar/calendar.css";
+import Calendartest from "./calendar/calendar"
 import WorkoutChart from "./chart/workoutChart";
 import CaloriesChart from "./chart/carloriesChart";
 
@@ -88,6 +89,7 @@ const WorkoutHistory: React.FC = () => {
     <div className="w-full h-full flex flex-col justify-start items-center">
       <h1 className="text-3xl mb-10">Workout History</h1>
       <div className="flex justify-center items-center">
+        {/* <Calendartest /> */}
         <Calendar
           onChange={(date) => setSelectedDate(date as Date)}
           value={selectedDate}
