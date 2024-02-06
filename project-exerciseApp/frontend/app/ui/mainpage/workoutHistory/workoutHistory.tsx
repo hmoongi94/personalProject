@@ -12,6 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import "./calender.css";
+import WorkoutChart from "./workoutChart"
 import CaloriesChart from "./carloriesChart";
 
 interface WorkoutEntry {
@@ -64,6 +65,7 @@ const WorkoutHistory: React.FC = () => {
           if (caloriesResponse.ok) {
             const caloriesData: WorkoutEntry[] = await caloriesResponse.json();
             setCaloriesData(caloriesData);
+            console.log(caloriesData)
           } else {
             console.error(
               "Error fetching calories data:",
@@ -93,20 +95,7 @@ const WorkoutHistory: React.FC = () => {
       </div>
       <div className="w-full">
         <h2>Selected Date: {selectedDate.toLocaleDateString()}</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart
-            data={workoutData}
-            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="totalReps" fill="#8884d8" />
-            <Bar dataKey="totalSets" fill="#82ca9d" />
-          </BarChart>
-        </ResponsiveContainer>
+        <WorkoutChart data={workoutData} /> {/* 새로운 차트 컴포넌트 사용 */}
       </div>
     </div>
   );

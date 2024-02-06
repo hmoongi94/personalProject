@@ -18,14 +18,17 @@ caloryData.post("/workoutHistory/calories", async (req, res) => {
     conn = await pool.getConnection();
 
     const rawData = await conn.query(
-      "SELECT e.name, e.caloryPerReps, r.totalReps, r.totalSets, (e.caloryPerReps * r.totalReps) as caloryPerRepsTotal FROM record r JOIN exercise e ON r.exerciseIndex = e.exerciseIndex WHERE r.userIndex = ? AND r.date = ?",
+      "SELECT e.name, SUM(e.caloryPerReps * r.totalReps) as caloryPerRepsTotal, SUM(r.totalReps) as totalReps, SUM(r.totalSets) as totalSets FROM record r JOIN exercise e ON r.exerciseIndex = e.exerciseIndex WHERE r.userIndex = ? AND r.date = ? GROUP BY e.name",
       [userIndex, date]
     );
 
-    const result = rawData.map((entry: { name: string; caloryPerRepsTotal: number; }) => ({
-      name: entry.name,
-      caloryPerRepsTotal: entry.caloryPerRepsTotal,
-    }));
+    const result = rawData.map(
+      (entry: { name: string; caloryPerRepsTotal: number }) => ({
+        name: entry.name,
+        caloryPerRepsTotal: entry.caloryPerRepsTotal,
+      })
+    );
+    // console.log(result)
 
     res.status(200).json(result);
   } catch (error) {
@@ -36,4 +39,4 @@ caloryData.post("/workoutHistory/calories", async (req, res) => {
   }
 });
 
-export default caloryData
+export default caloryData;
