@@ -12,8 +12,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import "./calender.css";
-import WorkoutChart from "./workoutChart"
-import CaloriesChart from "./carloriesChart";
+import WorkoutChart from "./chart/workoutChart"
+import CaloriesChart from "./chart/carloriesChart";
 
 interface WorkoutEntry {
   id: number;
