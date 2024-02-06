@@ -13,7 +13,7 @@ interface CaloriesChartProps {
 const CaloriesChart: React.FC<CaloriesChartProps> = ({ data }) => {
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width={300} height={300}>
       <PieChart width={200} height={200}>
         <Pie
           dataKey="caloryPerRepsTotal"
@@ -21,7 +21,7 @@ const CaloriesChart: React.FC<CaloriesChartProps> = ({ data }) => {
           cx="50%"
           cy="50%"
           outerRadius={80}
-          fill="#8884d8"
+          fill="pink"
           label
         />
         <Tooltip />
