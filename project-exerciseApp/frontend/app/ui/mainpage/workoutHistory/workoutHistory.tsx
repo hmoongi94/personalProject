@@ -65,6 +65,7 @@ const WorkoutHistory: React.FC = () => {
 
           if (caloriesResponse.ok) {
             const caloriesData: CaloryData = await caloriesResponse.json();
+            // console.log(caloriesData)
             setCaloriesData(caloriesData);
           } else {
             console.error(
@@ -91,7 +92,7 @@ const WorkoutHistory: React.FC = () => {
           onChange={(date) => setSelectedDate(date as Date)}
           value={selectedDate}
         />
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center ml-24">
           <CaloriesChart data={caloriesData.result} />
           <div>total consume calories: {caloriesData.totalCaloryPerRepsTotal}</div>
         </div>

@@ -23,17 +23,20 @@ caloryData.post("/workoutHistory/calories", async (req, res) => {
     );
 
     const result = rawData.map(
-      (entry: { name: string; caloryPerRepsTotal: number }) => ({
+      (entry: { name: string; caloryPerRepsTotal: string }) => ({
         name: entry.name,
-        caloryPerRepsTotal: entry.caloryPerRepsTotal,
+        caloryPerRepsTotal: parseInt(entry.caloryPerRepsTotal),
       })
     );
+    // console.log(typeof(result[0].caloryPerRepsTotal)) //string으로 나옴
+    // string문제 때문에 그래프도 제대로 안나왔었음.
 
     const totalCaloryPerRepsTotal: number = result.reduce(
       (total: number, entry: { caloryPerRepsTotal: number }) =>
-        total += entry.caloryPerRepsTotal,
+        total + entry.caloryPerRepsTotal,
       0
     );
+    // console.log(totalCaloryPerRepsTotal)
 
     res.status(200).json({ result: result, totalCaloryPerRepsTotal: totalCaloryPerRepsTotal });
   } catch (error) {
