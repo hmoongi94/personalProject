@@ -58,7 +58,7 @@ const WorkoutHistory: React.FC = () => {
           setWorkoutData(data);
 
           const caloriesResponse = await fetch(
-            `http://localhost:3560/workoutHistory/datdata/calories?date=${formattedDate}`,
+            `http://localhost:3560/workoutHistory/daydata/calories?date=${formattedDate}`,
             {
               method: "POST",
               headers: {
@@ -106,7 +106,7 @@ const WorkoutHistory: React.FC = () => {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          `http://localhost:3560/workoutHistory/perioddata?date=${formattedStartDate}${formattedEndDate}`,
+          `http://localhost:3560/workoutHistory/periodData?startDate=${formattedStartDate}&endDate=${formattedEndDate}`,
           {
             method: "POST",
             headers: {
@@ -121,7 +121,7 @@ const WorkoutHistory: React.FC = () => {
           setWorkoutData(data);
 
           const caloriesResponse = await fetch(
-            `http://localhost:3560/workoutHistory/calories?date=${formattedStartDate}${formattedEndDate}`,
+            `http://localhost:3560/workoutHistory/periodData/calories?startDate=${formattedStartDate}&endDate=${formattedEndDate}`,
             {
               method: "POST",
               headers: {
