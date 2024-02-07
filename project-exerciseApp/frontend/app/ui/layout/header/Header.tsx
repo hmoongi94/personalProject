@@ -47,6 +47,12 @@ export default function Header() {
             <Link href="/signup" className="mr-3">
               <li>회원가입</li>
             </Link>
+            <Link href="/community" className="mr-3">
+              <li>커뮤니티</li>
+            </Link>
+            <Link href="/airoutine" className="mr-3">
+              <li>Ai추천루틴</li>
+            </Link>
           </>
         ) : (
           // 토큰이 없을 때는 로그인과 회원가입 링크를 보여줍니다.
@@ -56,6 +62,12 @@ export default function Header() {
             </Link>
             <Link href="/signup" className="mr-3">
               <li>회원가입</li>
+            </Link>
+            <Link href="/community" className="mr-3">
+              <li>커뮤니티</li>
+            </Link>
+            <Link href="/airoutine" className="mr-3">
+              <li>Ai추천루틴</li>
             </Link>
           </>
         )}

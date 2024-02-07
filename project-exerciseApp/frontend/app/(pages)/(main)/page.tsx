@@ -12,7 +12,7 @@ const ExerciseGuide = dynamic(
   () => import("@/app/ui/mainpage/exerciseguide/exerciseguide")
 );
 const Timer = dynamic(() => import("@/app/ui/mainpage/timer/timer"));
-const Search = dynamic(() => import("@/app/ui/mainpage/exerciseguide/search"));
+const Search = dynamic(() => import("@/app/lib/utils/search"));
 const CategoryNavigation = dynamic(
   () => import("@/app/ui/mainpage/exerciseguide/categoryNavigation")
 );

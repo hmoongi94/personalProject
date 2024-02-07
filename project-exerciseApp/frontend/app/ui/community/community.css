@@ -1,0 +1,133 @@
+/* 전체 페이지 스타일 */
+.instagram-main {
+  font-family: Arial, sans-serif;
+  background-color: #ffe;
+}
+
+/* 네비게이션 바 스타일 */
+.navbar {
+  margin-top: 5px;
+  background-color: #ffe;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 0.8rem 1rem;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.search-bar input {
+  width: 15vw;
+  padding: 0.4rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+.nav-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-icons .icon {
+  font-size: 1.5rem;
+  color: #262626;
+  cursor: pointer;
+}
+
+/* 피드 스타일 */
+.feed {
+  width:95%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.feed-item {
+  background-color: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.profile-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.actions .icon {
+  font-size: 1.2rem;
+  color: #262626;
+  cursor: pointer;
+}
+
+.likes {
+  padding: 0.5rem;
+}
+
+.comments {
+  padding: 0.5rem;
+}
+
+.comment {
+  margin-bottom: 0.5rem;
+}
+
+.view-more-comments {
+  background-color: transparent;
+  border: none;
+  color: #8e8e8e;
+  cursor: pointer;
+}
+
+.add-comment {
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.add-comment input {
+  flex: 1;
+  padding: 0.4rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+}
+
+.add-comment button {
+  padding: 0.4rem 0.8rem;
+  background-color: #0095f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

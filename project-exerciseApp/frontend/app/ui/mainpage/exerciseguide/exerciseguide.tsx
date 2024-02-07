@@ -32,12 +32,12 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({
   return (
     <div className="w-[100vw] h-[65vh] flex flex-col flex-wrap justify-center items-center">
       {/* 운동 카드들 */}
-      <div className="flex w-2/3 h-1/2 justify-center">
+      <div className="flex w-2/3 h-1/2">
         {currentItems.map((exercise, index) => (
           <Link
             href={`/exercisedetail/${exercise.exerciseIndex}`}
             key={index}
-            className="w-1/4"
+            className="w-1/2"
           >
             <div className="border w-full h-full">
               <p className="flex justify-center">{exercise.name}</p>
