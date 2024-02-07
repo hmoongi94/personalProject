@@ -29,7 +29,7 @@ const CommunityHome = () => {
         {communityData.map((community, index) => (
           <div className="w-1/2 border" key={index}>
             <div>프로필사진/사용자이름/작성일</div>
-            <div>제목</div>
+            <div>내용 어쩌고저쩌고 오늘 운동 잘됐네 뭐했네</div>
             <div className="border w-full">
               <Link
                 href={`/exercisedetail/${community.communityIndex}`}
@@ -43,8 +43,9 @@ const CommunityHome = () => {
                 />
               </Link>
             </div>
-            <div>좋아요!</div>
-            <div>좋아요 버튼! 댓글 버튼!</div>
+            <div>21명이 좋아요!</div>
+            <div className="w-full"><button className="w-1/2 border">좋아요!</button><button className="w-1/2 border">댓글열기</button></div>
+            
           </div>
         ))}
         {/* 피드 아이템 */}
@@ -67,28 +68,7 @@ const CommunityHome = () => {
         {/* 피드 아이템 끝 */}
         {/* 추가 피드 아이템들 */}
         {/* 여기에 추가 피드 아이템들을 반복해서 렌더링하는 코드를 넣으세요 */}
-        {/* <div className="w-[100vw] h-[65vh] flex flex-col flex-wrap justify-center items-center"> */}
-        {/* <div className="flex w-2/3 h-1/2">
-        {currentItems.map((exercise, index) => (
-          <Link
-            href={`/exercisedetail/${exercise.exerciseIndex}`}
-            key={index}
-            className="w-1/2"
-          >
-            <div className="border w-full h-full">
-              <p className="flex justify-center">{exercise.name}</p>
-              <Image
-                src={`/${exercise.imgurl}.png`}
-                alt="exerciseCardImage"
-                width={200}
-                height={200}
-                priority
-              />
-            </div>
-          </Link>
-        ))}
-      </div> */}
-        {/* </div> */}
+       
       </div>
     </div>
   );
