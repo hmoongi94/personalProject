@@ -27,21 +27,25 @@ const CommunityHome = () => {
       {/* 피드 */}
       <div className="feed w-full">
         {communityData.map((community, index) => (
-          <Link
-            href={`/exercisedetail/${community.communityIndex}`}
-            key={index}
-            className="w-1/2"
-          >
-            <div className="border w-full h-full">
-              <p className="flex justify-center">사진</p>
-              <img
-                src={`/community/${community.communityimgurl}.png`}
-                alt="exerciseCardImage"
-                className="w-full h-72 object-cover"
-                loading="eager"
-              />
+          <div className="w-1/2 border" key={index}>
+            <div>프로필사진/사용자이름/작성일</div>
+            <div>제목</div>
+            <div className="border w-full">
+              <Link
+                href={`/exercisedetail/${community.communityIndex}`}
+                className="w-full"
+              >
+                <img
+                  src={`/community/${community.communityimgurl}.png`}
+                  alt="exerciseCardImage"
+                  className="w-full h-72 object-cover"
+                  loading="eager"
+                />
+              </Link>
             </div>
-          </Link>
+            <div>좋아요!</div>
+            <div>좋아요 버튼! 댓글 버튼!</div>
+          </div>
         ))}
         {/* 피드 아이템 */}
         {/* <div className="feed-item">
