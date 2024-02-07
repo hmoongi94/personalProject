@@ -1,11 +1,19 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Search from "@/app/lib/utils/search";
 
-import "./community.css"; 
+import "./community.css";
 
 const CommunityHome = () => {
+  const communityData = [
+    { communityIndex: 1, communityimgurl: "커뮤니티사진1" },
+    { communityIndex: 2, communityimgurl: "커뮤니티사진2" },
+    { communityIndex: 3, communityimgurl: "커뮤니티사진3" },
+    { communityIndex: 4, communityimgurl: "커뮤니티사진4" },
+  ];
+
   return (
     <div className="instagram-main flex flex-col items-center w-3/5 mt-5 mb-5">
       {/* 네비게이션 바 */}
@@ -18,6 +26,23 @@ const CommunityHome = () => {
 
       {/* 피드 */}
       <div className="feed w-full">
+        {communityData.map((community, index) => (
+          <Link
+            href={`/exercisedetail/${community.communityIndex}`}
+            key={index}
+            className="w-1/2"
+          >
+            <div className="border w-full h-full">
+              <p className="flex justify-center">사진</p>
+              <img
+                src={`/community/${community.communityimgurl}.png`}
+                alt="exerciseCardImage"
+                className="w-full h-72 object-cover"
+                loading="eager"
+              />
+            </div>
+          </Link>
+        ))}
         {/* 피드 아이템 */}
         {/* <div className="feed-item">
           <div className="user-info">
@@ -39,7 +64,7 @@ const CommunityHome = () => {
         {/* 추가 피드 아이템들 */}
         {/* 여기에 추가 피드 아이템들을 반복해서 렌더링하는 코드를 넣으세요 */}
         {/* <div className="w-[100vw] h-[65vh] flex flex-col flex-wrap justify-center items-center"> */}
-      {/* <div className="flex w-2/3 h-1/2">
+        {/* <div className="flex w-2/3 h-1/2">
         {currentItems.map((exercise, index) => (
           <Link
             href={`/exercisedetail/${exercise.exerciseIndex}`}
@@ -59,7 +84,7 @@ const CommunityHome = () => {
           </Link>
         ))}
       </div> */}
-    {/* </div> */}
+        {/* </div> */}
       </div>
     </div>
   );

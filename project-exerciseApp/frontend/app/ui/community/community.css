@@ -2,6 +2,7 @@
 .instagram-main {
   font-family: Arial, sans-serif;
   background-color: #202127;
+  overflow-y: scroll;
 }
 
 /* 네비게이션 바 스타일 */
@@ -43,9 +44,10 @@
 
 /* 피드 스타일 */
 .feed {
-  width:95%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 1rem;
   padding: 1rem;
 }

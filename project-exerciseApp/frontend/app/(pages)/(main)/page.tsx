@@ -147,7 +147,7 @@ const MainPage = () => {
               selectedCategory={selectedCategory}
               filterExercisesByCategory={filterExercisesByCategory}
             />
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div className="text-white">Loading...</div>}>
               <ExerciseGuide filteredExerciseData={filteredExerciseData} />
             </Suspense>
           </div>
