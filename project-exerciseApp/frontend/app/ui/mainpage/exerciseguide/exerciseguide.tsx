@@ -42,7 +42,7 @@ const ExerciseGuide: React.FC<ExerciseGuideProps> = ({
             <div className="border w-full h-full">
               <p className="flex justify-center">{exercise.name}</p>
               <Image
-                src={`/${exercise.imgurl}.png`}
+                src={`/exercise/${exercise.imgurl}.png`}
                 alt="exerciseCardImage"
                 width={200}
                 height={200}
