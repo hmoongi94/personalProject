@@ -2,9 +2,9 @@ import express from "express";
 import pool from "../../database";
 import { tokenChecker } from "../../utils/tokenChecker";
 
-const caloryData = express();
+const caloryDayData = express();
 
-caloryData.post("/workoutHistory/calories", async (req, res) => {
+caloryDayData.post("/workoutHistory/daydata/calories", async (req, res) => {
   let conn;
 
   try {
@@ -47,4 +47,4 @@ caloryData.post("/workoutHistory/calories", async (req, res) => {
   }
 });
 
-export default caloryData;
+export default caloryDayData;
