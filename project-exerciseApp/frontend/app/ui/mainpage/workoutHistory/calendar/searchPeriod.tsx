@@ -20,13 +20,15 @@ const SearchPeriod: React.FC<SearchPeriodProps> = ({ onSelectDates }) => {
   };
 
   // 데이터 요청 핸들러
-  const fetchData = () => {
+  const setData = () => {
     // startDate와 endDate가 유효한 경우에만 데이터 요청
     if (startDate && endDate) {
       // 선택된 날짜를 Date 객체로 변환하여 부모 컴포넌트에 전달
       const start = new Date(startDate);
       const end = new Date(endDate);
       onSelectDates(start, end);
+    } else{
+      alert("기간 날짜를 설정해주세요.")
     }
   };
 
@@ -69,7 +71,7 @@ const SearchPeriod: React.FC<SearchPeriodProps> = ({ onSelectDates }) => {
             />
           </div>
         </div>
-        <button onClick={fetchData} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+        <button onClick={setData} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
           데이터 조회
         </button>
       </div>

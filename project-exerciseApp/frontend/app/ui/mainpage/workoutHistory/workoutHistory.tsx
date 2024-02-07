@@ -96,11 +96,6 @@ const WorkoutHistory: React.FC = () => {
     setSelectedEndDate(endDate);
   };
 
-  useEffect(() => {
-    console.log(selectedStartDate);
-    console.log(selectedEndDate);
-  }, [selectedStartDate, selectedEndDate]);
-
   return (
     <div className="w-full h-full flex flex-col justify-start items-center">
       <h1 className="text-3xl mb-10">Workout History</h1>
