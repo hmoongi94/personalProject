@@ -3,7 +3,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 import "./calendar/calendar.css";
-import Calendartest from "./calendar/calendar"
+import Calendartest from "./calendar/calendar";
 import WorkoutChart from "./chart/workoutChart";
 import CaloriesChart from "./chart/carloriesChart";
 
@@ -25,6 +25,7 @@ interface CaloryData {
 }
 
 const WorkoutHistory: React.FC = () => {
+  const [showCalendar, setShowCalendar] = useState(true);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [workoutData, setWorkoutData] = useState<WorkoutEntry[]>([]);
   const [caloriesData, setCaloriesData] = useState<CaloryData>({
@@ -89,14 +90,24 @@ const WorkoutHistory: React.FC = () => {
     <div className="w-full h-full flex flex-col justify-start items-center">
       <h1 className="text-3xl mb-10">Workout History</h1>
       <div className="flex justify-center items-center">
-        {/* <Calendartest /> */}
-        <Calendar
-          onChange={(date) => setSelectedDate(date as Date)}
-          value={selectedDate}
-        />
+        <div>
+          <button onClick={() => setShowCalendar(true)}>Show day record/</button>
+          <button onClick={() => setShowCalendar(false)}>Data inqury by period</button>
+
+          {showCalendar ? (
+            <Calendar
+              onChange={(date) => setSelectedDate(date as Date)}
+              value={selectedDate}
+            />
+          ) : (
+            <Calendartest />
+          )}
+        </div>
         <div className="flex flex-col items-center ml-24">
           <CaloriesChart data={caloriesData.result} />
-          <div>total consume calories: {caloriesData.totalCaloryPerRepsTotal}</div>
+          <div>
+            total consume calories: {caloriesData.totalCaloryPerRepsTotal}
+          </div>
         </div>
       </div>
       <div className="w-full">
