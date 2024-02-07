@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import React, { Suspense } from "react";
+import "@/app/styles/activemenu.css"
 
 const WorkoutHistory = dynamic(
   () => import("@/app/ui/mainpage/workoutHistory/workoutHistory")
@@ -166,11 +167,20 @@ const MainPage = () => {
     <div className="w-screen h-screen">
       <nav className="w-full border-b-2 border-wine p-4">
         <ul className="w-full flex flex-row justify-around">
-          <li onClick={() => setActiveMenu("exerciseGuide")}>Exercise Guide</li>
-          <li onClick={() => setActiveMenu("timer")}>
+          <li
+            className={activeMenu === "exerciseGuide" ? "active" : ""}
+            onClick={() => setActiveMenu("exerciseGuide")}
+          >
+            Exercise Guide
+          </li>
+          <li
+            className={activeMenu === "timer" ? "active" : ""}
+            onClick={() => setActiveMenu("timer")}
+          >
             Breaktime Timer & record my Workout
           </li>
           <li
+            className={activeMenu === "exerciseDiary" ? "active" : ""}
             onClick={() => {
               if (isToken) {
                 setActiveMenu("exerciseDiary");
