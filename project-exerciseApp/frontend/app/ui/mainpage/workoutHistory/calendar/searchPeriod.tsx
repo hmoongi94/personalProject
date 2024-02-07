@@ -1,18 +1,32 @@
-"use client";
-
 import React, { useState, ChangeEvent } from "react";
 
-export default function RevenueView() {
-  // * 상태들
+interface SearchPeriodProps {
+  onSelectDates: (startDate: Date, endDate: Date) => void;
+}
+
+const SearchPeriod: React.FC<SearchPeriodProps> = ({ onSelectDates }) => {
+  // 상태들
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
 
+  // 날짜 선택 핸들러
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "startDate") {
       setStartDate(value);
     } else if (name === "endDate") {
       setEndDate(value);
+    }
+  };
+
+  // 데이터 요청 핸들러
+  const fetchData = () => {
+    // startDate와 endDate가 유효한 경우에만 데이터 요청
+    if (startDate && endDate) {
+      // 선택된 날짜를 Date 객체로 변환하여 부모 컴포넌트에 전달
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      onSelectDates(start, end);
     }
   };
 
@@ -55,7 +69,12 @@ export default function RevenueView() {
             />
           </div>
         </div>
+        <button onClick={fetchData} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+          데이터 조회
+        </button>
       </div>
     </div>
   );
-}
+};
+
+export default SearchPeriod;

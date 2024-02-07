@@ -3,7 +3,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 import "./calendar/calendar.css";
-import Calendartest from "./calendar/calendar";
+import SearchPeriod from "./calendar/searchPeriod";
 import WorkoutChart from "./chart/workoutChart";
 import CaloriesChart from "./chart/carloriesChart";
 
@@ -27,6 +27,8 @@ interface CaloryData {
 const WorkoutHistory: React.FC = () => {
   const [showCalendar, setShowCalendar] = useState(true);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [selectedStartDate, setSelectedStartDate] = useState<Date>(new Date());
+  const [selectedEndDate, setSelectedEndDate] = useState<Date>(new Date());
   const [workoutData, setWorkoutData] = useState<WorkoutEntry[]>([]);
   const [caloriesData, setCaloriesData] = useState<CaloryData>({
     result: [],
@@ -86,21 +88,44 @@ const WorkoutHistory: React.FC = () => {
     fetchData();
   }, [selectedDate]);
 
+   // SearchPeriod에서 선택한 날짜를 업데이트하는 함수
+   const handleDateSelect = (startDate: Date, endDate: Date) => {
+    // const formattedStartDate = startDate.toLocaleDateString()
+    // const formattedEndDate = endDate.toLocaleDateString()
+    setSelectedStartDate(startDate);
+    setSelectedEndDate(endDate);
+  };
+
+  useEffect(() => {
+    console.log(selectedStartDate);
+    console.log(selectedEndDate);
+  }, [selectedStartDate, selectedEndDate]);
+
   return (
     <div className="w-full h-full flex flex-col justify-start items-center">
       <h1 className="text-3xl mb-10">Workout History</h1>
       <div className="flex justify-center items-center">
         <div>
-          <button onClick={() => setShowCalendar(true)}>Show day record/</button>
-          <button onClick={() => setShowCalendar(false)}>Data inqury by period</button>
-
+          <button onClick={() => setShowCalendar(true)}>
+            Show day record/
+          </button>
+          <button onClick={() => setShowCalendar(false)}>
+            Data inqury by period
+          </button>
           {showCalendar ? (
-            <Calendar
-              onChange={(date) => setSelectedDate(date as Date)}
-              value={selectedDate}
-            />
+            <div className=" mt-5">
+              <h2>Selected Date: {selectedDate.toLocaleDateString()}</h2>
+              <Calendar
+                onChange={(date) => setSelectedDate(date as Date)}
+                value={selectedDate}
+              />
+            </div>
           ) : (
-            <Calendartest />
+            <div className="mt-5">
+              <h2>Selected Start Date:{selectedStartDate.toLocaleDateString()} </h2>
+              <h2>Selected End Date:{selectedEndDate.toLocaleDateString()}</h2>
+              <SearchPeriod onSelectDates={handleDateSelect} />
+            </div>
           )}
         </div>
         <div className="flex flex-col items-center ml-24">
@@ -111,7 +136,6 @@ const WorkoutHistory: React.FC = () => {
         </div>
       </div>
       <div className="w-full">
-        <h2>Selected Date: {selectedDate.toLocaleDateString()}</h2>
         <WorkoutChart data={workoutData} />
       </div>
     </div>
