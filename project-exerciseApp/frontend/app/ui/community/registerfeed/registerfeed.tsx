@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, ChangeEvent } from "react";
 import axios from "axios";
-// import "@"
 
 const ImageUpload: React.FC = () => {
   const [images, setImages] = useState<File[]>([]);
@@ -11,6 +10,11 @@ const ImageUpload: React.FC = () => {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (fileList) {
+      if (fileList.length + images.length > 5) { // Check if total images exceed the limit
+        alert("You can upload up to 5 images.");
+        return;
+      }
+      
       const newImages: File[] = Array.from(fileList);
       setImages((prevImages) => [...prevImages, ...newImages]);
 
@@ -95,7 +99,7 @@ const ImageUpload: React.FC = () => {
           Upload Feed
         </button>
       </div>
-      <div className="flex">
+      <div className="flex w-10/12">
         {previewUrls.map((url, index) => (
           <div key={index}>
             <img
