@@ -133,3 +133,23 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+/* 스크롤바의 색상 변경 */
+::-webkit-scrollbar {
+  width: 10px; /* 스크롤바의 너비 */
+}
+
+/* 스크롤바의 track (배경) 스타일 */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* 스크롤바의 thumb (톰) 스타일 */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* hover 시 스크롤바의 thumb (톰) 스타일 */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import LoginButton from './Loginbutton';
 import InputText from './Inputtext';
+import InputPassword from './inputPassword';
 
 const LoginHome = () => {
   const [loginUser, setLoginUser] = useState({
@@ -60,7 +61,7 @@ const LoginHome = () => {
           title='ID'
           inputchange={(value: string) => handleInputChange('userId', value)}
         />
-        <InputText
+        <InputPassword
           title='PASSWORD'
           inputchange={(value: string) => handleInputChange('userPassword', value)}
         />

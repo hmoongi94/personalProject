@@ -6,13 +6,7 @@ import Search from "@/app/lib/utils/search";
 
 import "./community.css";
 
-const CommunityHome = () => {
-  const communityData = [
-    { communityIndex: 1, communityimgurl: "커뮤니티사진1" },
-    { communityIndex: 2, communityimgurl: "커뮤니티사진2" },
-    { communityIndex: 3, communityimgurl: "커뮤니티사진3" },
-    { communityIndex: 4, communityimgurl: "커뮤니티사진4" },
-  ];
+const CommunityHome = (postdata) => {
 
   return (
     <div className="instagram-main flex flex-col items-center w-3/5 mt-5 mb-5">
@@ -26,17 +20,27 @@ const CommunityHome = () => {
 
       {/* 피드 */}
       <div className="feed w-full">
-        {communityData.map((community, index) => (
+        {postdata.map((postdata, index) => (
           <div className="w-1/2 border" key={index}>
-            <div>프로필사진/사용자이름/작성일</div>
-            <div>내용 어쩌고저쩌고 오늘 운동 잘됐네 뭐했네</div>
+            <div className="flex">
+              <img
+                src="profile/기본프로필사진.webp"
+                alt="프로필사진"
+                className="w-12 h-12 rounded-full"
+              />
+              <div>
+                <div className="text-sm mt-4">{postdata.username}</div>
+                <div className="text-sm">{postdata.date}</div>
+              </div>
+            </div>
+            <div className="mt-2">{postdata.content}</div>
             <div className="border w-full">
               <Link
-                href={`/exercisedetail/${community.communityIndex}`}
+                href={`/exercisedetail/${postdata.postIndex}`}
                 className="w-full"
               >
                 <img
-                  src={`/community/${community.communityimgurl}.png`}
+                  src={`/community/${postdata.imgurl}.png`}
                   alt="exerciseCardImage"
                   className="w-full h-72 object-cover"
                   loading="eager"
@@ -44,8 +48,10 @@ const CommunityHome = () => {
               </Link>
             </div>
             <div>21명이 좋아요!</div>
-            <div className="w-full"><button className="w-1/2 border">좋아요!</button><button className="w-1/2 border">댓글열기</button></div>
-            
+            <div className="w-full">
+              <button className="w-1/2 border">좋아요!</button>
+              <button className="w-1/2 border">댓글열기</button>
+            </div>
           </div>
         ))}
         {/* 피드 아이템 */}
@@ -68,7 +74,6 @@ const CommunityHome = () => {
         {/* 피드 아이템 끝 */}
         {/* 추가 피드 아이템들 */}
         {/* 여기에 추가 피드 아이템들을 반복해서 렌더링하는 코드를 넣으세요 */}
-       
       </div>
     </div>
   );
