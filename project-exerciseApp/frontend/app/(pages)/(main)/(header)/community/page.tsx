@@ -46,7 +46,6 @@ const Community = () => {
   return (
     <div className="w-screen h-screen flex justify-center">
       <CommunityHome postdata={postData}/>
-      test
     </div>
   );
 };
