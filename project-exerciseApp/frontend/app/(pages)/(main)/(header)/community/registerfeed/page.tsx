@@ -1,9 +1,11 @@
-import LoginHome from "@/app/ui/login/LoginHome";
+'use client'
+
+import Registerfeed from "@/app/ui/community/registerfeed/registerfeed"
 
 const RegisterFeed = () => {
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      글 등록페이지
+      <Registerfeed />
     </div>
   );
 };

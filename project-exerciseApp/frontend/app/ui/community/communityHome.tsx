@@ -24,7 +24,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
         <div className="container">
           <div className="logo mr-5">Exercise Community</div>
           <Search placeholder="검색" />
-          <Link href='/community/registerfeed'>
+          <Link href="/community/registerfeed">
             <button className="ml-4 bg-blue-500 text-white px-4 py-2 rounded">
               피드 등록
             </button>
@@ -50,12 +50,14 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
             </div>
             <div className="mt-2">{post.content}</div>
             <div className="border w-full">
-              <img
-                src={`/community/${post.imgurl}.png`}
-                alt="exerciseCardImage"
-                className="w-full h-72 object-cover"
-                loading="eager"
-              />
+              {post.imgurl && (
+                <img
+                  src={`/community/${post.imgurl}.png`}
+                  alt="exerciseCardImage"
+                  className="w-full h-72 object-cover"
+                  loading="eager"
+                />
+              )}
             </div>
             <div>21명이 좋아요!</div>
             <div className="w-full">
