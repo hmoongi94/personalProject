@@ -83,7 +83,7 @@ const ImageUpload: React.FC = () => {
       />
       <div className="w-10/12 flex justify-between">
         <div>
-          <label htmlFor="fileInput">Select images:</label>
+          <label htmlFor="fileInput" className="text-white">Select images:</label>
           <input
             type="file"
             id="fileInput"
