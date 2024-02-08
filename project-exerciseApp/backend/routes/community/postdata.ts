@@ -8,7 +8,7 @@ postData.get("/community/postData", async (req, res) => {
   try {
     conn = await pool.getConnection();
     const result = await conn.query(
-      "SELECT * FROM post"
+      "SELECT post.content, post.date, post.imgurl, user.userId FROM post JOIN user ON post.userIndex = user.userIndex"
     );
     
     res.status(200).json(result);

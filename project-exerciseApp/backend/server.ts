@@ -17,7 +17,7 @@ import caloryDayData from "./routes/workoutHistory/caloriesDayData";
 import workoutHistoryPeriodData from "./routes/workoutHistory/workHistoryPeriodData";
 import caloryPeriodData from "./routes/workoutHistory/caloriesPeriodData";
 // 커뮤니티
-import postData from "./routes/community/postData";
+import postData from "./routes/community/postdata";
 
 const app = express();
 const port = 3560;
