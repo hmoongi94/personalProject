@@ -1,20 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, ChangeEvent } from "react";
 import axios from "axios";
+// import "@"
 
 const ImageUpload: React.FC = () => {
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-  const MAX_IMAGES = 5;
+  const [inputValue, setInputValue] = useState<string>("");
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (fileList) {
-      if (fileList.length + images.length > MAX_IMAGES) {
-        alert(`You can upload up to ${MAX_IMAGES} images.`);
-        return;
-      }
-
       const newImages: File[] = Array.from(fileList);
       setImages((prevImages) => [...prevImages, ...newImages]);
 
@@ -58,6 +54,7 @@ const ImageUpload: React.FC = () => {
       images.forEach((image) => {
         formData.append("images", image);
       });
+      formData.append("text", inputValue); // Add input value to form data
 
       const response = await axios.post("/api/upload", formData, {
         headers: {
@@ -72,40 +69,43 @@ const ImageUpload: React.FC = () => {
   };
 
   return (
-    <div className="w-2/3 flex items-start justify-center">
-      <div>
-        <label htmlFor="fileInput">Select images:</label>
-        <input
-          type="file"
-          id="fileInput"
-          accept="image/*"
-          multiple
-          onChange={handleImageChange}
-        />
+    <div className="w-2/3 flex flex-col items-center justify-center text-black">
+      <textarea
+        className="w-10/12"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        placeholder="Enter your text..."
+        rows={10} // Adjust the number of rows as needed
+      />
+      <div className="w-10/12 flex justify-between">
+        <div>
+          <label htmlFor="fileInput">Select images:</label>
+          <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            multiple
+            onChange={handleImageChange}
+          />
+        </div>
         <button
           onClick={handleUpload}
           className="bg-blue-500 text-white px-4 py-2 rounded"
         >
-          Upload Images
+          Upload Feed
         </button>
-        <div className="flex">
-          {previewUrls.map((url, index) => (
-            <div
-              key={index}
-            >
-              <button onClick={() => handleRemoveImage(index)}>delete</button>
-              <img
-                src={url}
-                alt={`Preview ${index}`}
-                style={{
-                  width: "14vw",
-                  height: "12vw",
-                  // objectFit: "cover",
-                }}
-              />
-            </div>
-          ))}
-        </div>
+      </div>
+      <div className="flex">
+        {previewUrls.map((url, index) => (
+          <div key={index}>
+            <img
+              src={url}
+              alt={`Preview ${index}`}
+              style={{ width: "14vw", height: "12vw" }}
+            />
+            <button onClick={() => handleRemoveImage(index)}>delete</button>
+          </div>
+        ))}
       </div>
     </div>
   );
