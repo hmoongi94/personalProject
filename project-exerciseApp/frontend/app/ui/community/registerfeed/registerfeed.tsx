@@ -5,10 +5,16 @@ import axios from "axios";
 const ImageUpload: React.FC = () => {
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  const MAX_IMAGES = 5;
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (fileList) {
+      if (fileList.length + images.length > MAX_IMAGES) {
+        alert(`You can upload up to ${MAX_IMAGES} images.`);
+        return;
+      }
+
       const newImages: File[] = Array.from(fileList);
       setImages((prevImages) => [...prevImages, ...newImages]);
 
@@ -66,7 +72,7 @@ const ImageUpload: React.FC = () => {
   };
 
   return (
-    <div className="w-1/2 flex items-start justify-center">
+    <div className="w-2/3 flex items-start justify-center">
       <div>
         <label htmlFor="fileInput">Select images:</label>
         <input
@@ -76,15 +82,26 @@ const ImageUpload: React.FC = () => {
           multiple
           onChange={handleImageChange}
         />
-        <button onClick={handleUpload} className="bg-blue-500 text-white px-4 py-2 rounded">Upload Images</button>
+        <button
+          onClick={handleUpload}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Upload Images
+        </button>
         <div className="flex">
           {previewUrls.map((url, index) => (
-            <div key={index}>
+            <div
+              key={index}
+            >
               <button onClick={() => handleRemoveImage(index)}>delete</button>
               <img
                 src={url}
                 alt={`Preview ${index}`}
-                style={{ maxWidth: "100%", maxHeight: "200px" }}
+                style={{
+                  width: "14vw",
+                  height: "12vw",
+                  // objectFit: "cover",
+                }}
               />
             </div>
           ))}
