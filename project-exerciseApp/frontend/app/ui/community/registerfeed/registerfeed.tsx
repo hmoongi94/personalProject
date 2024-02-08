@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, ChangeEvent } from "react";
 import axios from "axios";
 
 const ImageUpload: React.FC = () => {
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-  
+
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (fileList) {
@@ -19,8 +20,6 @@ const ImageUpload: React.FC = () => {
             urls.push(reader.result as string);
             if (urls.length === fileList.length) {
               setPreviewUrls((prevUrls) => [...prevUrls, ...urls]);
-            } else {
-              alert("There was an error getting image URLs.");
             }
           }
         };
@@ -67,22 +66,30 @@ const ImageUpload: React.FC = () => {
   };
 
   return (
-    <div>
-      <label htmlFor="fileInput">Select images:</label>
-      <input
-        type="file"
-        id="fileInput"
-        accept="image/*"
-        multiple
-        onChange={handleImageChange}
-      />
-      {previewUrls.map((url, index) => (
-        <div key={index}>
-          <img src={url} alt={`Preview ${index}`} style={{ maxWidth: "100%", maxHeight: "200px" }} />
-          <button onClick={() => handleRemoveImage(index)}>Remove</button>
+    <div className="w-1/2 flex items-start justify-center">
+      <div>
+        <label htmlFor="fileInput">Select images:</label>
+        <input
+          type="file"
+          id="fileInput"
+          accept="image/*"
+          multiple
+          onChange={handleImageChange}
+        />
+        <button onClick={handleUpload} className="bg-blue-500 text-white px-4 py-2 rounded">Upload Images</button>
+        <div className="flex">
+          {previewUrls.map((url, index) => (
+            <div key={index}>
+              <button onClick={() => handleRemoveImage(index)}>delete</button>
+              <img
+                src={url}
+                alt={`Preview ${index}`}
+                style={{ maxWidth: "100%", maxHeight: "200px" }}
+              />
+            </div>
+          ))}
         </div>
-      ))}
-      <button onClick={handleUpload}>Upload Images</button>
+      </div>
     </div>
   );
 };
