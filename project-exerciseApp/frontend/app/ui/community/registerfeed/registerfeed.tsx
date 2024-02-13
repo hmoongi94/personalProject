@@ -17,6 +17,7 @@ const ImageUpload: React.FC = () => {
       
       const newImages: File[] = Array.from(fileList);
       setImages((prevImages) => [...prevImages, ...newImages]);
+      // console.log(newImages[0].name)
 
       const urls: string[] = [];
       for (let i = 0; i < fileList.length; i++) {
@@ -60,7 +61,7 @@ const ImageUpload: React.FC = () => {
       });
       formData.append("text", inputValue); // Add input value to form data
 
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post("/community/registerFeed", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

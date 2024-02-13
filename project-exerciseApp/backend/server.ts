@@ -18,6 +18,7 @@ import workoutHistoryPeriodData from "./routes/workoutHistory/workHistoryPeriodD
 import caloryPeriodData from "./routes/workoutHistory/caloriesPeriodData";
 // 커뮤니티
 import postData from "./routes/community/postdata";
+import registerFeed from "./routes/community/registerfeed";
 
 const app = express();
 const port = 3560;
@@ -49,6 +50,7 @@ app.get("/exercisedata", exercisedata);
 
 // 커뮤니티
   app.get("/community/postData", postData)
+  app.post("/community/registerFeed", registerFeed)
 
 app.listen(port, () => {
   console.log(`Express 서버가 ${port}번 포트에서 실행중입니다.`);
