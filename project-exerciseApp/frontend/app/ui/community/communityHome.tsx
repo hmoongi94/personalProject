@@ -2,6 +2,9 @@
 import React from "react";
 import Link from "next/link";
 import Search from "@/app/lib/utils/search";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import "./community.css";
 
@@ -18,6 +21,14 @@ interface CommunityHomeProps {
 }
 
 const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+
   return (
     <div className="instagram-main flex flex-col items-center w-3/5 mt-5 mb-5">
       {/* 네비게이션 바 */}
@@ -54,15 +65,20 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
               </div>
               <div className="mt-2">{post.content}</div>
               <div className="border w-full">
-                {post.imgurl && post.imgurl.split(",").map((url, idx) => (
-                  <img
-                    key={idx}
-                    src={`/community/${url}`}
-                    alt="exerciseCardImage"
-                    className="w-full h-72 object-cover"
-                    loading="eager"
-                  />
-                ))}
+                {post.imgurl && (
+                  <Slider {...settings}>
+                    {post.imgurl.split(",").map((url, idx) => (
+                      <div key={idx}>
+                        <img
+                          src={`/community/${url}`}
+                          alt="exerciseCardImage"
+                          className="w-full h-72 object-cover"
+                          loading="eager"
+                        />
+                      </div>
+                    ))}
+                  </Slider>
+                )}
               </div>
               <div>21명이 좋아요!</div>
               <div className="w-full">
