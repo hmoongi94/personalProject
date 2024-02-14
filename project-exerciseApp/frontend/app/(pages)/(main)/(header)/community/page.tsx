@@ -6,9 +6,10 @@ import CommunityHome from "@/app/ui/community/communityHome";
 
 interface PostData {
   content: string;
-  date: Date;
+  date: string;
   imgurl: string;
   userId: string;
+  postId: string;
 }
 
 interface LikeData {

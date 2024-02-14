@@ -10,6 +10,7 @@ interface PostData {
   date: string;
   imgurl: string;
   userId: string;
+  postId: string;
 }
 
 interface CommunityHomeProps {
