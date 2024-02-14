@@ -62,7 +62,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
                   alt="프로필사진"
                   className="w-12 h-12 rounded-full"
                 />
-                <div className="w-1/2 mr-48">
+                <div className="w-3/4 mr-24">
                   <div className="text-sm mt-2">{post.userId}</div>
                   <div className="text-sm">{post.date}</div>
                   {/* <div className="text-sm">{post.date.toLocaleDateString()}</div>  */}
