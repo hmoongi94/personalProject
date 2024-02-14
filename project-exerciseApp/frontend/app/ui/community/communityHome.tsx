@@ -26,7 +26,12 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+  };
+
+  const handleEditPost = (postId: string) => {
+    // 수정 페이지로 이동하는 로직 추가
+    console.log("Editing post:", postId);
   };
 
   return (
@@ -51,16 +56,25 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
           .reverse()
           .map((post, index) => (
             <div className="w-1/2 border" key={index}>
-              <div className="flex">
+              <div className="flex justify-between">
                 <img
                   src="profile/기본프로필사진.webp"
                   alt="프로필사진"
                   className="w-12 h-12 rounded-full"
                 />
-                <div>
+                <div className="w-1/2 mr-48">
                   <div className="text-sm mt-2">{post.userId}</div>
                   <div className="text-sm">{post.date}</div>
                   {/* <div className="text-sm">{post.date.toLocaleDateString()}</div>  */}
+                </div>
+                <div className="w-1/5 h-1/2">
+                  {/* 수정 버튼 추가 */}
+                  <button
+                    className="w-full h-full justify-center items-center flex text-xs bg-pink-500 text-white px-2 py-2 rounded"
+                    onClick={() => handleEditPost(post.postId)}
+                  >
+                    수정
+                  </button>
                 </div>
               </div>
               <div className="mt-2">{post.content}</div>
