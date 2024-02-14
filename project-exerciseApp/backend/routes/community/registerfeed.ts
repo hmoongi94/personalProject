@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
     cb(null, "../frontend/public/community");
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + "-" + Date.now() + ".png");
+    cb(null, file.originalname);
   },
 });
 
@@ -22,6 +22,12 @@ registerFeed.post(
   upload.array("images", 5),
   async (req: Request, res: Response) => {
     // console.log(req.body);
+
+    // * 쿼리문
+    const insertImagesQuery = `
+    INSERT INTO post (userIndex, content, date, imgurl)
+    VALUES (?, ?, ?, ?)
+  `;
 
     // *유저인덱스 가져오기
     const userIndex = tokenChecker(req, res);
@@ -34,7 +40,7 @@ registerFeed.post(
       postDate.getMonth() + 1
     }-${postDate.getDate()} ${postDate.getHours()}:${postDate.getMinutes()}`;
 
-    // console.log(formattedDate);
+    // console.log(typeof(formattedDate));
 
     //* 텍스트 내용
     const content = req.body.text;
@@ -54,8 +60,17 @@ registerFeed.post(
     let conn;
     try {
       conn = await pool.getConnection();
-      res.status(200);
-      // 응답
+
+      for (const imageurl of imageurls) {
+        await conn.query(insertImagesQuery, [
+          userIndex,
+          content,
+          formattedDate,
+          imageurl,
+        ]);
+      }
+
+      res.status(200).json({ success: true });
     } catch (error) {
       console.error("Error uploading feed:", error);
       res.status(500).json({ success: false, error: "Error uploading feed" });

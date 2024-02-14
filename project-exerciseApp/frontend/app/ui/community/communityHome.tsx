@@ -7,7 +7,7 @@ import "./community.css";
 
 interface PostData {
   content: string;
-  date: Date;
+  date: string;
   imgurl: string;
   userId: string;
 }
@@ -34,45 +34,47 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
 
       {/* 피드 */}
       <div className="feed w-full">
-        {postdata.map((post, index) => (
-          <div className="w-1/2 border" key={index}>
-            <div className="flex">
-              <img
-                src="profile/기본프로필사진.webp"
-                alt="프로필사진"
-                className="w-12 h-12 rounded-full"
-              />
-              <div>
-                <div className="text-sm mt-2">{post.userId}</div>
-                <div className="text-sm">2024.02.08</div>
-                {/* <div className="text-sm">{post.date.toLocaleDateString()}</div>  */}
+        {postdata
+          .slice(0)
+          .reverse()
+          .map((post, index) => (
+            <div className="w-1/2 border" key={index}>
+              <div className="flex">
+                <img
+                  src="profile/기본프로필사진.webp"
+                  alt="프로필사진"
+                  className="w-12 h-12 rounded-full"
+                />
+                <div>
+                  <div className="text-sm mt-2">{post.userId}</div>
+                  <div className="text-sm">{post.date}</div>
+                  {/* <div className="text-sm">{post.date.toLocaleDateString()}</div>  */}
+                </div>
+              </div>
+              <div className="mt-2">{post.content}</div>
+              <div className="border w-full">
+                {post.imgurl && (
+                  <img
+                    src={`/community/${post.imgurl}`}
+                    alt="exerciseCardImage"
+                    className="w-full h-72 object-cover"
+                    loading="eager"
+                  />
+                )}
+              </div>
+              <div>21명이 좋아요!</div>
+              <div className="w-full">
+                <button className="w-1/2 border">좋아요!</button>
+                <button className="w-1/2 border">댓글열기</button>
               </div>
             </div>
-            <div className="mt-2">{post.content}</div>
-            <div className="border w-full">
-              {post.imgurl && (
-                <img
-                  src={`/community/${post.imgurl}.png`}
-                  alt="exerciseCardImage"
-                  className="w-full h-72 object-cover"
-                  loading="eager"
-                />
-              )}
-            </div>
-            <div>21명이 좋아요!</div>
-            <div className="w-full">
-              <button className="w-1/2 border">좋아요!</button>
-              <button className="w-1/2 border">댓글열기</button>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
 };
 
 export default CommunityHome;
-
 {
   /* 피드 아이템 */
 }

@@ -90,6 +90,7 @@ const ImageUpload: React.FC = () => {
         throw new Error("Failed to upload images.");
       }
 
+      alert("피드글이 작성되었습니다.")
       console.log("Images uploaded successfully:", response);
     } catch (error) {
       console.error("Error uploading images:", error);
