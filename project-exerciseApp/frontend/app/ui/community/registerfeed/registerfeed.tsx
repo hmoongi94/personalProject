@@ -62,11 +62,29 @@ const ImageUpload: React.FC = () => {
 
       // console.log(formData.get("images"));
       // console.log(formData.get("text"));
+      const token = localStorage.getItem("token"); // 사용자 토큰 가져오기
 
-      const response = await fetch("http://localhost:3560/community/registerFeed", {
-        method: "POST",
-        body: formData,
-      });
+      // 토큰이 없을 경우 alert 창 띄우기
+      if (!token) {
+        const userConfirmed = window.confirm(
+          "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?"
+        );
+        if (userConfirmed) {
+          window.location.href = "/login";
+        }
+        return;
+      }
+
+      const response = await fetch(
+        "http://localhost:3560/community/registerFeed",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to upload images.");

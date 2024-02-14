@@ -14,6 +14,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 export const tokenChecker = (req: Request, res: Response) => {
   const tokenHeader = req.headers.authorization;
   if (!tokenHeader) {
+    console.log("토큰이 제공되지않았습니다.");
     return res.status(401).json({ error: "토큰이 제공되지 않았습니다." });
   }
   const token = tokenHeader.split(" ")[1];
