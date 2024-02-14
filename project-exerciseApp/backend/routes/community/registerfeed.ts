@@ -22,6 +22,8 @@ registerFeed.post(
   upload.array("images", 5),
   async (req: Request, res: Response) => {
     // console.log(req.body);
+    
+    let conn;
 
     // * 쿼리문
     const insertImagesQuery = `
@@ -33,6 +35,17 @@ registerFeed.post(
     const userIndex = tokenChecker(req, res);
     if (!userIndex) return console.error("토큰이 없습니다.");
     // console.log(userIndex)
+
+    // *고유한 아이디값 postid에 부여해서 같이 올린게시물 식별하기
+    try {
+      conn = await pool.getConnection();
+      const [rows] = await conn.query('SELECT userId FROM user WHERE userIndex = ?', [userIndex]);
+      console.log(rows.userId)
+      
+    } catch (error) {
+      console.error("Error executing query:", error);
+      console.log("유저테이블에 오류");
+    }
 
     // *현재시간
     const postDate = new Date();
@@ -57,7 +70,6 @@ registerFeed.post(
     });
     // console.log(imageurls)
 
-    let conn;
     try {
       conn = await pool.getConnection();
 
