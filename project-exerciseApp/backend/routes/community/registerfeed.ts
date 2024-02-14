@@ -80,34 +80,23 @@ registerFeed.post(
       //* 업로드된 이미지 정보 가져오기
       const files = (req as any).files as Express.Multer.File[];
 
-      // 파일 경로를 DB에 저장
-      const imageurls: string[] = [];
-      files.forEach(async (file) => {
+      // 이미지 파일들의 URL을 콤마로 연결하여 문자열 형태로 저장
+      let imgurls = "";
+      files.forEach(async (file, index) => {
         const imageurl = file.originalname;
-
-        imageurls.push(imageurl);
-      });
-      // console.log(imageurls)
-
-      if (imageurls.length !== 0) {
-        for (const imageurl of imageurls) {
-          await conn.query(insertImagesQuery, [
-            userIndex,
-            postId,
-            content,
-            formattedDate,
-            imageurl,
-          ]);
+        imgurls += imageurl;
+        if (index < files.length - 1) {
+          imgurls += ",";
         }
-      } else {
-        await conn.query(insertImagesQuery, [
-          userIndex,
-          postId,
-          content,
-          formattedDate,
-          null, // Set imgurl to null when no images are uploaded
-        ]);
-      }
+      });
+
+      await conn.query(insertImagesQuery, [
+        userIndex,
+        postId,
+        content,
+        formattedDate,
+        imgurls,
+      ]);
 
       res.status(200).json({ success: true });
     } catch (error) {

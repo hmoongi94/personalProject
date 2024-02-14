@@ -54,14 +54,15 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
               </div>
               <div className="mt-2">{post.content}</div>
               <div className="border w-full">
-                {post.imgurl && (
+                {post.imgurl && post.imgurl.split(",").map((url, idx) => (
                   <img
-                    src={`/community/${post.imgurl}`}
+                    key={idx}
+                    src={`/community/${url}`}
                     alt="exerciseCardImage"
                     className="w-full h-72 object-cover"
                     loading="eager"
                   />
-                )}
+                ))}
               </div>
               <div>21명이 좋아요!</div>
               <div className="w-full">
