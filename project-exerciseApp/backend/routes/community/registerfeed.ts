@@ -1,20 +1,35 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import pool from "../../database";
+import multer from "multer";
 
 const registerFeed = express();
 
-registerFeed.post("/community/registerFeed", async (req, res) => {
-  console.log(req.headers)
+//* 이미지 업로드 설정
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "frontend/public/community");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + "-" + Date.now() + '.png');
+  },
+});
+
+const upload = multer({ storage: storage });
+
+registerFeed.post("/community/registerFeed", upload.array("images", 5), async (req: Request, res: Response) => {
+  console.log(req);
 
   let conn;
   try {
     conn = await pool.getConnection();
-    
 
+
+
+    // 응답
   } catch (error) {
-    console.error("Error fetching register Feed:", error);
-    res.status(500).json({ error: "Error fetching register Feed" });
-  } finally {  
+    console.error("Error uploading images:", error);
+    res.status(500).json({ success: false, error: "Error uploading images" });
+  } finally {
     if (conn) conn.release();
   }
 });
