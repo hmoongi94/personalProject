@@ -9,11 +9,12 @@ const ImageUpload: React.FC = () => {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (fileList) {
-      if (fileList.length + images.length > 5) { // Check if total images exceed the limit
+      if (fileList.length + images.length > 5) {
+        // Check if total images exceed the limit
         alert("You can upload up to 5 images.");
         return;
       }
-      
+
       const newImages: File[] = Array.from(fileList);
       setImages((prevImages) => [...prevImages, ...newImages]);
 
@@ -59,7 +60,10 @@ const ImageUpload: React.FC = () => {
       });
       formData.append("text", inputValue);
 
-      const response = await fetch("/community/registerFeed", {
+      // console.log(formData.get("images"));
+      // console.log(formData.get("text"));
+
+      const response = await fetch("http://localhost:3560/community/registerFeed", {
         method: "POST",
         body: formData,
       });
@@ -85,7 +89,9 @@ const ImageUpload: React.FC = () => {
       />
       <div className="w-10/12 flex justify-between">
         <div>
-          <label htmlFor="fileInput" className="text-white">Select images:</label>
+          <label htmlFor="fileInput" className="text-white">
+            Select images:
+          </label>
           <input
             type="file"
             id="fileInput"
