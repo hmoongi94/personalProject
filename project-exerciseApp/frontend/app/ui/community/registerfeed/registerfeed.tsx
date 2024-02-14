@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, ChangeEvent } from "react";
-import axios from "axios";
 
 const ImageUpload: React.FC = () => {
   const [images, setImages] = useState<File[]>([]);
@@ -17,7 +16,6 @@ const ImageUpload: React.FC = () => {
       
       const newImages: File[] = Array.from(fileList);
       setImages((prevImages) => [...prevImages, ...newImages]);
-      // console.log(newImages[0].name)
 
       const urls: string[] = [];
       for (let i = 0; i < fileList.length; i++) {
@@ -59,15 +57,18 @@ const ImageUpload: React.FC = () => {
       images.forEach((image) => {
         formData.append("images", image);
       });
-      formData.append("text", inputValue); // Add input value to form data
+      formData.append("text", inputValue);
 
-      const response = await axios.post("/community/registerFeed", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const response = await fetch("/community/registerFeed", {
+        method: "POST",
+        body: formData,
       });
 
-      console.log("Images uploaded successfully:", response.data);
+      if (!response.ok) {
+        throw new Error("Failed to upload images.");
+      }
+
+      console.log("Images uploaded successfully:", response);
     } catch (error) {
       console.error("Error uploading images:", error);
     }
@@ -80,7 +81,7 @@ const ImageUpload: React.FC = () => {
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="Enter your text..."
-        rows={10} // Adjust the number of rows as needed
+        rows={10}
       />
       <div className="w-10/12 flex justify-between">
         <div>
