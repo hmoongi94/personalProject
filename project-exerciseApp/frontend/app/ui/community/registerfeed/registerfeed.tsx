@@ -49,10 +49,10 @@ const ImageUpload: React.FC = () => {
 
   const handleUpload = async () => {
     try {
-      if (!images.length) {
-        alert("No images selected.");
-        return;
-      }
+      // if (!images.length) {
+      //   alert("No images selected.");
+      //   return;
+      // }
 
       const formData = new FormData();
       images.forEach((image) => {
@@ -91,7 +91,8 @@ const ImageUpload: React.FC = () => {
       }
 
       alert("피드글이 작성되었습니다.")
-      console.log("Images uploaded successfully:", response);
+      window.location.href = "/community";
+      // console.log("Images uploaded successfully:", response);
     } catch (error) {
       console.error("Error uploading images:", error);
     }

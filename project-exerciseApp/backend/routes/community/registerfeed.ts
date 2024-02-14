@@ -38,7 +38,7 @@ registerFeed.post(
     const postDate = new Date();
     const formattedDate = `${postDate.getFullYear()}-${
       postDate.getMonth() + 1
-    }-${postDate.getDate()} ${postDate.getHours()}:${postDate.getMinutes()}`;
+    }-${postDate.getDate()} ${postDate.getHours()}:${postDate.getMinutes()}:${postDate.getSeconds()}`;
 
     // console.log(typeof(formattedDate));
 
@@ -61,12 +61,21 @@ registerFeed.post(
     try {
       conn = await pool.getConnection();
 
-      for (const imageurl of imageurls) {
+      if (imageurls.length !== 0) {
+        for (const imageurl of imageurls) {
+          await conn.query(insertImagesQuery, [
+            userIndex,
+            content,
+            formattedDate,
+            imageurl,
+          ]);
+        }
+      } else {
         await conn.query(insertImagesQuery, [
           userIndex,
           content,
           formattedDate,
-          imageurl,
+          null, // Set imgurl to null when no images are uploaded
         ]);
       }
 
