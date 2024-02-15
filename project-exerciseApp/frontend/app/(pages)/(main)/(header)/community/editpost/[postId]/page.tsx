@@ -17,8 +17,8 @@ const EditPostPage = () => {
         if (!response.ok) {
           throw new Error("게시물 데이터를 불러오는데 실패했습니다.");
         }
-        console.log(data.imgurl)
-        console.log(data.content)
+        // console.log(data.imgurl)
+        // console.log(data.content)
 
         setPostData(data);
       } catch (error) {

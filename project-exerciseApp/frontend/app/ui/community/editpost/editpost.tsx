@@ -85,11 +85,11 @@ const EditPost: React.FC<EditPostProps> = ({ initialContent, initialImages }) =>
         {previewUrls.map((url, index) => (
           <div key={index}>
             <img
-              src={url}
+              src={`/community/${url}`}
               alt={`Preview ${index}`}
               style={{ width: "14vw", height: "12vw" }}
             />
-            <button onClick={() => handleRemoveImage(index)}>delete</button>
+            <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={() => handleRemoveImage(index)}>delete</button>
           </div>
         ))}
       </div>

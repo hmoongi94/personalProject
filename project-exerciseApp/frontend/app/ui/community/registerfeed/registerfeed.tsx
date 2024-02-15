@@ -135,7 +135,7 @@ const ImageUpload: React.FC = () => {
               alt={`Preview ${index}`}
               style={{ width: "14vw", height: "12vw" }}
             />
-            <button onClick={() => handleRemoveImage(index)}>delete</button>
+            <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={() => handleRemoveImage(index)}>delete</button>
           </div>
         ))}
       </div>
