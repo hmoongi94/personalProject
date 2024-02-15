@@ -1,3 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
+import React from "react";
+import './exercisedetail.css'
+
 interface ExerciseDetailProps {
   name: string;
   imgurl: string;
@@ -9,22 +13,28 @@ interface ExerciseDetailUIProps {
   exercisedetaildata: ExerciseDetailProps[] | null;
 }
 
+
 const ExerciseDetailUI: React.FC<ExerciseDetailUIProps> = ({ exercisedetaildata }) => {
   return (
-    <div>
-      <h1>Exercise Detail Page</h1>
-      {/* 배열의 각 객체에 대한 JSX를 생성 또는 데이터 없음을 나타내는 JSX를 생성 */}
-      {exercisedetaildata ? (
-        exercisedetaildata.map((exercise, index) => (
-          <div key={index}>
-            <h2>{exercise.name}</h2>
-            {/* <img src={exercise.imgurl} alt={exercise.name} /> */}
-            <p>{exercise.description}</p>
-          </div>
-        ))
-      ) : (
-        <div>Data not available</div>
-      )}
+    <div className="exercise-detail-container">
+      <h1 className="exercise-detail-title">Exercise Detail Page</h1>
+      <div className="exercise-detail-content">
+        {exercisedetaildata ? (
+          exercisedetaildata.map((exercise, index) => (
+            <div className="exercise-item" key={index}>
+              <h2 className="exercise-name">{exercise.name}</h2>
+              <img
+                src={`/exercise/${exercise.imgurl}.png`}
+                alt={exercise.name}
+                className="exercise-image"
+              />
+              <p className="exercise-description">{exercise.description}</p>
+            </div>
+          ))
+        ) : (
+          <div>Data not available</div>
+        )}
+      </div>
     </div>
   );
 };
