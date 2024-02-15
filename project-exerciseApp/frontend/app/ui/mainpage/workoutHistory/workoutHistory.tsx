@@ -153,7 +153,7 @@ const WorkoutHistory: React.FC = () => {
   }, [selectedStartDate, selectedEndDate]);
 
   return (
-    <div className="w-full h-full flex flex-col justify-start items-center">
+    <div className="w-full h-[80vh] flex flex-col justify-start items-center">
       <h1 className="text-3xl mb-10">Workout History</h1>
       <div className="flex justify-center items-center">
         <div>
