@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Search from "@/app/lib/utils/search";
 import Slider from "react-slick";
@@ -21,6 +21,13 @@ interface CommunityHomeProps {
 }
 
 const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
+  const token = localStorage.getItem("token");
+  const [isTokenExist, setIsTokenExist] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsTokenExist(!!token);
+  }, [token]);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -29,17 +36,8 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
     slidesToScroll: 1,
   };
 
-  // 로그인한 사용자의 토큰 가져오기
-  const token = localStorage.getItem("token");
-
   // 게시물 작성자와 현재 사용자의 아이디를 비교하여 수정 링크 여부 결정
   const isAuthor = (userId: string) => {
-    // 토큰이 없으면 로그인 페이지로 이동
-    if (!token) {
-      alert("로그인이 필요합니다.");
-      window.location.href = "/login";
-      return;
-    }
     const currentUser = getUserIdFromToken(token);
     if (currentUser === userId) {
       return true; // 현재 사용자가 작성자인 경우
@@ -54,6 +52,18 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
     return "hmoongi"; // 임시로 사용자 아이디 반환, 실제 코드에서는 토큰을 해석하여 추출해야 함
   };
 
+  // 피드 등록 버튼 클릭 시 로그인 여부 확인
+  const handleRegisterFeed = () => {
+    if (token) {
+      // 토큰이 있을 때 피드 등록 페이지로 이동
+      window.location.href = "/community/registerfeed";
+    } else {
+      // 토큰이 없을 때 로그인 페이지로 이동
+      alert("로그인이 필요합니다.");
+      window.location.href = "/login";
+    }
+  };
+
   return (
     <div className="instagram-main flex flex-col items-center w-3/5 mt-5 mb-5">
       {/* 네비게이션 바 */}
@@ -61,11 +71,12 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
         <div className="container">
           <div className="logo mr-5">Exercise Community</div>
           <Search placeholder="검색" />
-          <Link href="/community/registerfeed">
-            <button className="ml-4 bg-blue-500 text-white px-4 py-2 rounded">
-              피드 등록
-            </button>
-          </Link>
+          <button
+            className="ml-4 bg-blue-500 text-white px-4 py-2 rounded"
+            onClick={handleRegisterFeed} // 피드 등록 버튼 클릭 시 핸들러 호출
+          >
+            피드 등록
+          </button>
         </div>
       </nav>
 
