@@ -1,42 +1,39 @@
 "use client";
 
-import ExerciseDetailUI from "@/app/ui/exercisedetail/exercisedetail";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
-// interface ExerciseDetailProps {
-//   imgurl: string;
-//   name: string;
-//   description: string;
-// }
+const EditPostPage = () => {
+  const { postId } = useParams(); // postId 가져오기
+  const [postData, setPostData] = useState(null);
 
-const EditPostpage = () => {
-  // const { exerciseIndex } = useParams();
-  // const [exercisedata, setexercisedata] = useState<ExerciseDetailProps[] | null>(
-  //   null
-  // );
+  useEffect(() => {
+    const fetchPostData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3560/community/editpost/${postId}`);
+        const data = await response.json();
 
-  //* exerciseIndex를 사용하여 해당 운동에 대한 데이터를 가져와 렌더링하는 로직을 작성
-  // useEffect(() => {
-  //   const fetchProductData = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `http://localhost:3560/exercisedetail/${exerciseIndex}`
-  //       );
-  //       const data = await response.json();
-  //       console.log(data);
+        if (!response.ok) {
+          throw new Error("게시물 데이터를 불러오는데 실패했습니다.");
+        }
+        // console.log(data)
 
-  //       setexercisedata(data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
+        setPostData(data);
+      } catch (error) {
+        console.error("게시물 데이터를 불러오는 동안 에러가 발생했습니다:", error);
+      }
+    };
 
-  //   fetchProductData();
-  // }, [exerciseIndex]);
+    fetchPostData();
+  }, [postId]);
 
-  return <div>수정페이지</div> 
-  // <ExerciseDetailUI exercisedetaildata={exercisedata} />;
+  if (!postData) {
+    return <div>Loading...</div>;
+  }
+
+  return <div>포스트데이터 불러옴</div>
+
+  // 수정 폼을 이용하여 postData를 사용하여 게시물을 수정하는 UI를 구현합니다.
 };
 
-export default EditPostpage;
+export default EditPostPage;

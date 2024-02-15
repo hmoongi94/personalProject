@@ -1,32 +1,35 @@
-interface ExerciseDetailProps {
-  name: string;
-  imgurl: string;
-  description: string;
-}
+import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
-// ExerciseDetailUI 컴포넌트의 속성을 정의하는 인터페이스
-interface ExerciseDetailUIProps {
-  exercisedetaildata: ExerciseDetailProps[] | null;
-}
+const EditPostPage = () => {
+  const { postId } = useParams(); // postId 가져오기
 
-const ModifyPostUi: React.FC<ExerciseDetailUIProps> = ({ exercisedetaildata }) => {
-  return (
-    <div>
-      <h1>Exercise Detail Page</h1>
-      {/* 배열의 각 객체에 대한 JSX를 생성 또는 데이터 없음을 나타내는 JSX를 생성 */}
-      {exercisedetaildata ? (
-        exercisedetaildata.map((exercise, index) => (
-          <div key={index}>
-            <h2>{exercise.name}</h2>
-            {/* <img src={exercise.imgurl} alt={exercise.name} /> */}
-            <p>{exercise.description}</p>
-          </div>
-        ))
-      ) : (
-        <div>Data not available</div>
-      )}
-    </div>
-  );
+  const [postData, setPostData] = useState(null);
+
+  useEffect(() => {
+    const fetchPostData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3560/community/post/${postId}`);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error("게시물 데이터를 불러오는데 실패했습니다.");
+        }
+
+        setPostData(data);
+      } catch (error) {
+        console.error("게시물 데이터를 불러오는 동안 에러가 발생했습니다:", error);
+      }
+    };
+
+    fetchPostData();
+  }, [postId]);
+
+  if (!postData) {
+    return <div>Loading...</div>;
+  }
+
+  // 수정 폼을 이용하여 postData를 사용하여 게시물을 수정하는 UI를 구현합니다.
 };
 
-export default ModifyPostUi;
+export default EditPostPage;

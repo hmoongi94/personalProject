@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
-import pool from "../../database";
+import pool from "../../../database";
 import multer from "multer";
-import { tokenChecker } from "../../utils/tokenChecker";
+import { tokenChecker } from "../../../utils/tokenChecker";
 
 const registerFeed = express();
 

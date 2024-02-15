@@ -19,7 +19,8 @@ import caloryPeriodData from "./routes/workoutHistory/caloriesPeriodData";
 // 커뮤니티
 import userId from "./routes/community/userid";
 import postData from "./routes/community/postdata";
-import registerFeed from "./routes/community/registerfeed";
+import registerFeed from "./routes/community/registerfeed/registerfeed";
+import editPost from "./routes/community/editpost/editpost";
 
 const app = express();
 const port = 3560;
@@ -52,7 +53,10 @@ app.post("/workoutHistory/periodData/calories", caloryPeriodData);
 // 커뮤니티
 app.get("/userId", userId);
 app.get("/community/postData", postData);
+// 피드등록
 app.post("/community/registerFeed", registerFeed);
+// 피드수정
+app.get("/community/editpost/:postId", editPost)
 
 app.listen(port, () => {
   console.log(`Express 서버가 ${port}번 포트에서 실행중입니다.`);
