@@ -43,10 +43,11 @@ const Community = () => {
         console.error("유저 정보를 불러오는 동안 에러가 발생했습니다:", error);
       }
     };
-
+    
     if (!userId) {
       fetchUserId();
     }
+    // console.log(userId)
   }, [userId]);
 
   // * Fetch initial Postdata only once

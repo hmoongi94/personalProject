@@ -18,15 +18,11 @@ interface PostData {
 
 interface CommunityHomeProps {
   postdata: PostData[];
+  userId: string | null;
 }
 
-const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
+const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata, userId }) => {
   const token = localStorage.getItem("token");
-  const [isTokenExist, setIsTokenExist] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsTokenExist(!!token);
-  }, [token]);
 
   const settings = {
     dots: true,
@@ -37,13 +33,8 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
   };
 
   // 게시물 작성자와 현재 사용자의 아이디를 비교하여 수정 링크 여부 결정
-  const isAuthor = (userId: string) => {
-    const currentUser = getUserIdFromToken(token);
-    if (currentUser === userId) {
-      return true; // 현재 사용자가 작성자인 경우
-    } else {
-      return false; // 현재 사용자가 작성자가 아닌 경우
-    }
+  const isAuthor = (postUserId: string) => {
+    return userId === postUserId;
   };
 
   // 토큰에서 사용자 아이디 추출
