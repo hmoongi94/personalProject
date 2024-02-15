@@ -29,11 +29,6 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
     slidesToScroll: 1,
   };
 
-  const handleEditPost = (postId: string) => {
-    // 수정 페이지로 이동하는 로직 추가
-    console.log("Editing post:", postId);
-  };
-
   return (
     <div className="instagram-main flex flex-col items-center w-3/5 mt-5 mb-5">
       {/* 네비게이션 바 */}
@@ -65,16 +60,20 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
                 <div className="w-3/4 mr-24">
                   <div className="text-sm mt-2">{post.userId}</div>
                   <div className="text-sm">{post.date}</div>
-                  {/* <div className="text-sm">{post.date.toLocaleDateString()}</div>  */}
                 </div>
                 <div className="w-1/5 h-1/2">
                   {/* 수정 버튼 추가 */}
-                  <button
-                    className="w-full h-full justify-center items-center flex text-xs bg-pink-500 text-white px-2 py-2 rounded"
-                    onClick={() => handleEditPost(post.postId)}
+                  <Link
+                    href={`/community/modifypost/${post.postId}`}
+                    key={index}
+                    className="w-1/2"
                   >
-                    수정
-                  </button>
+                    <button
+                      className="w-full h-full justify-center items-center flex text-xs bg-pink-500 text-white px-2 py-2 rounded"
+                    >
+                      수정
+                    </button>
+                  </Link>
                 </div>
               </div>
               <div className="mt-2">{post.content}</div>
@@ -82,11 +81,11 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
                 {post.imgurl && (
                   <Slider {...settings}>
                     {post.imgurl.split(",").map((url, idx) => (
-                      <div key={idx}>
+                      <div key={idx} className="w-full h-full">
                         <img
                           src={`/community/${url}`}
                           alt="exerciseCardImage"
-                          className="w-full h-72 object-cover"
+                          className="w-full h-96 object-cover"
                           loading="eager"
                         />
                       </div>
