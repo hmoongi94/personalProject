@@ -1,5 +1,6 @@
 .exercise-detail-container {
   margin: 20px;
+  text-align: center; /* 컨텐츠를 가운데 정렬합니다. */
 }
 
 .exercise-detail-title {
@@ -10,12 +11,14 @@
 .exercise-detail-content {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center; /* 컨텐츠를 수평 가운데 정렬합니다. */
 }
 
 .exercise-item {
   width: calc(33.33% - 20px); /* 3개의 컬럼으로 나누기 */
   margin-right: 20px;
   margin-bottom: 20px;
+  text-align: left; /* 내용을 왼쪽 정렬합니다. */
 }
 
 .exercise-name {
@@ -31,4 +34,5 @@
 
 .exercise-description {
   font-size: 16px;
+  text-align: left; /* 내용을 왼쪽 정렬합니다. */
 }
