@@ -68,9 +68,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
                     key={index}
                     className="w-1/2"
                   >
-                    <button
-                      className="w-full h-full justify-center items-center flex text-xs bg-pink-500 text-white px-2 py-2 rounded"
-                    >
+                    <button className="w-full h-full justify-center items-center flex text-xs bg-pink-500 text-white px-2 py-2 rounded">
                       수정
                     </button>
                   </Link>
@@ -78,7 +76,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
               </div>
               <div className="mt-2">{post.content}</div>
               <div className="border w-full">
-                {post.imgurl && (
+                {post.imgurl && post.imgurl.split(",").length > 1 ? (
                   <Slider {...settings}>
                     {post.imgurl.split(",").map((url, idx) => (
                       <div key={idx} className="w-full h-full">
@@ -91,6 +89,13 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
                       </div>
                     ))}
                   </Slider>
+                ) : (
+                  <img
+                    src={`/community/${post.imgurl}`}
+                    alt="exerciseCardImage"
+                    className="w-full h-96 object-cover"
+                    loading="eager"
+                  />
                 )}
               </div>
               <div>21명이 좋아요!</div>
