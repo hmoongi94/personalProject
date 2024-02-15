@@ -10,7 +10,7 @@ import { useParams } from "next/navigation";
 //   description: string;
 // }
 
-const ModifyPostpage = () => {
+const EditPostpage = () => {
   // const { exerciseIndex } = useParams();
   // const [exercisedata, setexercisedata] = useState<ExerciseDetailProps[] | null>(
   //   null
@@ -39,4 +39,4 @@ const ModifyPostpage = () => {
   // <ExerciseDetailUI exercisedetaildata={exercisedata} />;
 };
 
-export default ModifyPostpage;
+export default EditPostpage;

@@ -9,7 +9,7 @@ interface ExerciseDetailUIProps {
   exercisedetaildata: ExerciseDetailProps[] | null;
 }
 
-const ExerciseDetailUI: React.FC<ExerciseDetailUIProps> = ({ exercisedetaildata }) => {
+const ModifyPostUi: React.FC<ExerciseDetailUIProps> = ({ exercisedetaildata }) => {
   return (
     <div>
       <h1>Exercise Detail Page</h1>
@@ -29,4 +29,4 @@ const ExerciseDetailUI: React.FC<ExerciseDetailUIProps> = ({ exercisedetaildata 
   );
 };
 
-export default ExerciseDetailUI;
+export default ModifyPostUi;

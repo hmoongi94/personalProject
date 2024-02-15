@@ -64,7 +64,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
                 <div className="w-1/5 h-1/2">
                   {/* 수정 버튼 추가 */}
                   <Link
-                    href={`/community/modifypost/${post.postId}`}
+                    href={`/community/editpost/${post.postId}`}
                     key={index}
                     className="w-1/2"
                   >
