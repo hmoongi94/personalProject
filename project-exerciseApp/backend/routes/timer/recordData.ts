@@ -7,9 +7,7 @@ const recordData = express();
 recordData.post("/recordData", async (req, res) => {
   // * 토큰 있는지 확인하는 로직
   const userIndex = tokenChecker(req, res);
-  if (!userIndex) return console.error("토큰이 없습니다.");
 
-  // *
   const { totalReps, selectedExercise, executionCount } = req.body;
 
   let conn;

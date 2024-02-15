@@ -17,6 +17,7 @@ import caloryDayData from "./routes/workoutHistory/caloriesDayData";
 import workoutHistoryPeriodData from "./routes/workoutHistory/workHistoryPeriodData";
 import caloryPeriodData from "./routes/workoutHistory/caloriesPeriodData";
 // 커뮤니티
+import userId from "./routes/community/userid";
 import postData from "./routes/community/postdata";
 import registerFeed from "./routes/community/registerfeed";
 
@@ -31,26 +32,27 @@ app.use(express.static("public"));
 // *라우팅
 // 로그인, 회원가입
 app.post("/signup", customerSignup);
-app.post("/login", customerLogin)
+app.post("/login", customerLogin);
 // 메인페이지
 app.get("/exercisedata", exercisedata);
 
 // 메인페이지 기능
-  // exerciseguide
-  app.get("/exercisedetail/:exerciseIndex", exercisedetail)
-  // 검색 데이터
-  app.get("/searchexercisedata", searchexercisedata)
-  // 타이머에서 내 운동 기록
-  app.post("/recordData", recordData)
-  // workouthistory에서 기록보기
-  app.post("/workoutHistory/daydata", workoutHistoryDayData)
-  app.post("/workoutHistory/daydata/calories", caloryDayData)
-  app.post("/workoutHistory/periodData", workoutHistoryPeriodData)
-  app.post("/workoutHistory/periodData/calories", caloryPeriodData)
+// exerciseguide
+app.get("/exercisedetail/:exerciseIndex", exercisedetail);
+// 검색 데이터
+app.get("/searchexercisedata", searchexercisedata);
+// 타이머에서 내 운동 기록
+app.post("/recordData", recordData);
+// workouthistory에서 기록보기
+app.post("/workoutHistory/daydata", workoutHistoryDayData);
+app.post("/workoutHistory/daydata/calories", caloryDayData);
+app.post("/workoutHistory/periodData", workoutHistoryPeriodData);
+app.post("/workoutHistory/periodData/calories", caloryPeriodData);
 
 // 커뮤니티
-  app.get("/community/postData", postData)
-  app.post("/community/registerFeed", registerFeed)
+app.get("/userId", userId);
+app.get("/community/postData", postData);
+app.post("/community/registerFeed", registerFeed);
 
 app.listen(port, () => {
   console.log(`Express 서버가 ${port}번 포트에서 실행중입니다.`);
