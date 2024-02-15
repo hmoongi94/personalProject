@@ -1,35 +1,100 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+/* eslint-disable @next/next/no-img-element */
+import React from "react";
 
-const EditPostPage = () => {
-  const { postId } = useParams(); // postId 가져오기
+interface EditPostProps {
+  initialContent: string;
+  initialImages: string; // 이미지 URL 문자열
+}
 
-  const [postData, setPostData] = useState(null);
+const EditPost: React.FC<EditPostProps> = ({ initialContent, initialImages }) => {
+  const [content, setContent] = React.useState<string>(initialContent);
+  const [images, setImages] = React.useState<File[]>([]);
+  const [previewUrls, setPreviewUrls] = React.useState<string[]>(initialImages.split(","));
 
-  useEffect(() => {
-    const fetchPostData = async () => {
-      try {
-        const response = await fetch(`http://localhost:3560/community/post/${postId}`);
-        const data = await response.json();
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (fileList) {
+      const newImages: File[] = Array.from(fileList);
+      setImages((prevImages) => [...prevImages, ...newImages]);
 
-        if (!response.ok) {
-          throw new Error("게시물 데이터를 불러오는데 실패했습니다.");
-        }
-
-        setPostData(data);
-      } catch (error) {
-        console.error("게시물 데이터를 불러오는 동안 에러가 발생했습니다:", error);
+      const urls: string[] = [];
+      for (let i = 0; i < fileList.length; i++) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (reader.readyState === 2) {
+            urls.push(reader.result as string);
+            if (urls.length === fileList.length) {
+              setPreviewUrls((prevUrls) => [...prevUrls, ...urls]);
+            }
+          }
+        };
+        reader.readAsDataURL(fileList[i]);
       }
-    };
+    }
+  };
 
-    fetchPostData();
-  }, [postId]);
+  const handleRemoveImage = (index: number) => {
+    setImages((prevImages) => {
+      const updatedImages = [...prevImages];
+      updatedImages.splice(index, 1);
+      return updatedImages;
+    });
+    setPreviewUrls((prevUrls) => {
+      const updatedUrls = [...prevUrls];
+      updatedUrls.splice(index, 1);
+      return updatedUrls;
+    });
+  };
 
-  if (!postData) {
-    return <div>Loading...</div>;
-  }
+  const handleUpdate = async () => {
+    // 수정된 내용을 서버로 보내어 업데이트하는 로직 작성
+    console.log("Updated content:", content);
+    console.log("Updated images:", images);
+  };
 
-  // 수정 폼을 이용하여 postData를 사용하여 게시물을 수정하는 UI를 구현합니다.
+  return (
+    <div className="w-2/3 flex flex-col items-center justify-center text-black">
+      <textarea
+        className="w-10/12"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        placeholder="Enter your text..."
+        rows={10}
+      />
+      <div className="w-10/12 flex justify-between">
+        <div>
+          <label htmlFor="fileInput" className="text-white">
+            Select images:
+          </label>
+          <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            multiple
+            onChange={handleImageChange}
+          />
+        </div>
+        <button
+          onClick={handleUpdate}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Update Post
+        </button>
+      </div>
+      <div className="flex w-10/12">
+        {previewUrls.map((url, index) => (
+          <div key={index}>
+            <img
+              src={url}
+              alt={`Preview ${index}`}
+              style={{ width: "14vw", height: "12vw" }}
+            />
+            <button onClick={() => handleRemoveImage(index)}>delete</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
-export default EditPostPage;
+export default EditPost;
