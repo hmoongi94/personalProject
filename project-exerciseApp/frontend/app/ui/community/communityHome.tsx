@@ -29,6 +29,31 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
     slidesToScroll: 1,
   };
 
+  // 로그인한 사용자의 토큰 가져오기
+  const token = localStorage.getItem("token");
+
+  // 게시물 작성자와 현재 사용자의 아이디를 비교하여 수정 링크 여부 결정
+  const isAuthor = (userId: string) => {
+    // 토큰이 없으면 로그인 페이지로 이동
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      window.location.href = "/login";
+      return;
+    }
+    const currentUser = getUserIdFromToken(token);
+    if (currentUser === userId) {
+      return true; // 현재 사용자가 작성자인 경우
+    } else {
+      return false; // 현재 사용자가 작성자가 아닌 경우
+    }
+  };
+
+  // 토큰에서 사용자 아이디 추출
+  const getUserIdFromToken = (token: string | null) => {
+    // 토큰 해석 및 사용자 아이디 추출하는 로직 작성
+    return "hmoongi"; // 임시로 사용자 아이디 반환, 실제 코드에서는 토큰을 해석하여 추출해야 함
+  };
+
   return (
     <div className="instagram-main flex flex-col items-center w-3/5 mt-5 mb-5">
       {/* 네비게이션 바 */}
@@ -63,40 +88,48 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata }) => {
                 </div>
                 <div className="w-1/5 h-1/2">
                   {/* 수정 버튼 추가 */}
-                  <Link
-                    href={`/community/editpost/${post.postId}`}
-                    key={index}
-                    className="w-1/2"
-                  >
-                    <button className="w-full h-full justify-center items-center flex text-xs bg-pink-500 text-white px-2 py-2 rounded">
-                      수정
-                    </button>
-                  </Link>
+                  {isAuthor(post.userId) && (
+                    <Link
+                      href={`/community/editpost/${post.postId}`}
+                      key={index}
+                      className="w-1/2"
+                    >
+                      <button className="w-full h-full justify-center items-center flex text-xs bg-pink-500 text-white px-2 py-2 rounded">
+                        수정
+                      </button>
+                    </Link>
+                  )}
+                  {!isAuthor(post.userId) && (
+                    <span className="text-xs text-red-500">
+                      작성자가 아닙니다
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="mt-2">{post.content}</div>
               <div className="border w-full">
-                {post.imgurl && post.imgurl.split(",").length > 1 ? (
-                  <Slider {...settings}>
-                    {post.imgurl.split(",").map((url, idx) => (
-                      <div key={idx} className="w-full h-full">
-                        <img
-                          src={`/community/${url}`}
-                          alt="exerciseCardImage"
-                          className="w-full h-96 object-cover"
-                          loading="eager"
-                        />
-                      </div>
-                    ))}
-                  </Slider>
-                ) : (
-                  <img
-                    src={`/community/${post.imgurl}`}
-                    alt="exerciseCardImage"
-                    className="w-full h-96 object-cover"
-                    loading="eager"
-                  />
-                )}
+                {post.imgurl && // 이미지 URL이 존재할 때에만 img 태그 생성
+                  (post.imgurl.split(",").length > 1 ? (
+                    <Slider {...settings}>
+                      {post.imgurl.split(",").map((url, idx) => (
+                        <div key={idx} className="w-full h-full">
+                          <img
+                            src={`/community/${url}`}
+                            alt="exerciseCardImage"
+                            className="w-full h-96 object-cover"
+                            loading="eager"
+                          />
+                        </div>
+                      ))}
+                    </Slider>
+                  ) : (
+                    <img
+                      src={`/community/${post.imgurl}`}
+                      alt="exerciseCardImage"
+                      className="w-full h-96 object-cover"
+                      loading="eager"
+                    />
+                  ))}
               </div>
               <div>21명이 좋아요!</div>
               <div className="w-full">
