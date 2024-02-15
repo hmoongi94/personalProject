@@ -74,7 +74,7 @@ const Community = () => {
   }, []);
 
   return (
-    <div className="w-screen h-full flex justify-center">
+    <div className="w-screen h-[86vh] flex justify-center">
       <CommunityHome postdata={postData} userId={userId} />
     </div>
   );
