@@ -28,7 +28,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex border-b-2 border-wine p-4 justify-between">
+    <header className="w-full h-full flex border-b-2 border-wine p-4 justify-between">
       <Link href="/">
         <h1
           className="text-xl cursor-pointer text-gray-950"
