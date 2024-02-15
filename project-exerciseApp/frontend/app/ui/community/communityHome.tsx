@@ -37,12 +37,6 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata, userId }) => {
     return userId === postUserId;
   };
 
-  // 토큰에서 사용자 아이디 추출
-  const getUserIdFromToken = (token: string | null) => {
-    // 토큰 해석 및 사용자 아이디 추출하는 로직 작성
-    return "hmoongi"; // 임시로 사용자 아이디 반환, 실제 코드에서는 토큰을 해석하여 추출해야 함
-  };
-
   // 피드 등록 버튼 클릭 시 로그인 여부 확인
   const handleRegisterFeed = () => {
     if (token) {
@@ -52,6 +46,26 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata, userId }) => {
       // 토큰이 없을 때 로그인 페이지로 이동
       alert("로그인이 필요합니다.");
       window.location.href = "/login";
+    }
+  };
+
+  const handleDeletePost = async (postId: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3560/community/deletepost/${postId}`,
+        {
+          method: "GET"
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("게시물을 삭제하는데 실패했습니다.");
+      }
+
+      // 삭제 성공 시 화면 갱신
+      window.location.reload();
+    } catch (error) {
+      console.error("게시물 삭제 중 오류가 발생했습니다:", error);
     }
   };
 
@@ -91,15 +105,24 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata, userId }) => {
                 <div className="w-1/5 h-1/2">
                   {/* 수정 버튼 추가 */}
                   {isAuthor(post.userId) && (
-                    <Link
-                      href={`/community/editpost/${post.postId}`}
-                      key={index}
-                      className="w-1/2"
-                    >
-                      <button className="w-full h-full justify-center items-center flex text-xs bg-pink-500 text-white px-2 py-2 rounded">
-                        수정
+                    <>
+                      <Link
+                        href={`/community/editpost/${post.postId}`}
+                        key={index}
+                        className="w-1/2"
+                      >
+                        <button className="w-full h-full justify-center items-center flex text-xs bg-blue-500 text-white px-2 py-2 rounded">
+                          수정
+                        </button>
+                      </Link>
+                      {/* 삭제 버튼 추가 */}
+                      <button
+                        className="w-full h-full justify-center items-center flex text-xs bg-pink-500 text-white px-2 py-2 rounded"
+                        onClick={() => handleDeletePost(post.postId)}
+                      >
+                        삭제
                       </button>
-                    </Link>
+                    </>
                   )}
                   {!isAuthor(post.userId) && (
                     <span className="text-xs text-red-500">
