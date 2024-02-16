@@ -55,7 +55,7 @@ app.post("/workoutHistory/periodData/calories", caloryPeriodData);
 // 커뮤니티
 app.get("/community/postData", postData);
 app.get("/userId", userId);
-app.get("community/likeData", likeData)
+app.get("/community/likeData", likeData)
 app.get("/community/deletepost/:postId", deletePost)
 // 피드등록
 app.post("/community/registerFeed", registerFeed);

@@ -35,9 +35,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   likedata,
   handleRegisterFeed
 }) => {
-  // console.log(likedata)
-
-  // const token = localStorage.getItem("token");
+  console.log(likedata)
 
   const settings = {
     dots: true,
@@ -51,18 +49,6 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   const isAuthor = (postUserId: string) => {
     return userId === postUserId;
   };
-
-  // 피드 등록 버튼 클릭 시 로그인 여부 확인
-  // const handleRegisterFeed = () => {
-  //   if (token) {
-  //     // 토큰이 있을 때 피드 등록 페이지로 이동
-  //     window.location.href = "/community/registerfeed";
-  //   } else {
-  //     // 토큰이 없을 때 로그인 페이지로 이동
-  //     alert("로그인이 필요합니다.");
-  //     window.location.href = "/login";
-  //   }
-  // };
 
   const handleDeletePost = async (postId: string) => {
     try {
