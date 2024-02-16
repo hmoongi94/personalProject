@@ -225,8 +225,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                     />
                   ))}
               </div>
-              <div>21명이 좋아요!</div>
-              {/* <div>{post.userIndex}</div> */}
+              <div>{post.likeCount}명이 좋아해요!</div>
               <div className="w-full">
                 <button
                   className="w-1/2 border"
