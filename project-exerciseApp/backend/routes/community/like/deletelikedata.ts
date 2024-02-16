@@ -11,7 +11,7 @@ deleteLikeData.delete("/community/deleteLikeData/:postId/:userId", async (req, r
     // 좋아요 정보 삭제
     const result = await pool.query("DELETE FROM `like` WHERE postIndex = (SELECT postIndex FROM post WHERE postId = ?) AND userIndex = (SELECT userIndex FROM user WHERE userId = ?)", [postId, userId]);
 
-    console.log(result);
+    // console.log(result);
 
     // 클라이언트에 성공적인 응답 전송
     res.status(200).json({ message: "좋아요 정보가 삭제되었습니다." });

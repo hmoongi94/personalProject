@@ -11,7 +11,7 @@ addLikeData.post("/community/addLikeData/:postId/:userId", async (req, res) => {
     // 좋아요 정보 추가
     const result = await pool.query("INSERT INTO `like` (postIndex, userIndex) VALUES ((SELECT postIndex FROM post WHERE postId = ?), (SELECT userIndex FROM user WHERE userId = ?))", [postId, userId]);
 
-    console.log(result);
+    // console.log(result);
 
     // 클라이언트에 성공적인 응답 전송
     res.status(200).json({ message: "좋아요 정보가 추가되었습니다." });
