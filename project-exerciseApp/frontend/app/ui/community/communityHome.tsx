@@ -52,7 +52,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
 
   // 좋아요를 누른 게시물의 postId 목록 생성
   const likedPostIds = likedata.map((like) => like.postId);
-  console.log(likedPostIds);
+  // console.log(likedPostIds);
 
   // 현재 사용자가 좋아요를 누른 게시물인지 확인하는 함수
   const isLikedByCurrentUser = (postId: string, currentUser: string) => {
@@ -60,6 +60,33 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
       .filter((like) => like.postId === postId)
       .map((like) => like.userId);
     return likedUserIds.includes(currentUser);
+  };
+
+  // 좋아요 버튼 클릭 시 동작하는 함수
+  const handleLikeButtonClicked = (postId: string) => {
+    // 사용자가 로그인한 상태인지 확인
+    if (userId) {
+      // 좋아요를 이미 눌렀는지 확인
+      const alreadyLiked = isLikedByCurrentUser(postId, userId);
+      if (alreadyLiked) {
+        console.log("데이터베이스에 정보 삭제")
+        // 이미 좋아요를 눌렀으면 데이터베이스에서 해당 정보 삭제
+        // 여기에 해당 작업에 대한 코드를 추가하세요
+      } else {
+        console.log("데이터베이스에 정보 추가")
+        // 좋아요를 누르지 않았으면 데이터베이스에 좋아요 정보 추가
+        // 여기에 해당 작업에 대한 코드를 추가하세요
+      }
+    } else {
+      // 사용자가 로그인하지 않은 상태라면 로그인 페이지로 이동 여부 확인
+      const confirmLogin = window.confirm(
+        "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?"
+      );
+      if (confirmLogin) {
+        // 로그인 페이지로 이동
+        window.location.href = "/login";
+      }
+    }
   };
 
   const handleDeletePost = async (postId: string) => {
@@ -172,12 +199,12 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
               {/* <div>21명이 좋아요!</div> */}
               {/* <div>{post.userIndex}</div> */}
               <div className="w-full">
-                <button className="w-1/2 border">
+                <button className="w-1/2 border" onClick={() => handleLikeButtonClicked(post.postId)}>
                   {userId
                     ? isLikedByCurrentUser(post.postId, userId)
                       ? "좋아해요!"
                       : "좋아요!"
-                    : "로그인 필요"}
+                    : "좋아요!"}
                 </button>
                 <button className="w-1/2 border">댓글열기</button>
               </div>
