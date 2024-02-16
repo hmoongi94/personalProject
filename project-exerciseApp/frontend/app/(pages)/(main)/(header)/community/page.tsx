@@ -121,6 +121,7 @@ const Community = () => {
     <div className="w-screen h-[86vh] flex justify-center">
       <CommunityHome
         postdata={postData}
+        setPostdata={setpostData}
         userId={userId}
         likedata={likeData}
         handleRegisterFeed={handleRegisterFeed}

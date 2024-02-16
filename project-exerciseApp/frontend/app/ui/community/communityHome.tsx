@@ -30,10 +30,12 @@ interface CommunityHomeProps {
   userId: string | null;
   likedata: LikeData[];
   handleRegisterFeed: () => void;
+  setPostdata: React.Dispatch<React.SetStateAction<PostData[]>>;
 }
 
 const CommunityHome: React.FC<CommunityHomeProps> = ({
   postdata,
+  setPostdata,
   userId,
   likedata,
   handleRegisterFeed,
@@ -49,6 +51,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   //* 좋아요 상태를 관리하는 상태 변수
   const [likeStatus, setLikeStatus] = useState<{ [key: string]: boolean }>({});
 
+  // * 좋아요 눌렀을 때 다시 렌더링
   useEffect(() => {
     const isLikedByCurrentUser = (postId: string, currentUser: string) => {
       // 현재 사용자가 좋아요를 누른 게시물인지 확인하는 함수
@@ -97,7 +100,18 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
             );
           }
           console.log("데이터베이스에서 좋아요 정보를 삭제했습니다.");
-          setLikeStatus({ ...likeStatus, [postId]: false }); // 좋아요 상태 업데이트
+          setLikeStatus((prevState) => ({ ...prevState, [postId]: false })); // 좋아요 상태 업데이트
+          // 좋아요 감소 처리
+          setPostdata((prevState) =>
+            prevState.map((post) =>
+              post.postId === postId
+                ? {
+                    ...post,
+                    likeCount: (parseInt(post.likeCount) - 1).toString(),
+                  }
+                : post
+            )
+          );
         } catch (error) {
           console.error(
             "데이터베이스에서 좋아요 정보 삭제 중 오류가 발생했습니다:",
@@ -120,7 +134,18 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
             throw new Error("데이터베이스에 좋아요 정보 추가에 실패했습니다.");
           }
           console.log("데이터베이스에 좋아요 정보를 추가했습니다.");
-          setLikeStatus({ ...likeStatus, [postId]: true }); // 좋아요 상태 업데이트
+          setLikeStatus((prevState) => ({ ...prevState, [postId]: true })); // 좋아요 상태 업데이트
+          // 좋아요 증가 처리
+          setPostdata((prevState) =>
+            prevState.map((post) =>
+              post.postId === postId
+                ? {
+                    ...post,
+                    likeCount: (parseInt(post.likeCount) + 1).toString(),
+                  }
+                : post
+            )
+          );
         } catch (error) {
           console.error(
             "데이터베이스에 좋아요 정보 추가 중 오류가 발생했습니다:",
