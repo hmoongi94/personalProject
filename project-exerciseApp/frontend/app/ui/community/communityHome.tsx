@@ -26,16 +26,18 @@ interface CommunityHomeProps {
   postdata: PostData[];
   userId: string | null;
   likedata: LikeData[];
+  handleRegisterFeed: () => void;
 }
 
 const CommunityHome: React.FC<CommunityHomeProps> = ({
   postdata,
   userId,
   likedata,
+  handleRegisterFeed
 }) => {
-  console.log(likedata)
+  // console.log(likedata)
 
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
 
   const settings = {
     dots: true,
@@ -51,16 +53,16 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   };
 
   // 피드 등록 버튼 클릭 시 로그인 여부 확인
-  const handleRegisterFeed = () => {
-    if (token) {
-      // 토큰이 있을 때 피드 등록 페이지로 이동
-      window.location.href = "/community/registerfeed";
-    } else {
-      // 토큰이 없을 때 로그인 페이지로 이동
-      alert("로그인이 필요합니다.");
-      window.location.href = "/login";
-    }
-  };
+  // const handleRegisterFeed = () => {
+  //   if (token) {
+  //     // 토큰이 있을 때 피드 등록 페이지로 이동
+  //     window.location.href = "/community/registerfeed";
+  //   } else {
+  //     // 토큰이 없을 때 로그인 페이지로 이동
+  //     alert("로그인이 필요합니다.");
+  //     window.location.href = "/login";
+  //   }
+  // };
 
   const handleDeletePost = async (postId: string) => {
     try {
@@ -183,33 +185,3 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
 };
 
 export default CommunityHome;
-{
-  /* 피드 아이템 */
-}
-{
-  /* <div className="feed-item">
-  <div className="user-info">
-    <img
-      src="profile-image.jpg"
-      alt="프로필 이미지"
-      className="profile-image"
-    />
-    <span className="username">사용자 이름</span>
-  </div>
-  <img
-    src="post-image.jpg"
-    alt="게시물 이미지"
-    className="post-image"
-  />
-  <div className="likes">좋아요 100개</div>
-</div> */
-}
-{
-  /* 피드 아이템 끝 */
-}
-{
-  /* 추가 피드 아이템들 */
-}
-{
-  /* 여기에 추가 피드 아이템들을 반복해서 렌더링하는 코드를 넣으세요 */
-}

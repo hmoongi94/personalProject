@@ -17,8 +17,9 @@ import caloryDayData from "./routes/workoutHistory/caloriesDayData";
 import workoutHistoryPeriodData from "./routes/workoutHistory/workHistoryPeriodData";
 import caloryPeriodData from "./routes/workoutHistory/caloriesPeriodData";
 // 커뮤니티
-import userId from "./routes/community/userid";
 import postData from "./routes/community/postdata";
+import userId from "./routes/community/userid";
+import likeData from "./routes/community/likedata";
 import deletePost from "./routes/community/deletepost";
 import registerFeed from "./routes/community/registerfeed/registerfeed";
 import editPost from "./routes/community/editpost/editpost";
@@ -52,8 +53,9 @@ app.post("/workoutHistory/periodData", workoutHistoryPeriodData);
 app.post("/workoutHistory/periodData/calories", caloryPeriodData);
 
 // 커뮤니티
-app.get("/userId", userId);
 app.get("/community/postData", postData);
+app.get("/userId", userId);
+app.get("community/likeData", likeData)
 app.get("/community/deletepost/:postId", deletePost)
 // 피드등록
 app.post("/community/registerFeed", registerFeed);

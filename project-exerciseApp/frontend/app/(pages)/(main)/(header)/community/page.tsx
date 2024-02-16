@@ -23,6 +23,18 @@ const Community = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const [likeData, setlikeData] = useState<LikeData[]>([]);
 
+  const handleRegisterFeed = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      // 토큰이 있을 때 피드 등록 페이지로 이동
+      window.location.href = "/community/registerfeed";
+    } else {
+      // 토큰이 없을 때 로그인 페이지로 이동
+      alert("로그인이 필요합니다.");
+      window.location.href = "/login";
+    }
+  };
+
   // * Fetch initial Postdata only once
   useEffect(() => {
     const fetchInitialPostData = async () => {
@@ -36,7 +48,7 @@ const Community = () => {
           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
         }
 
-        // console.log(data)
+        // console.log(postData)
         setpostData(postData);
       } catch (error) {
         console.error("데이터를 불러오는 동안 에러발생:", error);
@@ -94,7 +106,7 @@ const Community = () => {
           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
         }
 
-        // console.log(data)
+        // console.log(likeData)
         setlikeData(likeData);
       } catch (error) {
         console.error("데이터를 불러오는 동안 에러발생:", error);
@@ -106,7 +118,12 @@ const Community = () => {
 
   return (
     <div className="w-screen h-[86vh] flex justify-center">
-      <CommunityHome postdata={postData} userId={userId} likedata={likeData}/>
+      <CommunityHome
+        postdata={postData}
+        userId={userId}
+        likedata={likeData}
+        handleRegisterFeed={handleRegisterFeed}
+      />
     </div>
   );
 };
