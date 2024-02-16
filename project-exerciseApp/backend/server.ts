@@ -61,7 +61,7 @@ app.post("/workoutHistory/periodData/calories", caloryPeriodData);
 app.get("/community/postData", postData);
 app.get("/userId", userId);
 app.get("/community/deletepost/:postId", deletePost)
-app.get("/community/likes", getPostsWithLikes)
+// app.get("/community/likes", getPostsWithLikes)
 // 좋아요
 app.get("/community/likeData", likeData)
 app.post("/community/addLikeData/:postId/:userId", addLikeData)

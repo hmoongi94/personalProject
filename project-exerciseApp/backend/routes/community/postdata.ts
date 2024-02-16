@@ -8,8 +8,9 @@ postData.get("/community/postData", async (req, res) => {
   try {
     conn = await pool.getConnection();
     const result = await conn.query(
-      "SELECT post.content, post.date, post.imgurl, post.postId, post.userIndex, user.userId FROM post JOIN user ON post.userIndex = user.userIndex"
+      "SELECT p.postId, p.content, p.date, p.imgurl, p.userIndex, u.userId, COUNT(l.postIndex) AS likeCount FROM post p JOIN  user u ON p.userIndex = u.userIndex LEFT JOIN `like` l ON p.postIndex = l.postIndex GROUP BY p.postId;"
     );
+    console.log(result)
     
     res.status(200).json(result);
   } catch (error) {

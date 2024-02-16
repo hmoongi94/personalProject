@@ -17,7 +17,7 @@ interface PostData {
   userId: string;
   postId: string;
   userIndex: string;
-  like: string;
+  likeCount: string;
 }
 
 interface LikeData {
