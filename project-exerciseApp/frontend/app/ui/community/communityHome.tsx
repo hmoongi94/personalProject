@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
+import produce from 'immer';
 import Link from "next/link";
 import Search from "@/app/lib/utils/search";
 import Slider from "react-slick";
@@ -43,7 +44,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
     slidesToScroll: 1,
   };
 
-  // 좋아요 상태를 관리하는 상태 변수
+  //* 좋아요 상태를 관리하는 상태 변수
   const [likeStatus, setLikeStatus] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
@@ -65,13 +66,13 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
     setLikeStatus(initialLikeStatus);
   }, [likedata, postdata, userId]);
 
-  // 게시물 작성자와 현재 사용자의 아이디를 비교하여 수정 링크 여부 결정
+  //* 게시물 작성자와 현재 사용자의 아이디를 비교하여 수정 링크 여부 결정
   const isAuthor = (postUserId: string) => {
     return userId === postUserId;
   };
   
 
-  // 좋아요 버튼 클릭 시 동작하는 함수
+  //* 좋아요 버튼 클릭 시 동작하는 함수
   const handleLikeButtonClicked = async (postId: string) => {
     // 사용자가 로그인한 상태인지 확인
     if (userId) {
@@ -138,6 +139,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
     }
   };
 
+  // * 게시물 삭제
   const handleDeletePost = async (postId: string) => {
     try {
       const response = await fetch(
