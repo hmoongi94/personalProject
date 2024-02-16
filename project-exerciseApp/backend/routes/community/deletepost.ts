@@ -6,14 +6,28 @@ const deletePost = express();
 deletePost.get("/community/deletepost/:postId", async (req, res) => {
   let conn;
 
-  // *동적 라우팅 매개변수로 prodIndex값 가져오기
+  // 동적 라우팅 매개변수로 postId 값 가져오기
   const postId = parseInt(req.params.postId, 10);
 
   try {
     conn = await pool.getConnection();
 
-    // MySQL 쿼리 실행하여 해당 postId에 해당하는 포스트 삭제
-    const result = await conn.query("DELETE FROM post WHERE postId = ?", [
+    console.log(postId)
+
+    // post 테이블에서 postId와 일치하는 postIndex 값 가져오기
+    const [postIndexRow] = await conn.query(
+      "SELECT postIndex FROM post WHERE postId = ?",
+      [postId]
+    );
+
+    const postIndex = postIndexRow.postIndex;
+    console.log(postIndex)
+
+    // 좋아요 레코드 삭제
+    await conn.query("DELETE FROM `like` WHERE postIndex = ?", [postIndex]);
+
+    // 게시물 레코드 삭제
+    const result = await conn.query("DELETE FROM `post` WHERE postId = ?", [
       postId,
     ]);
 
