@@ -63,19 +63,58 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   };
 
   // 좋아요 버튼 클릭 시 동작하는 함수
-  const handleLikeButtonClicked = (postId: string) => {
+  const handleLikeButtonClicked = async (postId: string) => {
     // 사용자가 로그인한 상태인지 확인
     if (userId) {
       // 좋아요를 이미 눌렀는지 확인
       const alreadyLiked = isLikedByCurrentUser(postId, userId);
       if (alreadyLiked) {
-        console.log("데이터베이스에 정보 삭제")
+        console.log("데이터베이스에 정보 삭제");
         // 이미 좋아요를 눌렀으면 데이터베이스에서 해당 정보 삭제
-        // 여기에 해당 작업에 대한 코드를 추가하세요
+        try {
+          const response = await fetch(
+            `http://localhost:3560/community/deleteLikeData/${postId}?userId=${userId}`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ userId }),
+            }
+          );
+          if (!response.ok) {
+            throw new Error(
+              "데이터베이스에서 좋아요 정보 삭제에 실패했습니다."
+            );
+          }
+          console.log("데이터베이스에서 좋아요 정보를 삭제했습니다.");
+        } catch (error) {
+          console.error(
+            "데이터베이스에서 좋아요 정보 삭제 중 오류가 발생했습니다:",
+            error
+          );
+        }
       } else {
-        console.log("데이터베이스에 정보 추가")
+        console.log("데이터베이스에 정보 추가");
         // 좋아요를 누르지 않았으면 데이터베이스에 좋아요 정보 추가
-        // 여기에 해당 작업에 대한 코드를 추가하세요
+        try {
+          const response = await fetch(`http://localhost:3560/community/addLikeData/${postId}?userId=${userId}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId, postId }),
+          });
+          if (!response.ok) {
+            throw new Error("데이터베이스에 좋아요 정보 추가에 실패했습니다.");
+          }
+          console.log("데이터베이스에 좋아요 정보를 추가했습니다.");
+        } catch (error) {
+          console.error(
+            "데이터베이스에 좋아요 정보 추가 중 오류가 발생했습니다:",
+            error
+          );
+        }
       }
     } else {
       // 사용자가 로그인하지 않은 상태라면 로그인 페이지로 이동 여부 확인
@@ -199,7 +238,10 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
               {/* <div>21명이 좋아요!</div> */}
               {/* <div>{post.userIndex}</div> */}
               <div className="w-full">
-                <button className="w-1/2 border" onClick={() => handleLikeButtonClicked(post.postId)}>
+                <button
+                  className="w-1/2 border"
+                  onClick={() => handleLikeButtonClicked(post.postId)}
+                >
                   {userId
                     ? isLikedByCurrentUser(post.postId, userId)
                       ? "좋아해요!"

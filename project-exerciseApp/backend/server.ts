@@ -19,7 +19,7 @@ import caloryPeriodData from "./routes/workoutHistory/caloriesPeriodData";
 // 커뮤니티
 import postData from "./routes/community/postdata";
 import userId from "./routes/community/userid";
-import likeData from "./routes/community/likedata";
+import likeData from "./routes/community/like/likedata";
 import deletePost from "./routes/community/deletepost";
 import registerFeed from "./routes/community/registerfeed/registerfeed";
 import editPost from "./routes/community/editpost/editpost";
