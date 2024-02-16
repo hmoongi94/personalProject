@@ -10,13 +10,43 @@ interface PostData {
   imgurl: string;
   userId: string;
   postId: string;
+  userIndex: string;
+}
+
+interface LikeData {
+  userIndex: string;
+  postIndex: string;
 }
 
 const Community = () => {
-  const [userId, setUserId] = useState<string | null>(null);
   const [postData, setpostData] = useState<PostData[]>([]);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [likeData, setlikeData] = useState<LikeData[]>([]);
 
-  // * userId가져오기
+  // * Fetch initial Postdata only once
+  useEffect(() => {
+    const fetchInitialPostData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3560/community/postData"
+        );
+        const postData = await response.json();
+
+        if (!Array.isArray(postData)) {
+          throw new Error("데이터 형식 오류: 배열이 아닙니다.");
+        }
+
+        // console.log(data)
+        setpostData(postData);
+      } catch (error) {
+        console.error("데이터를 불러오는 동안 에러발생:", error);
+      }
+    };
+
+    fetchInitialPostData();
+  }, []);
+
+  // * userId 가져오기
   useEffect(() => {
     const fetchUserId = async () => {
       try {
@@ -43,39 +73,40 @@ const Community = () => {
         console.error("유저 정보를 불러오는 동안 에러가 발생했습니다:", error);
       }
     };
-    
+
     if (!userId) {
       fetchUserId();
     }
     // console.log(userId)
   }, [userId]);
 
-  // * Fetch initial Postdata only once
+  // * likedata 가져오기
   useEffect(() => {
-    const fetchInitialPostData = async () => {
+    const fetchLikeData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3560/community/postData"
+          "http://localhost:3560/community/likeData"
         );
-        const data = await response.json();
 
-        if (!Array.isArray(data)) {
+        const likeData = await response.json();
+
+        if (!Array.isArray(likeData)) {
           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
         }
 
         // console.log(data)
-        setpostData(data);
+        setlikeData(likeData);
       } catch (error) {
         console.error("데이터를 불러오는 동안 에러발생:", error);
       }
     };
 
-    fetchInitialPostData();
+    fetchLikeData();
   }, []);
 
   return (
     <div className="w-screen h-[86vh] flex justify-center">
-      <CommunityHome postdata={postData} userId={userId} />
+      <CommunityHome postdata={postData} userId={userId} likedata={likeData}/>
     </div>
   );
 };

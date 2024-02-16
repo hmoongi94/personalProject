@@ -14,14 +14,27 @@ interface PostData {
   imgurl: string;
   userId: string;
   postId: string;
+  userIndex: string;
+}
+
+interface LikeData {
+  userIndex: string;
+  postIndex: string;
 }
 
 interface CommunityHomeProps {
   postdata: PostData[];
   userId: string | null;
+  likedata: LikeData[];
 }
 
-const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata, userId }) => {
+const CommunityHome: React.FC<CommunityHomeProps> = ({
+  postdata,
+  userId,
+  likedata,
+}) => {
+  console.log(likedata)
+
   const token = localStorage.getItem("token");
 
   const settings = {
@@ -54,7 +67,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata, userId }) => {
       const response = await fetch(
         `http://localhost:3560/community/deletepost/${postId}`,
         {
-          method: "GET"
+          method: "GET",
         }
       );
 
@@ -157,6 +170,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({ postdata, userId }) => {
                   ))}
               </div>
               <div>21명이 좋아요!</div>
+              {/* <div>{post.userIndex}</div> */}
               <div className="w-full">
                 <button className="w-1/2 border">좋아요!</button>
                 <button className="w-1/2 border">댓글열기</button>
