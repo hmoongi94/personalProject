@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
-import produce from 'immer';
+import produce from "immer";
+import PostEditButton from "./postEditButton";
 import Link from "next/link";
 import Search from "@/app/lib/utils/search";
 import Slider from "react-slick";
@@ -49,7 +50,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
 
   useEffect(() => {
     const isLikedByCurrentUser = (postId: string, currentUser: string) => {
-    // 현재 사용자가 좋아요를 누른 게시물인지 확인하는 함수
+      // 현재 사용자가 좋아요를 누른 게시물인지 확인하는 함수
       const likedUserIds = likedata
         .filter((like) => like.postId === postId)
         .map((like) => like.userId);
@@ -70,7 +71,6 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   const isAuthor = (postUserId: string) => {
     return userId === postUserId;
   };
-  
 
   //* 좋아요 버튼 클릭 시 동작하는 함수
   const handleLikeButtonClicked = async (postId: string) => {
@@ -193,34 +193,11 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                   <div className="text-sm mt-2">{post.userId}</div>
                   <div className="text-sm">{post.date}</div>
                 </div>
-                <div className="w-1/5 h-1/2">
-                  {/* 수정 버튼 추가 */}
-                  {isAuthor(post.userId) && (
-                    <>
-                      <Link
-                        href={`/community/editpost/${post.postId}`}
-                        key={index}
-                        className="w-1/2"
-                      >
-                        <button className="w-full h-full justify-center items-center flex text-xs bg-blue-500 text-white px-2 py-2 rounded">
-                          수정
-                        </button>
-                      </Link>
-                      {/* 삭제 버튼 추가 */}
-                      <button
-                        className="w-full h-full justify-center items-center flex text-xs bg-pink-500 text-white px-2 py-2 rounded"
-                        onClick={() => handleDeletePost(post.postId)}
-                      >
-                        삭제
-                      </button>
-                    </>
-                  )}
-                  {!isAuthor(post.userId) && (
-                    <span className="text-xs text-red-500">
-                      작성자가 아닙니다
-                    </span>
-                  )}
-                </div>
+                <PostEditButton
+                  postId={post.postId}
+                  isAuthor={isAuthor(post.userId)}
+                  handleDeletePost={handleDeletePost}
+                />
               </div>
               <div className="mt-2">{post.content}</div>
               <div className="border w-full">
