@@ -18,8 +18,8 @@ interface PostData {
 }
 
 interface LikeData {
-  userIndex: string;
-  postIndex: string;
+  userId: string;
+  postId: string;
 }
 
 interface CommunityHomeProps {
@@ -33,9 +33,9 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   postdata,
   userId,
   likedata,
-  handleRegisterFeed
+  handleRegisterFeed,
 }) => {
-  console.log(likedata)
+  // console.log(likedata);
 
   const settings = {
     dots: true,
@@ -48,6 +48,18 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   // 게시물 작성자와 현재 사용자의 아이디를 비교하여 수정 링크 여부 결정
   const isAuthor = (postUserId: string) => {
     return userId === postUserId;
+  };
+
+  // 좋아요를 누른 게시물의 postId 목록 생성
+  const likedPostIds = likedata.map((like) => like.postId);
+  console.log(likedPostIds);
+
+  // 현재 사용자가 좋아요를 누른 게시물인지 확인하는 함수
+  const isLikedByCurrentUser = (postId: string, currentUser: string) => {
+    const likedUserIds = likedata
+      .filter((like) => like.postId === postId)
+      .map((like) => like.userId);
+    return likedUserIds.includes(currentUser);
   };
 
   const handleDeletePost = async (postId: string) => {
@@ -157,10 +169,16 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                     />
                   ))}
               </div>
-              <div>21명이 좋아요!</div>
+              {/* <div>21명이 좋아요!</div> */}
               {/* <div>{post.userIndex}</div> */}
               <div className="w-full">
-                <button className="w-1/2 border">좋아요!</button>
+                <button className="w-1/2 border">
+                  {userId
+                    ? isLikedByCurrentUser(post.postId, userId)
+                      ? "좋아해요!"
+                      : "좋아요!"
+                    : "로그인 필요"}
+                </button>
                 <button className="w-1/2 border">댓글열기</button>
               </div>
             </div>

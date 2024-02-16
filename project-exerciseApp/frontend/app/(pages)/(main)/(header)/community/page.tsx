@@ -14,8 +14,8 @@ interface PostData {
 }
 
 interface LikeData {
-  userIndex: string;
-  postIndex: string;
+  userId: string;
+  postId: string;
 }
 
 const Community = () => {
