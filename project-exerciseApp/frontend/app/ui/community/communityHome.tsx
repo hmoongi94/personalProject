@@ -17,6 +17,7 @@ interface PostData {
   userId: string;
   postId: string;
   userIndex: string;
+  like: string;
 }
 
 interface LikeData {
@@ -224,7 +225,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                     />
                   ))}
               </div>
-              {/* <div>21명이 좋아요!</div> */}
+              <div>21명이 좋아요!</div>
               {/* <div>{post.userIndex}</div> */}
               <div className="w-full">
                 <button

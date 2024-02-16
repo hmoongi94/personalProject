@@ -19,6 +19,7 @@ import caloryPeriodData from "./routes/workoutHistory/caloriesPeriodData";
 // 커뮤니티
 import postData from "./routes/community/postdata";
 import userId from "./routes/community/userid";
+import getPostsWithLikes from "./routes/community/getpostswithlikes";
   // 게시물 편집
 import deletePost from "./routes/community/deletepost";
 import registerFeed from "./routes/community/registerfeed/registerfeed";
@@ -60,6 +61,7 @@ app.post("/workoutHistory/periodData/calories", caloryPeriodData);
 app.get("/community/postData", postData);
 app.get("/userId", userId);
 app.get("/community/deletepost/:postId", deletePost)
+app.get("/community/likes", getPostsWithLikes)
 // 좋아요
 app.get("/community/likeData", likeData)
 app.post("/community/addLikeData/:postId/:userId", addLikeData)
