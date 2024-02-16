@@ -35,8 +35,6 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   likedata,
   handleRegisterFeed,
 }) => {
-  // console.log(likedata);
-
   const settings = {
     dots: true,
     infinite: true,
@@ -45,14 +43,25 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
     slidesToScroll: 1,
   };
 
+  // 좋아요 상태를 관리하는 상태 변수
+  const [likeStatus, setLikeStatus] = useState<{ [key: string]: boolean }>({});
+
+  useEffect(() => {
+    // 게시물 별로 좋아요 상태 초기화
+    const initialLikeStatus: { [key: string]: boolean } = {};
+    postdata.forEach((post) => {
+      initialLikeStatus[post.postId] = isLikedByCurrentUser(
+        post.postId,
+        userId || ""
+      );
+    });
+    setLikeStatus(initialLikeStatus);
+  }, [likedata, postdata, userId]);
+
   // 게시물 작성자와 현재 사용자의 아이디를 비교하여 수정 링크 여부 결정
   const isAuthor = (postUserId: string) => {
     return userId === postUserId;
   };
-
-  // 좋아요를 누른 게시물의 postId 목록 생성
-  const likedPostIds = likedata.map((like) => like.postId);
-  // console.log(likedPostIds);
 
   // 현재 사용자가 좋아요를 누른 게시물인지 확인하는 함수
   const isLikedByCurrentUser = (postId: string, currentUser: string) => {
@@ -67,19 +76,17 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
     // 사용자가 로그인한 상태인지 확인
     if (userId) {
       // 좋아요를 이미 눌렀는지 확인
-      const alreadyLiked = isLikedByCurrentUser(postId, userId);
+      const alreadyLiked = likeStatus[postId];
       if (alreadyLiked) {
-        console.log("데이터베이스에 정보 삭제");
         // 이미 좋아요를 눌렀으면 데이터베이스에서 해당 정보 삭제
         try {
           const response = await fetch(
-            `http://localhost:3560/community/deleteLikeData/${postId}?userId=${userId}`,
+            `http://localhost:3560/community/deleteLikeData/${postId}/${userId}`,
             {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ userId }),
             }
           );
           if (!response.ok) {
@@ -88,6 +95,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
             );
           }
           console.log("데이터베이스에서 좋아요 정보를 삭제했습니다.");
+          setLikeStatus({ ...likeStatus, [postId]: false }); // 좋아요 상태 업데이트
         } catch (error) {
           console.error(
             "데이터베이스에서 좋아요 정보 삭제 중 오류가 발생했습니다:",
@@ -95,20 +103,22 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
           );
         }
       } else {
-        console.log("데이터베이스에 정보 추가");
         // 좋아요를 누르지 않았으면 데이터베이스에 좋아요 정보 추가
         try {
-          const response = await fetch(`http://localhost:3560/community/addLikeData/${postId}?userId=${userId}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ userId, postId }),
-          });
+          const response = await fetch(
+            `http://localhost:3560/community/addLikeData/${postId}/${userId}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
           if (!response.ok) {
             throw new Error("데이터베이스에 좋아요 정보 추가에 실패했습니다.");
           }
           console.log("데이터베이스에 좋아요 정보를 추가했습니다.");
+          setLikeStatus({ ...likeStatus, [postId]: true }); // 좋아요 상태 업데이트
         } catch (error) {
           console.error(
             "데이터베이스에 좋아요 정보 추가 중 오류가 발생했습니다:",
@@ -242,11 +252,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                   className="w-1/2 border"
                   onClick={() => handleLikeButtonClicked(post.postId)}
                 >
-                  {userId
-                    ? isLikedByCurrentUser(post.postId, userId)
-                      ? "좋아해요!"
-                      : "좋아요!"
-                    : "좋아요!"}
+                  {likeStatus[post.postId] ? "좋아해요!" : "좋아요!"}
                 </button>
                 <button className="w-1/2 border">댓글열기</button>
               </div>
