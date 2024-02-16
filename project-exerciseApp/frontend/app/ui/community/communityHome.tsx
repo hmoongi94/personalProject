@@ -47,6 +47,13 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   const [likeStatus, setLikeStatus] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
+    const isLikedByCurrentUser = (postId: string, currentUser: string) => {
+    // 현재 사용자가 좋아요를 누른 게시물인지 확인하는 함수
+      const likedUserIds = likedata
+        .filter((like) => like.postId === postId)
+        .map((like) => like.userId);
+      return likedUserIds.includes(currentUser);
+    };
     // 게시물 별로 좋아요 상태 초기화
     const initialLikeStatus: { [key: string]: boolean } = {};
     postdata.forEach((post) => {
@@ -62,14 +69,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   const isAuthor = (postUserId: string) => {
     return userId === postUserId;
   };
-
-  // 현재 사용자가 좋아요를 누른 게시물인지 확인하는 함수
-  const isLikedByCurrentUser = (postId: string, currentUser: string) => {
-    const likedUserIds = likedata
-      .filter((like) => like.postId === postId)
-      .map((like) => like.userId);
-    return likedUserIds.includes(currentUser);
-  };
+  
 
   // 좋아요 버튼 클릭 시 동작하는 함수
   const handleLikeButtonClicked = async (postId: string) => {
