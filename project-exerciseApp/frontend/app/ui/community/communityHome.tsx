@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
-import produce from "immer";
 import PostEditButton from "./postEditButton";
 import Link from "next/link";
 import Search from "@/app/lib/utils/search";
@@ -30,6 +29,7 @@ interface CommunityHomeProps {
   userId: string | null;
   likedata: LikeData[];
   handleRegisterFeed: () => void;
+  setPostData: React.Dispatch<React.SetStateAction<PostData[]>>;
 }
 
 const CommunityHome: React.FC<CommunityHomeProps> = ({
@@ -37,6 +37,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   userId,
   likedata,
   handleRegisterFeed,
+  setPostData,
 }) => {
   const settings = {
     dots: true,
@@ -97,7 +98,16 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
             );
           }
           console.log("데이터베이스에서 좋아요 정보를 삭제했습니다.");
+
+          // Update like count locally by decrementing it
+          const updatedPostData = postdata.map((post) => {
+            if (post.postId === postId) {
+              post.likeCount = String(Number(post.likeCount) - 1);
+            }
+            return post;
+          });
           setLikeStatus({ ...likeStatus, [postId]: false }); // 좋아요 상태 업데이트
+          setPostData(updatedPostData);
         } catch (error) {
           console.error(
             "데이터베이스에서 좋아요 정보 삭제 중 오류가 발생했습니다:",
@@ -120,7 +130,16 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
             throw new Error("데이터베이스에 좋아요 정보 추가에 실패했습니다.");
           }
           console.log("데이터베이스에 좋아요 정보를 추가했습니다.");
+
+          // Update like count locally by incrementing it
+          const updatedPostData = postdata.map((post) => {
+            if (post.postId === postId) {
+              post.likeCount = String(Number(post.likeCount) + 1);
+            }
+            return post;
+          });
           setLikeStatus({ ...likeStatus, [postId]: true }); // 좋아요 상태 업데이트
+          setPostData(updatedPostData);
         } catch (error) {
           console.error(
             "데이터베이스에 좋아요 정보 추가 중 오류가 발생했습니다:",
