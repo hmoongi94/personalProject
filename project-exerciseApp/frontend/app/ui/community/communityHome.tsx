@@ -30,6 +30,7 @@ interface CommunityHomeProps {
   userId: string | null;
   likedata: LikeData[];
   handleRegisterFeed: () => void;
+  updateLikeCount: (postId: string, change: number) => void;
 }
 
 const CommunityHome: React.FC<CommunityHomeProps> = ({
@@ -37,6 +38,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   userId,
   likedata,
   handleRegisterFeed,
+  updateLikeCount,
 }) => {
   const settings = {
     dots: true,
@@ -98,6 +100,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
           }
           console.log("데이터베이스에서 좋아요 정보를 삭제했습니다.");
           setLikeStatus({ ...likeStatus, [postId]: false }); // 좋아요 상태 업데이트
+          updateLikeCount(postId, -1);
         } catch (error) {
           console.error(
             "데이터베이스에서 좋아요 정보 삭제 중 오류가 발생했습니다:",
@@ -121,6 +124,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
           }
           console.log("데이터베이스에 좋아요 정보를 추가했습니다.");
           setLikeStatus({ ...likeStatus, [postId]: true }); // 좋아요 상태 업데이트
+          updateLikeCount(postId, 1);
         } catch (error) {
           console.error(
             "데이터베이스에 좋아요 정보 추가 중 오류가 발생했습니다:",

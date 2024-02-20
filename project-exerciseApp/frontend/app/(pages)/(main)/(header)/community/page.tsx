@@ -36,6 +36,24 @@ const Community = () => {
     }
   };
 
+  // 게시물의 likeCount를 업데이트 하는 함수
+  const updateLikeCount = (postId: string, change: number) => {
+    setpostData((prevPostData) => {
+      const updatedPostData = prevPostData.map((post) => {
+        if (post.postId === postId) {
+          // change에 따라 likeCount 증가 또는 감소
+          const newLikeCount = parseInt(post.likeCount) + change;
+          return {
+            ...post,
+            likeCount: String(newLikeCount),
+          };
+        }
+        return post;
+      });
+      return updatedPostData;
+    });
+  };
+
   // * Fetch initial Postdata only once
   useEffect(() => {
     const fetchInitialPostData = async () => {
@@ -49,7 +67,7 @@ const Community = () => {
           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
         }
 
-        console.log(postData)
+        // console.log(postData)
         setpostData(postData);
       } catch (error) {
         console.error("데이터를 불러오는 동안 에러발생:", error);
@@ -124,6 +142,7 @@ const Community = () => {
         userId={userId}
         likedata={likeData}
         handleRegisterFeed={handleRegisterFeed}
+        updateLikeCount={updateLikeCount}
       />
     </div>
   );
