@@ -44,6 +44,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+  // console.log(postdata)
 
   //* 좋아요 상태를 관리하는 상태 변수
   const [likeStatus, setLikeStatus] = useState<{ [key: string]: boolean }>({});
