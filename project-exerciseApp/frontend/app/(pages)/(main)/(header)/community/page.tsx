@@ -12,7 +12,7 @@ interface PostData {
   postId: string;
   userIndex: number;
   likeCount: string;
-  commentContent: string|null;
+  commentcontent: string|null;
   commentIndex: number|null;
 }
 

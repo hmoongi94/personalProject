@@ -17,7 +17,7 @@ interface PostData {
   postId: string;
   userIndex: number;
   likeCount: string;
-  commentContent: string | null;
+  commentcontent: string | null;
   commentIndex: number | null;
 }
 
@@ -190,7 +190,11 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   };
 
   const handleCommentButtonClick = (postId: string) => {
-    setShowCommentInput({ ...showCommentInput, [postId]: true });
+    setShowCommentInput({ ...showCommentInput, [postId]: !showCommentInput[postId] });
+    // 댓글 입력창이 열리면서 댓글 내용을 초기화합니다.
+    if (!showCommentInput[postId]) {
+      setCommentInput("");
+    }
   };
 
   const handleCommentSubmit = async (postId: string) => {
@@ -203,7 +207,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            commentContent: commentInput,
+            commentcontent: commentInput,
           }),
         }
       );
@@ -217,7 +221,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
       // 추가된 댓글을 화면에 반영
       const updatedPostData = postdata.map((post) => {
         if (post.postId === postId) {
-          post.commentContent = commentInput;
+          post.commentcontent = commentInput;
         }
         return post;
       });
@@ -322,9 +326,9 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                     </button>
                   </div>
                 )}
-                {post.commentContent && (
+                {post.commentcontent && (
                   <div>
-                    <p>댓글: {post.commentContent}</p>
+                    <p>댓글: {post.commentcontent}</p>
                   </div>
                 )}
               </div>
