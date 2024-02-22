@@ -20,14 +20,16 @@ import caloryPeriodData from "./routes/workoutHistory/caloriesPeriodData";
 import postData from "./routes/community/postdata";
 import userId from "./routes/community/userid";
 import getPostsWithLikes from "./routes/community/getpostswithlikes";
-  // 게시물 편집
+// 게시물 편집
 import deletePost from "./routes/community/deletepost";
 import registerFeed from "./routes/community/registerfeed/registerfeed";
 import editPost from "./routes/community/editpost/editpost";
-  // 좋아요
+// 좋아요
 import likeData from "./routes/community/like/likedata";
 import addLikeData from "./routes/community/like/addlikedata";
 import deleteLikeData from "./routes/community/like/deletelikedata";
+// 댓글
+import commentData from "./routes/community/comment/commentdata";
 
 const app = express();
 const port = 3560;
@@ -66,6 +68,8 @@ app.get("/community/deletepost/:postId", deletePost)
 app.get("/community/likeData", likeData)
 app.post("/community/addLikeData/:postId/:userId", addLikeData)
 app.delete("/community/deleteLikeData/:postId/:userId", deleteLikeData)
+// 댓글
+app.get("/community/commentData", commentData)
 // 피드등록
 app.post("/community/registerFeed", registerFeed);
 // 피드수정

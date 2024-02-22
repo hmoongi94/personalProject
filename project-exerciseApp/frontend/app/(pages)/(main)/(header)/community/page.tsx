@@ -117,6 +117,29 @@ const Community = () => {
     fetchLikeData();
   }, []);
 
+  // * comment 데이터 가져오기
+  useEffect(() => {
+    const fetchCommentData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3560/community/commentData"
+        );
+
+        const commentData = await response.json();
+
+        if (!Array.isArray(commentData)) {
+          throw new Error("데이터 형식 오류: 배열이 아닙니다.");
+        }
+
+        console.log(commentData)
+      } catch (error) {
+        console.error("데이터를 불러오는 동안 에러발생:", error);
+      }
+    };
+
+    fetchCommentData();
+  }, []);
+
   return (
     <div className="w-screen h-[86vh] flex justify-center">
       <CommunityHome
