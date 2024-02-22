@@ -3,15 +3,17 @@ import pool from "../../../database";
 
 const addCommentData = express();
 
-addCommentData.post("/community/addComment/:postId", async (req, res) => {
-  const { postId } = req.params;
+addCommentData.post("/community/addComment/:postId/:userId", async (req, res) => {
+  const { postId, userId } = req.params;
   const { commentcontent } = req.body;
+
+  const commentDate = new Date()
 
   try {
     // 댓글 추가
     const result = await pool.query(
-      "INSERT INTO comment (postIndex, commentcontent) VALUES ((SELECT postIndex FROM post WHERE postId = ?), ?)",
-      [postId, commentcontent]
+      "INSERT INTO comment (postIndex, commentcontent, userId, commentdate) VALUES ((SELECT postIndex FROM post WHERE postId = ?), ?, ?, ?)",
+      [postId, commentcontent, userId, commentDate]
     );
 
     // 클라이언트에 성공적인 응답 전송

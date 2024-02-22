@@ -204,8 +204,14 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
 
   const handleCommentSubmit = async (postId: string) => {
     try {
+      // 댓글이 비어있으면 추가하지 않고 함수 종료
+      if (!commentInput[postId]) {
+        alert("댓글을 입력하세요!")
+        return;
+      }
+
       const response = await fetch(
-        `http://localhost:3560/community/addComment/${postId}`,
+        `http://localhost:3560/community/addComment/${postId}/${userId}`,
         {
           method: "POST",
           headers: {
@@ -231,6 +237,8 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
         return post;
       });
 
+      const data = await response.json();
+      alert(data.message);
       setCommentInput({ ...commentInput, [postId]: "" });
       // setShowCommentInput({ ...showCommentInput, [postId]: false });
     } catch (error) {
