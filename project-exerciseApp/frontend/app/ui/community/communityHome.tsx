@@ -17,8 +17,8 @@ interface PostData {
   postId: string;
   userIndex: number;
   likeCount: string;
-  commentcontent: string | null;
-  commentIndex: number | null;
+  commentContents: string | null;
+  commentIndexs: number | null;
 }
 
 interface LikeData {
@@ -223,10 +223,10 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
 
       const updatedPostData = postdata.map((post) => {
         if (post.postId === postId) {
-          const updatedCommentContent = post.commentcontent
-            ? `${post.commentcontent},${commentInput[postId]}`
+          const updatedCommentContent = post.commentContents
+            ? `${post.commentContents},${commentInput[postId]}`
             : commentInput[postId];
-          post.commentcontent = updatedCommentContent;
+          post.commentContents = updatedCommentContent;
         }
         return post;
       });
@@ -319,8 +319,8 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                 {showCommentInput[post.postId] && (
                   <div>
                     <div>
-                      {post.commentcontent &&
-                        post.commentcontent.split(",").map((comment, idx) => (
+                      {post.commentContents &&
+                        post.commentContents.split(",").map((comment, idx) => (
                           <div key={idx}>
                             <p>댓글: {comment}</p>
                           </div>

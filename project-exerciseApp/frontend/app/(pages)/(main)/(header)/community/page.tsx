@@ -12,8 +12,8 @@ interface PostData {
   postId: string;
   userIndex: number;
   likeCount: string;
-  commentcontent: string|null;
-  commentIndex: number|null;
+  commentContents: string|null;
+  commentIndexs: number|null;
 }
 
 interface LikeData {
