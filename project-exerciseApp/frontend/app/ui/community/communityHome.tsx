@@ -15,8 +15,10 @@ interface PostData {
   imgurl: string;
   userId: string;
   postId: string;
-  userIndex: string;
+  userIndex: number;
   likeCount: string;
+  commentContent: string|null;
+  commentIndex: number|null;
 }
 
 interface LikeData {

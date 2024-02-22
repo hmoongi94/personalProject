@@ -64,12 +64,12 @@ app.get("/community/postData", postData);
 app.get("/userId", userId);
 app.get("/community/deletepost/:postId", deletePost)
 // app.get("/community/likes", getPostsWithLikes)
+
 // 좋아요
 app.get("/community/likeData", likeData)
 app.post("/community/addLikeData/:postId/:userId", addLikeData)
 app.delete("/community/deleteLikeData/:postId/:userId", deleteLikeData)
-// 댓글
-app.get("/community/commentData", commentData)
+
 // 피드등록
 app.post("/community/registerFeed", registerFeed);
 // 피드수정
