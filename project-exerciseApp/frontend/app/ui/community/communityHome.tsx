@@ -180,20 +180,25 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   };
 
   // * 댓글관리
-  const [commentInput, setCommentInput] = useState<string>("");
+  const [commentInput, setCommentInput] = useState<{ [key: string]: string }>(
+    {}
+  );
   const [showCommentInput, setShowCommentInput] = useState<{
     [key: string]: boolean;
   }>({});
 
   const handleCommentInputChange = (postId: string, value: string) => {
-    setCommentInput(value);
+    setCommentInput({ ...commentInput, [postId]: value });
   };
 
   const handleCommentButtonClick = (postId: string) => {
-    setShowCommentInput({ ...showCommentInput, [postId]: !showCommentInput[postId] });
+    setShowCommentInput({
+      ...showCommentInput,
+      [postId]: !showCommentInput[postId],
+    });
     // 댓글 입력창이 열리면서 댓글 내용을 초기화합니다.
     if (!showCommentInput[postId]) {
-      setCommentInput("");
+      setCommentInput({ ...commentInput, [postId]: "" });
     }
   };
 
@@ -221,11 +226,11 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
       // 추가된 댓글을 화면에 반영
       const updatedPostData = postdata.map((post) => {
         if (post.postId === postId) {
-          post.commentcontent = commentInput;
+          post.commentcontent = commentInput[postId];
         }
         return post;
       });
-      setCommentInput(""); // 입력값 초기화
+      setCommentInput({ ...commentInput, [postId]: "" }); // 입력값 초기화
       setShowCommentInput({ ...showCommentInput, [postId]: false }); // 댓글 입력 상태 초기화
     } catch (error) {
       console.error("댓글 추가 중 오류가 발생했습니다:", error);
@@ -308,27 +313,30 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                   className="w-1/2 border"
                   onClick={() => handleCommentButtonClick(post.postId)}
                 >
-                  댓글열기
+                  {showCommentInput[post.postId] ? "댓글접기" : "댓글열기"}
                 </button>
                 {showCommentInput[post.postId] && (
                   <div>
-                    <input
-                      className="text-black"
-                      type="text"
-                      placeholder="댓글을 입력하세요"
-                      value={commentInput}
-                      onChange={(e) =>
-                        handleCommentInputChange(post.postId, e.target.value)
-                      }
-                    />
-                    <button onClick={() => handleCommentSubmit(post.postId)}>
-                      댓글달기
-                    </button>
-                  </div>
-                )}
-                {post.commentcontent && (
-                  <div>
-                    <p>댓글: {post.commentcontent}</p>
+                    <div>
+                      {post.commentcontent && (
+                        <div>
+                          <p>댓글: {post.commentcontent}</p>
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="댓글을 입력하세요"
+                        value={commentInput[post.postId] || ""}
+                        onChange={(e) =>
+                          handleCommentInputChange(post.postId, e.target.value)
+                        }
+                      />
+                      <button onClick={() => handleCommentSubmit(post.postId)}>
+                        댓글달기
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
