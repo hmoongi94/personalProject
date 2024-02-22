@@ -75,7 +75,7 @@ app.post("/community/registerFeed", registerFeed);
 // 피드수정
 app.get("/community/editpost/:postId", editPost)
 // 댓글추가
-app.post("/community/addComment/:postId", addCommentData)
+app.post("/community/addComment/:postId/:userId", addCommentData)
 
 app.listen(port, () => {
   console.log(`Express 서버가 ${port}번 포트에서 실행중입니다.`);
