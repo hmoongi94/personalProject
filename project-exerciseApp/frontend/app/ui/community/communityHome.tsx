@@ -1,6 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
 import PostEditButton from "./postEditButton";
+import Comments from "./comment/comments";
+import CommentForm from "./comment/commentform";
+
 import Link from "next/link";
 import Search from "@/app/lib/utils/search";
 import Slider from "react-slick";
@@ -17,6 +20,12 @@ interface PostData {
   postId: string;
   userIndex: string;
   likeCount: string;
+}
+
+interface Comment {
+  id: string; // 'id' 속성 추가
+  content: string;
+  userId: string;
 }
 
 interface LikeData {
@@ -46,6 +55,9 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   };
   // console.log(postdata)
 
+  // * 댓글 상태를 관리하는 상태 변수
+  const [comments, setComments] = useState<{ [postId: string]: Comment[] }>({});
+
   //* 좋아요 상태를 관리하는 상태 변수
   const [likeStatus, setLikeStatus] = useState<{ [key: string]: boolean }>({});
 
@@ -71,6 +83,20 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   //* 게시물 작성자와 현재 사용자의 아이디를 비교하여 수정 링크 여부 결정
   const isAuthor = (postUserId: string) => {
     return userId === postUserId;
+  };
+
+  //* 댓글 추가 함수
+  const addComment = (postId: string, content: string) => {
+    const newComment: Comment = {
+      id: Math.random().toString(),
+      content,
+      userId: userId || "",
+    };
+    setComments((prevComments) => ({
+      ...prevComments,
+      [postId]: [...(prevComments[postId] || []), newComment],
+    }));
+    // 여기서 데이터베이스에 댓글을 추가하는 로직을 추가해야 합니다.
   };
 
   //* 좋아요 버튼 클릭 시 동작하는 함수
@@ -251,6 +277,8 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                 </button>
                 <button className="w-1/2 border">댓글열기</button>
               </div>
+              <CommentForm postId={post.postId} addComment={addComment} />
+              {/* <Comments comments={comments[post.postId] || []} /> */}
             </div>
           ))}
       </div>
