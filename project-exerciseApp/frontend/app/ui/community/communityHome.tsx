@@ -212,12 +212,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            commentcontent: [
-              ...(postdata
-                .find((post) => post.postId === postId)
-                ?.commentcontent.split(",") || []),
-              commentInput[postId],
-            ],
+            commentcontent: commentInput[postId],
           }),
         }
       );
@@ -226,20 +221,18 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
         throw new Error("댓글을 추가하는데 실패했습니다.");
       }
 
-      console.log("댓글이 성공적으로 추가되었습니다.");
-
       const updatedPostData = postdata.map((post) => {
         if (post.postId === postId) {
-          post.commentcontent = [
-            ...post.commentcontent.split(","),
-            commentInput[postId],
-          ].join(",");
+          const updatedCommentContent = post.commentcontent
+            ? `${post.commentcontent},${commentInput[postId]}`
+            : commentInput[postId];
+          post.commentcontent = updatedCommentContent;
         }
         return post;
       });
 
       setCommentInput({ ...commentInput, [postId]: "" });
-      setShowCommentInput({ ...showCommentInput, [postId]: false });
+      // setShowCommentInput({ ...showCommentInput, [postId]: false });
     } catch (error) {
       console.error("댓글 추가 중 오류가 발생했습니다:", error);
     }
