@@ -324,8 +324,9 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                         </div>
                       )}
                     </div>
-                    <div>
+                    <div className="flex border-2">
                       <input
+                        className="w-1/2 text-black"
                         type="text"
                         placeholder="댓글을 입력하세요"
                         value={commentInput[post.postId] || ""}
@@ -333,9 +334,14 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                           handleCommentInputChange(post.postId, e.target.value)
                         }
                       />
-                      <button onClick={() => handleCommentSubmit(post.postId)}>
-                        댓글달기
-                      </button>
+                      <div className="w-1/2 flex justify-center">
+                        <button
+                          className=""
+                          onClick={() => handleCommentSubmit(post.postId)}
+                        >
+                          댓글달기
+                        </button>
+                      </div>
                     </div>
                   </div>
                 )}
