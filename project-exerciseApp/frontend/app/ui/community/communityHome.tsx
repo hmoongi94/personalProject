@@ -46,7 +46,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  // console.log(postdata)
+  // console.log(postdata);
 
   //* 게시물 작성자와 현재 사용자의 아이디를 비교하여 수정 링크 여부 결정
   const isAuthor = (postUserId: string) => {
@@ -180,6 +180,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   };
 
   // * 댓글관리
+  // 댓글 입력과 관련된 상태 변수 및 함수
   const [commentInput, setCommentInput] = useState<{ [key: string]: string }>(
     {}
   );
@@ -196,7 +197,6 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
       ...showCommentInput,
       [postId]: !showCommentInput[postId],
     });
-    // 댓글 입력창이 열리면서 댓글 내용을 초기화합니다.
     if (!showCommentInput[postId]) {
       setCommentInput({ ...commentInput, [postId]: "" });
     }
@@ -212,7 +212,12 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            commentcontent: commentInput,
+            commentcontent: [
+              ...(postdata
+                .find((post) => post.postId === postId)
+                ?.commentcontent.split(",") || []),
+              commentInput[postId],
+            ],
           }),
         }
       );
@@ -223,15 +228,18 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
 
       console.log("댓글이 성공적으로 추가되었습니다.");
 
-      // 추가된 댓글을 화면에 반영
       const updatedPostData = postdata.map((post) => {
         if (post.postId === postId) {
-          post.commentcontent = commentInput[postId];
+          post.commentcontent = [
+            ...post.commentcontent.split(","),
+            commentInput[postId],
+          ].join(",");
         }
         return post;
       });
-      setCommentInput({ ...commentInput, [postId]: "" }); // 입력값 초기화
-      setShowCommentInput({ ...showCommentInput, [postId]: false }); // 댓글 입력 상태 초기화
+
+      setCommentInput({ ...commentInput, [postId]: "" });
+      setShowCommentInput({ ...showCommentInput, [postId]: false });
     } catch (error) {
       console.error("댓글 추가 중 오류가 발생했습니다:", error);
     }
@@ -246,7 +254,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
           <Search placeholder="검색" />
           <button
             className="ml-4 bg-blue-500 text-white px-4 py-2 rounded"
-            onClick={handleRegisterFeed} // 피드 등록 버튼 클릭 시 핸들러 호출
+            onClick={handleRegisterFeed}
           >
             피드 등록
           </button>
@@ -278,7 +286,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
               </div>
               <div className="mt-2">{post.content}</div>
               <div className="border w-full">
-                {post.imgurl && // 이미지 URL이 존재할 때에만 img 태그 생성
+                {post.imgurl &&
                   (post.imgurl.split(",").length > 1 ? (
                     <Slider {...settings}>
                       {post.imgurl.split(",").map((url, idx) => (
@@ -318,11 +326,12 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                 {showCommentInput[post.postId] && (
                   <div>
                     <div>
-                      {post.commentcontent && (
-                        <div>
-                          <p>댓글: {post.commentcontent}</p>
-                        </div>
-                      )}
+                      {post.commentcontent &&
+                        post.commentcontent.split(",").map((comment, idx) => (
+                          <div key={idx}>
+                            <p>댓글: {comment}</p>
+                          </div>
+                        ))}
                     </div>
                     <div className="flex border-2">
                       <input

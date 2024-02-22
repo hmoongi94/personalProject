@@ -38,7 +38,7 @@ const Community = () => {
     }
   };
 
-  // * Fetch initial Postdata only once
+  // * PostData가져오기
   useEffect(() => {
     const fetchInitialPostData = async () => {
       try {
@@ -51,7 +51,7 @@ const Community = () => {
           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
         }
 
-        console.log(postData)
+        // console.log(postData)
         setpostData(postData);
       } catch (error) {
         console.error("데이터를 불러오는 동안 에러발생:", error);
