@@ -25,7 +25,7 @@ deletePost.get("/community/deletepost/:postId", async (req, res) => {
 
     // 좋아요 레코드 삭제
     await conn.query("DELETE FROM `like` WHERE postIndex = ?", [postIndex]);
-
+    await conn.query("DELETE FROM comment WHERE postIndex = ?", [postIndex])
     // 게시물 레코드 삭제
     const result = await conn.query("DELETE FROM `post` WHERE postId = ?", [
       postId,
