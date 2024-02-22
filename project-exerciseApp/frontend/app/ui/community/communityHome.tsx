@@ -17,8 +17,8 @@ interface PostData {
   postId: string;
   userIndex: number;
   likeCount: string;
-  commentContent: string|null;
-  commentIndex: number|null;
+  commentContent: string | null;
+  commentIndex: number | null;
 }
 
 interface LikeData {
@@ -48,6 +48,11 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   };
   // console.log(postdata)
 
+  //* 게시물 작성자와 현재 사용자의 아이디를 비교하여 수정 링크 여부 결정
+  const isAuthor = (postUserId: string) => {
+    return userId === postUserId;
+  };
+
   //* 좋아요 상태를 관리하는 상태 변수
   const [likeStatus, setLikeStatus] = useState<{ [key: string]: boolean }>({});
 
@@ -69,11 +74,6 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
     });
     setLikeStatus(initialLikeStatus);
   }, [likedata, postdata, userId]);
-
-  //* 게시물 작성자와 현재 사용자의 아이디를 비교하여 수정 링크 여부 결정
-  const isAuthor = (postUserId: string) => {
-    return userId === postUserId;
-  };
 
   //* 좋아요 버튼 클릭 시 동작하는 함수
   const handleLikeButtonClicked = async (postId: string) => {
@@ -179,6 +179,55 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
     }
   };
 
+  // * 댓글관리
+  const [commentInput, setCommentInput] = useState<string>("");
+  const [showCommentInput, setShowCommentInput] = useState<{
+    [key: string]: boolean;
+  }>({});
+
+  const handleCommentInputChange = (postId: string, value: string) => {
+    setCommentInput(value);
+  };
+
+  const handleCommentButtonClick = (postId: string) => {
+    setShowCommentInput({ ...showCommentInput, [postId]: true });
+  };
+
+  const handleCommentSubmit = async (postId: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3560/community/addComment/${postId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            commentContent: commentInput,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("댓글을 추가하는데 실패했습니다.");
+      }
+
+      console.log("댓글이 성공적으로 추가되었습니다.");
+
+      // 추가된 댓글을 화면에 반영
+      const updatedPostData = postdata.map((post) => {
+        if (post.postId === postId) {
+          post.commentContent = commentInput;
+        }
+        return post;
+      });
+      setCommentInput(""); // 입력값 초기화
+      setShowCommentInput({ ...showCommentInput, [postId]: false }); // 댓글 입력 상태 초기화
+    } catch (error) {
+      console.error("댓글 추가 중 오류가 발생했습니다:", error);
+    }
+  };
+
   return (
     <div className="instagram-main flex flex-col items-center w-3/5 mt-5 mb-5">
       {/* 네비게이션 바 */}
@@ -251,7 +300,33 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                 >
                   {likeStatus[post.postId] ? "좋아해요!" : "좋아요!"}
                 </button>
-                <button className="w-1/2 border">댓글열기</button>
+                <button
+                  className="w-1/2 border"
+                  onClick={() => handleCommentButtonClick(post.postId)}
+                >
+                  댓글열기
+                </button>
+                {showCommentInput[post.postId] && (
+                  <div>
+                    <input
+                      className="text-black"
+                      type="text"
+                      placeholder="댓글을 입력하세요"
+                      value={commentInput}
+                      onChange={(e) =>
+                        handleCommentInputChange(post.postId, e.target.value)
+                      }
+                    />
+                    <button onClick={() => handleCommentSubmit(post.postId)}>
+                      댓글달기
+                    </button>
+                  </div>
+                )}
+                {post.commentContent && (
+                  <div>
+                    <p>댓글: {post.commentContent}</p>
+                  </div>
+                )}
               </div>
             </div>
           ))}
