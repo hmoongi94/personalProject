@@ -198,6 +198,19 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
       });
   };
 
+  // Format the countdown into hh:mm:ss
+  const formatTime = (time: number): string => {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = time % 60;
+
+    const hoursStr = String(hours).padStart(2, "0");
+    const minutesStr = String(minutes).padStart(2, "0");
+    const secondsStr = String(seconds).padStart(2, "0");
+
+    return `${hoursStr}:${minutesStr}:${secondsStr}`;
+  };
+
   return (
     <div className="w-full h-[80vh] flex justify-evenly items-center">
       <div className="h-full flex justify-center items-center">
@@ -238,9 +251,6 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
           />
         </label>
 
-        {/* 진행 세트 수 표시 */}
-        {/* <p className="mb-2">Set Execution Count: {executionCount}</p> */}
-
         {tags.map((tag, index) => (
           <React.Fragment key={index}>{tag}</React.Fragment>
         ))}
@@ -269,7 +279,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
       {/* 휴식 타이머 */}
       <div>
         <h1 className="text-2xl font-bold mb-4">
-          BreakTime: {countdown} seconds
+          BreakTime: {formatTime(countdown)}
         </h1>
         <label className="flex items-center mb-4">
           Countdown:

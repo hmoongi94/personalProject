@@ -31,7 +31,7 @@ export default function Header() {
     <header className="w-full flex border-b-2 border-wine p-4 justify-between">
       <Link href="/">
         <h1
-          className="text-xl cursor-pointer text-gray-950"
+          className="text-xl cursor-pointer text-white-950"
           onClick={handleClick}
         >
           Home
