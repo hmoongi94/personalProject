@@ -38,10 +38,10 @@ customerSignup.post("/signup", async (req, res) => {
       "SELECT * FROM user WHERE userId = ?",
       [userId]
     );
-    // console.log([existingUser])
+    console.log(existingUser)
 
     // 이미 존재하는 아이디인 경우 회원가입 막기
-    if ([existingUser].length > 0) {
+    if (existingUser && [existingUser].length > 0) {
       return res
         .status(252)
         .json({ success: false, message: "이미 존재하는 아이디입니다." });

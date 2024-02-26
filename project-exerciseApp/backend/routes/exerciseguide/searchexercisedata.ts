@@ -17,7 +17,7 @@ searchexercisedata.get("/searchexercisedata", async (req, res) => {
         "SELECT * FROM exercise WHERE name LIKE ? OR category LIKE ?",
         [`%${searchData}%`, `%${searchData}%`]
       );
-      console.log(result);
+      // console.log(result);
       res.status(200).json(result);
     } else {
       const result = await conn.query("SELECT * FROM exercise", [searchData]);
