@@ -18,7 +18,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   const exerciseNames = initialExerciseData.map((exercise) => exercise.name);
 
   // * 상태들
-  const [countdown, setCountdown] = useState(0);
+  const [countdown, setCountdown] = useState<number | null>(null);
   const [initialCountdown, setInitialCountdown] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [executionCount, setExecutionCount] = useState(0);
@@ -27,7 +27,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
 
   // * 새로고침
   const handleRefresh = () => {
-    setCountdown(0);
+    setCountdown(null);
     setInitialCountdown(0);
     setIsActive(false);
     setExecutionCount(0);
@@ -41,9 +41,14 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
-    if (isActive && countdown > 0) {
+    if (isActive && countdown !== null && countdown > 0) {
       intervalId = setInterval(() => {
-        setCountdown((prevCountdown) => prevCountdown - 1);
+        setCountdown((prevCountdown) => {
+          if (prevCountdown !== null && prevCountdown > 0) {
+            return prevCountdown - 1;
+          }
+          return prevCountdown;
+        });
       }, 1000);
     }
 
@@ -201,16 +206,17 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   };
 
   // Format the countdown into hh:mm:ss
-  const formatTime = (time: number): string => {
-    const hours = Math.floor(time / 3600);
-    const minutes = Math.floor((time % 3600) / 60);
-    const seconds = time % 60;
+  const formatTime = (timeInSeconds: number | null): string => {
+    if (timeInSeconds === null) {
+      return "00:00:00";
+    }
+    const hours = Math.floor(timeInSeconds / 3600);
+    const minutes = Math.floor((timeInSeconds % 3600) / 60);
+    const seconds = timeInSeconds % 60;
 
-    const hoursStr = String(hours).padStart(2, "0");
-    const minutesStr = String(minutes).padStart(2, "0");
-    const secondsStr = String(seconds).padStart(2, "0");
-
-    return `${hoursStr}:${minutesStr}:${secondsStr}`;
+    return `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
   return (
