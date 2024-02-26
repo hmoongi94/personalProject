@@ -1,15 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
+import { useParams } from "next/navigation";
 
 interface EditPostProps {
   initialContent: string;
   initialImages: string; // 이미지 URL 문자열
 }
 
-const EditPost: React.FC<EditPostProps> = ({ initialContent, initialImages }) => {
+const EditPost: React.FC<EditPostProps> = ({
+  initialContent,
+  initialImages,
+}) => {
   const [content, setContent] = React.useState<string>(initialContent);
   const [images, setImages] = React.useState<File[]>([]);
-  const [previewUrls, setPreviewUrls] = React.useState<string[]>(initialImages.split(","));
+  const [previewUrls, setPreviewUrls] = React.useState<string[]>(
+    initialImages.split(",")
+  );
+  const { postId } = useParams(); // postId 가져오기
+  // console.log(postId)
+
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
@@ -47,9 +56,48 @@ const EditPost: React.FC<EditPostProps> = ({ initialContent, initialImages }) =>
   };
 
   const handleUpdate = async () => {
-    // 수정된 내용을 서버로 보내어 업데이트하는 로직 작성
-    console.log("Updated content:", content);
-    console.log("Updated images:", images);
+    try {
+      const token = localStorage.getItem("token"); // 사용자 토큰 가져오기
+  
+      // 토큰이 없을 경우 alert 창 띄우기
+      if (!token) {
+        const userConfirmed = window.confirm(
+          "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?"
+        );
+        if (userConfirmed) {
+          window.location.href = "/login";
+        }
+        return;
+      }
+  
+      const formData = new FormData();
+      formData.append("content", content);
+  
+      for (let i = 0; i < images.length; i++) {
+        formData.append(`image${i}`, images[i]);
+      }
+  
+      const response = await fetch(`http://localhost:3560/community/editFeed/${postId}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // Content-Type을 명시적으로 지정
+          "Content-Type": "multipart/form-data",
+        },
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to update.");
+      }
+  
+      console.log("Post updated successfully:", response);
+      alert("게시물이 업데이트되었습니다.");
+      // 업데이트 후 필요한 작업 수행, 예: 페이지 리로드 등
+    } catch (error) {
+      console.error("Error updating post:");
+      alert("게시물 업데이트에 실패했습니다.");
+    }
   };
 
   return (
@@ -89,7 +137,12 @@ const EditPost: React.FC<EditPostProps> = ({ initialContent, initialImages }) =>
               alt={`Preview ${index}`}
               style={{ width: "14vw", height: "12vw" }}
             />
-            <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={() => handleRemoveImage(index)}>delete</button>
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded"
+              onClick={() => handleRemoveImage(index)}
+            >
+              delete
+            </button>
           </div>
         ))}
       </div>

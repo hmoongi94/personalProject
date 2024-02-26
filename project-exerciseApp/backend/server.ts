@@ -24,6 +24,7 @@ import getPostsWithLikes from "./routes/community/getpostswithlikes";
 import deletePost from "./routes/community/deletepost";
 import registerFeed from "./routes/community/registerfeed/registerfeed";
 import editPost from "./routes/community/editpost/editpost";
+import editFeed from "./routes/community/editpost/editfeed";
 // 좋아요
 import likeData from "./routes/community/like/likedata";
 import addLikeData from "./routes/community/like/addlikedata";
@@ -74,6 +75,7 @@ app.delete("/community/deleteLikeData/:postId/:userId", deleteLikeData)
 app.post("/community/registerFeed", registerFeed);
 // 피드수정
 app.get("/community/editpost/:postId", editPost)
+app.post("/community/editFeed/:postId", editFeed)
 // 댓글추가
 app.post("/community/addComment/:postId/:userId", addCommentData)
 
