@@ -4,9 +4,10 @@ import React, { FC } from "react";
 interface InputTextProps {
   title: string;
   inputchange: (value: string) => void;
+  type: string;
 }
 
-const InputText: FC<InputTextProps> = ({ title, inputchange }) => {
+const InputText: FC<InputTextProps> = ({ type, title, inputchange }) => {
   return (
     <div className="flex h-20 m-2 w-full justify-between">
       <label
@@ -16,7 +17,7 @@ const InputText: FC<InputTextProps> = ({ title, inputchange }) => {
         {`${title} :`}
       </label>
       <input
-        type="text"
+        type={`${type}`}
         id="Idiputtext"
         className="w-3/5 border-solid border-2 text-slate-900"
         onChange={(e) => {

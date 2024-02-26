@@ -64,26 +64,31 @@ const SignUpHome: React.FC = () => {
     <div className="flex justify-center items-center flex-col w-2/6 h-2/5">
       <div className="h-5/6 flex flex-col justify-between w-full">
         <InputText
+          type="text"
           title="ID"
           inputchange={(value: string) => handleInputChange("userId", value)}
         />
         <InputText
+          type="password"
           title="Password"
           inputchange={(value: string) =>
             handleInputChange("userPassword", value)
           }
         />
         <InputText
+          type="password"
           title="Password1"
           inputchange={(value: string) =>
             handleInputChange("userPassword1", value)
           }
         />
         <InputText
+          type="text"
           title="EMAIL"
           inputchange={(value: string) => handleInputChange("userEmail", value)}
         />
         <InputText
+          type="text"
           title="PHONE NUMBER"
           inputchange={(value: string) =>
             handleInputChange("userPhoneNumber", value)
