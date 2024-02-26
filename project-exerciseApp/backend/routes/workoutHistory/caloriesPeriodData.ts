@@ -21,6 +21,7 @@ caloryPeriodData.post("/workoutHistory/periodData/calories", async (req, res) =>
       "SELECT e.name, SUM(e.caloryPerReps * r.totalReps) as caloryPerRepsTotal, SUM(r.totalReps) as totalReps, SUM(r.totalSets) as totalSets FROM record r JOIN exercise e ON r.exerciseIndex = e.exerciseIndex WHERE r.userIndex = ? AND r.date BETWEEN ? AND ? GROUP BY e.name",
       [userIndex, startDate, endDate]
     );
+    // console.log(rawData)
 
     const result = rawData.map(
       (entry: { name: string; caloryPerRepsTotal: string }) => ({
