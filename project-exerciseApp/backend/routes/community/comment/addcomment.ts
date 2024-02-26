@@ -6,10 +6,16 @@ const addCommentData = express();
 addCommentData.post("/community/addComment/:postId/:userId", async (req, res) => {
   const { postId, userId } = req.params;
   const { commentcontent } = req.body;
+  console.log(userId)
+  console.log(typeof(userId))
 
   const commentDate = new Date()
 
   try {
+    if(userId === 'null'){
+      res.status(200).json({message:"로그인이 필요합니다."})
+      return;
+    }
     // 댓글 추가
     const result = await pool.query(
       "INSERT INTO comment (postIndex, commentcontent, userId, commentdate) VALUES ((SELECT postIndex FROM post WHERE postId = ?), ?, ?, ?)",

@@ -206,7 +206,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
     try {
       // 댓글이 비어있으면 추가하지 않고 함수 종료
       if (!commentInput[postId]) {
-        alert("댓글을 입력하세요!")
+        alert("댓글을 입력하세요!");
         return;
       }
 
@@ -238,7 +238,17 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
       });
 
       const data = await response.json();
-      alert(data.message);
+
+      if (data.message === "로그인이 필요합니다.") {
+        const confirmLogin = window.confirm(
+          "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?"
+        );
+        if (confirmLogin) {
+          // 로그인 페이지로 이동
+          window.location.href = "/login";
+        }
+        return
+      }
       setCommentInput({ ...commentInput, [postId]: "" });
       // setShowCommentInput({ ...showCommentInput, [postId]: false });
     } catch (error) {
