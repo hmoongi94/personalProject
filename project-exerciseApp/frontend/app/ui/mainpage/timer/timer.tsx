@@ -57,6 +57,8 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
     if (countdown === 0) {
       setIsActive(false);
       setCountdown(initialCountdown);
+      // Countdown이 0이 되었을 때 메시지 띄우기
+      window.alert("휴식 끝! 운동을 다시 시작하세요~");
     }
   }, [countdown, initialCountdown]);
 
@@ -297,7 +299,11 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
             } text-white px-4 py-2 rounded`}
             onClick={handleStartStop}
           >
-            {isActive ? "Pause" : "SetDone-BreaktimeStart"}
+            {isActive
+              ? "Pause"
+              : initialCountdown === countdown
+              ? "SetDone-BreaktimeStart"
+              : "Resume"}
           </button>
           <button
             className="bg-red-500 text-white px-4 py-2 rounded"
