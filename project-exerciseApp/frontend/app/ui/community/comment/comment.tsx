@@ -4,12 +4,14 @@ interface Post {
   userId: string;
   commentContents: string | null;
   commentDates: string | null;
+  commentuserId: string | null;
 }
 
 const Comment: React.FC<{ post: Post }> = ({ post }) => {
-  if (post.commentContents && post.commentDates) {
+  if (post.commentContents && post.commentDates && post.commentuserId) {
     const comments: string[] = post.commentContents.split(",");
     const dates: string[] = post.commentDates.split(",");
+    const commentUserId: string[] = post.commentuserId.split(",");
 
     const cleanedDates = dates.map((date) => {
       const parts = date.split(":"); // ":" 문자를 기준으로 분리
@@ -25,7 +27,7 @@ const Comment: React.FC<{ post: Post }> = ({ post }) => {
         {comments.map((comment, i) => (
           <div key={i}>
             <p>
-              {post.userId}: {comment} {cleanedDates[i]}
+              {commentUserId[i]}: {comment} {cleanedDates[i]}
             </p>
           </div>
         ))}
