@@ -19,7 +19,6 @@ const EditPost: React.FC<EditPostProps> = ({
   const { postId } = useParams(); // postId 가져오기
   // console.log(postId)
 
-
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     if (fileList) {
@@ -58,7 +57,7 @@ const EditPost: React.FC<EditPostProps> = ({
   const handleUpdate = async () => {
     try {
       const token = localStorage.getItem("token"); // 사용자 토큰 가져오기
-  
+
       // 토큰이 없을 경우 alert 창 띄우기
       if (!token) {
         const userConfirmed = window.confirm(
@@ -69,30 +68,30 @@ const EditPost: React.FC<EditPostProps> = ({
         }
         return;
       }
-  
-      const formData = new FormData();
-      formData.append("content", content);
-  
-      for (let i = 0; i < images.length; i++) {
-        formData.append(`image${i}`, images[i]);
-      }
-  
-      const response = await fetch(`http://localhost:3560/community/editFeed/${postId}`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          // Content-Type을 명시적으로 지정
-          "Content-Type": "multipart/form-data",
-        },
-        body: formData,
-      });
-  
+
+      const requestBody = {
+        content: content,
+      };
+
+      const response = await fetch(
+        `http://localhost:3560/community/editFeed/${postId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
       if (!response.ok) {
         throw new Error("Failed to update.");
       }
-  
+
       console.log("Post updated successfully:", response);
       alert("게시물이 업데이트되었습니다.");
+      window.location.href = "/community";
       // 업데이트 후 필요한 작업 수행, 예: 페이지 리로드 등
     } catch (error) {
       console.error("Error updating post:");
