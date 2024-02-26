@@ -13,7 +13,7 @@ interface PostData {
   userIndex: number;
   likeCount: string;
   commentContents: string|null;
-  commentIndexs: number|null;
+  commentDates: string|null;
 }
 
 interface LikeData {

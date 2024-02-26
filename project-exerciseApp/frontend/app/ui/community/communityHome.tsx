@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import "./community.css";
+import Comment from "./comment/comment";
 
 interface PostData {
   content: string;
@@ -18,7 +19,7 @@ interface PostData {
   userIndex: number;
   likeCount: string;
   commentContents: string | null;
-  commentIndexs: number | null;
+  commentDates: string | null;
 }
 
 interface LikeData {
@@ -336,14 +337,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                 </button>
                 {showCommentInput[post.postId] && (
                   <div>
-                    <div>
-                      {post.commentContents &&
-                        post.commentContents.split(",").map((comment, idx) => (
-                          <div key={idx}>
-                            <p>댓글: {comment}</p>
-                          </div>
-                        ))}
-                    </div>
+                    <div>{post.commentContents && <Comment post={post} />}</div>
                     <div className="flex border-2">
                       <input
                         className="w-1/2 text-black"
