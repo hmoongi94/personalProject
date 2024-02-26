@@ -210,6 +210,17 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
         return;
       }
 
+      if (!userId) {
+        const confirmLogin = window.confirm(
+          "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?"
+        );
+        if (confirmLogin) {
+          // 로그인 페이지로 이동
+          window.location.href = "/login";
+        }
+        return;
+      }
+
       const response = await fetch(
         `http://localhost:3560/community/addComment/${postId}/${userId}`,
         {
@@ -238,17 +249,6 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
       });
 
       const data = await response.json();
-
-      if (data.message === "로그인이 필요합니다.") {
-        const confirmLogin = window.confirm(
-          "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?"
-        );
-        if (confirmLogin) {
-          // 로그인 페이지로 이동
-          window.location.href = "/login";
-        }
-        return
-      }
       setCommentInput({ ...commentInput, [postId]: "" });
       // setShowCommentInput({ ...showCommentInput, [postId]: false });
     } catch (error) {
