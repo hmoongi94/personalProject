@@ -20,7 +20,7 @@ interface PostData {
   likeCount: string;
   commentContents: string | null;
   commentDates: string | null;
-  commentuserId: string |null;
+  commentuserId: string | null;
 }
 
 interface LikeData {
@@ -186,6 +186,13 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   const [commentInput, setCommentInput] = useState<{ [key: string]: string }>(
     {}
   );
+  const [commentDates, setCommentDates] = useState<{ [key: string]: string[] }>(
+    {}
+  );
+  const [commentUserId, setCommentUserId] = useState<{
+    [key: string]: string[];
+  }>({});
+
   const [showCommentInput, setShowCommentInput] = useState<{
     [key: string]: boolean;
   }>({});
@@ -246,6 +253,26 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
             ? `${post.commentContents},${commentInput[postId]}`
             : commentInput[postId];
           post.commentContents = updatedCommentContent;
+
+          // 추가된 부분
+          const updatedCommentuserId = post.commentuserId
+            ? `${post.commentuserId},${userId}`
+            : userId;
+          post.commentuserId = updatedCommentuserId;
+
+          const currentDate = new Date();
+          const formattedDate = `${currentDate.getFullYear()}-${
+            currentDate.getMonth() + 1
+          }-${currentDate.getDate()} ${currentDate.getHours()}:${
+            currentDate.getMinutes() < 10
+              ? "0" + currentDate.getMinutes()
+              : currentDate.getMinutes()
+          }`;
+
+          const updatedCommentdate = post.commentDates
+            ? `${post.commentDates},${formattedDate}`
+            : formattedDate;
+          post.commentDates = updatedCommentdate;
         }
         return post;
       });
