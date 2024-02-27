@@ -249,6 +249,9 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
         throw new Error("댓글을 추가하는데 실패했습니다.");
       }
 
+      const data = await response.json();
+      // console.log(data)
+
       const updatedPostData = postdata.map((post) => {
         if (post.postId === postId) {
           const updatedCommentContent = post.commentContents
@@ -275,11 +278,16 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
             ? `${post.commentDates},${formattedDate}`
             : formattedDate;
           post.commentDates = updatedCommentdate;
+
+          // 추가된 부분: data.commentIndex를 post의 commentIndexes에 추가
+          const updatedCommentIndexes = post.commentIndexes
+            ? `${post.commentIndexes},${data.commentIndex}`
+            : `${data.commentIndex}`;
+          post.commentIndexes = updatedCommentIndexes;
         }
         return post;
       });
 
-      const data = await response.json();
       setCommentInput({ ...commentInput, [postId]: "" });
       // setShowCommentInput({ ...showCommentInput, [postId]: false });
     } catch (error) {
@@ -302,7 +310,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
       if (!response.ok) {
         throw new Error("댓글 삭제에 실패했습니다.");
       }
-      alert("댓글을 삭제했습니다.")
+      alert("댓글을 삭제했습니다.");
       window.location.reload();
 
       // Update locally by removing the deleted comment

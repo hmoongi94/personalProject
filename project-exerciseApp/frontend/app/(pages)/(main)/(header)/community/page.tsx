@@ -12,10 +12,10 @@ interface PostData {
   postId: string;
   userIndex: number;
   likeCount: string;
-  commentContents: string|null;
-  commentDates: string|null;
-  commentuserId: string|null;
-  commentIndexes: string|null;
+  commentContents: string | null;
+  commentDates: string | null;
+  commentuserId: string | null;
+  commentIndexes: string | null;
 }
 
 interface LikeData {
@@ -27,6 +27,8 @@ const Community = () => {
   const [postData, setpostData] = useState<PostData[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
   const [likeData, setlikeData] = useState<LikeData[]>([]);
+
+  const [refreshData, setRefreshData] = useState(false);
 
   const handleRegisterFeed = () => {
     const token = localStorage.getItem("token");
@@ -53,7 +55,7 @@ const Community = () => {
           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
         }
 
-        // console.log(postData)
+        console.log(postData)
         setpostData(postData);
       } catch (error) {
         console.error("데이터를 불러오는 동안 에러발생:", error);
@@ -61,7 +63,12 @@ const Community = () => {
     };
 
     fetchInitialPostData();
-  }, []);
+  }, [refreshData]);
+
+  const handleRefreshData = () => {
+    // 버튼 클릭 시 refreshData를 토글하여 useEffect를 다시 실행
+    setRefreshData((prev) => !prev);
+  };
 
   // * userId 가져오기
   useEffect(() => {
