@@ -31,6 +31,8 @@ import addLikeData from "./routes/community/like/addlikedata";
 import deleteLikeData from "./routes/community/like/deletelikedata";
 // 댓글추가
 import addCommentData from "./routes/community/comment/addcomment";
+// 댓글삭제
+import deleteCommentData from "./routes/community/comment/deletecomment";
 
 const app = express();
 const port = 3560;
@@ -78,6 +80,8 @@ app.get("/community/editpost/:postId", editPost)
 app.post("/community/editFeed/:postId", updateFeed)
 // 댓글추가
 app.post("/community/addComment/:postId/:userId", addCommentData)
+// 댓글삭제
+app.delete("/community/deleteComment/:postId/:commentId", deleteCommentData)
 
 app.listen(port, () => {
   console.log(`Express 서버가 ${port}번 포트에서 실행중입니다.`);

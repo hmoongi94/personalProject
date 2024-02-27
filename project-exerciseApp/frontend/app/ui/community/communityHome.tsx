@@ -21,6 +21,7 @@ interface PostData {
   commentContents: string | null;
   commentDates: string | null;
   commentuserId: string | null;
+  commentIndexes: string | null;
 }
 
 interface LikeData {
@@ -211,6 +212,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
     }
   };
 
+  // * 댓글 등록
   const handleCommentSubmit = async (postId: string) => {
     try {
       // 댓글이 비어있으면 추가하지 않고 함수 종료
@@ -282,6 +284,49 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
       // setShowCommentInput({ ...showCommentInput, [postId]: false });
     } catch (error) {
       console.error("댓글 추가 중 오류가 발생했습니다:", error);
+    }
+  };
+
+  // * 댓글 삭제
+  const handleDeleteComment = async (postId: string, commentIndex: number) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3560/community/deleteComment/${postId}/${commentIndex}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("댓글 삭제에 실패했습니다.");
+      }
+      alert("댓글을 삭제했습니다.")
+      window.location.reload();
+
+      // Update locally by removing the deleted comment
+      const updatedPostData = postdata.map((post) => {
+        if (post.postId === postId) {
+          const comments: string[] = post.commentContents?.split(",") || [];
+          const dates: string[] = post.commentDates?.split(",") || [];
+          const commentUserId: string[] = post.commentuserId?.split(",") || [];
+
+          comments.splice(commentIndex, 1);
+          dates.splice(commentIndex, 1);
+          commentUserId.splice(commentIndex, 1);
+
+          post.commentContents = comments.join(",");
+          post.commentDates = dates.join(",");
+          post.commentuserId = commentUserId.join(",");
+        }
+        return post;
+      });
+
+      // Update state
+      // setPostData(updatedPostData);
+    } catch (error) {
+      console.error("댓글 삭제 중 오류가 발생했습니다:", error);
     }
   };
 
@@ -365,7 +410,14 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                 </button>
                 {showCommentInput[post.postId] && (
                   <div>
-                    <div>{post.commentContents && <Comment post={post} />}</div>
+                    <div>
+                      {post.commentContents && (
+                        <Comment
+                          onDeleteComment={handleDeleteComment}
+                          post={post}
+                        />
+                      )}
+                    </div>
                     <div className="flex border-2">
                       <input
                         className="w-1/2 text-black"
