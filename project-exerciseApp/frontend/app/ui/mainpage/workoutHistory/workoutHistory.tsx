@@ -157,10 +157,10 @@ const WorkoutHistory: React.FC = () => {
       <h1 className="text-3xl mb-10">Workout History</h1>
       <div className="flex justify-center items-center">
         <div>
-          <button onClick={() => setShowCalendar(true)}>
-            Show day record/
+          <button className="bg-pink-500 text-white px-4 py-2 rounded mr-2" onClick={() => setShowCalendar(true)}>
+            Show day record
           </button>
-          <button onClick={() => setShowCalendar(false)}>
+          <button  className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => setShowCalendar(false)}>
             Data inqury by period
           </button>
           {showCalendar ? (
