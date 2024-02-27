@@ -415,6 +415,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                         <Comment
                           onDeleteComment={handleDeleteComment}
                           post={post}
+                          currentuser={userId}
                         />
                       )}
                     </div>

@@ -9,12 +9,23 @@ interface Post {
   postId: string;
 }
 
-const Comment: React.FC<{ post: Post, onDeleteComment: (postId: string, commentId: number) => void }> = ({ post, onDeleteComment }) => {
-  if (post.commentContents && post.commentDates && post.commentuserId&& post.commentIndexes) {
+const Comment: React.FC<{
+  post: Post;
+  currentuser: string | null;
+  onDeleteComment: (postId: string, commentId: number) => void;
+}> = ({ post, currentuser, onDeleteComment }) => {
+  // console.log(currentuser)
+
+  if (
+    post.commentContents &&
+    post.commentDates &&
+    post.commentuserId &&
+    post.commentIndexes
+  ) {
     const comments: string[] = post.commentContents.split(",");
     const dates: string[] = post.commentDates.split(",");
     const commentUserId: string[] = post.commentuserId.split(",");
-    const commentIndexes: number[] = post.commentIndexes.split(",").map(Number)
+    const commentIndexes: number[] = post.commentIndexes.split(",").map(Number);
 
     const cleanedDates = dates.map((date) => {
       const parts = date.split(":");
@@ -37,7 +48,14 @@ const Comment: React.FC<{ post: Post, onDeleteComment: (postId: string, commentI
           <div key={i}>
             <p>
               {commentUserId[i]}: {comment} {cleanedDates[i]}
-              <button className="border text-white rounded" onClick={() => handleDelete(post.postId, commentIndexes[i])}>삭제</button>
+              {currentuser === commentUserId[i] && ( // userId와 post.userId 비교
+                <button
+                  className="border text-white rounded"
+                  onClick={() => handleDelete(post.postId, commentIndexes[i])}
+                >
+                  삭제
+                </button>
+              )}
             </p>
           </div>
         ))}
