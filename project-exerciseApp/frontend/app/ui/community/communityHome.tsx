@@ -343,9 +343,9 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
             <div className="w-1/2 border" key={index}>
               <PostHeader
                 postId={post.postId}
-                userId={post.userId}
-                date={post.date}
-                isAuthor={() => isAuthor(post.userId)} // isAuthor 함수 전달
+                postUserId={post.userId}
+                postDate={post.date}
+                isAuthor={() => isAuthor(post.userId)}  // isAuthor 함수를 전달하면서 post의 userId를 함께 전달
               />
               <div className="mt-2">{post.content}</div>
               <div className="border w-full">

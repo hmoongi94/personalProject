@@ -4,15 +4,15 @@ import PostEditButton from "./postEditButton";
 
 interface PostHeaderProps {
   postId: string;
-  userId: string;
-  date: string;
+  postUserId: string;
+  postDate: string;
   isAuthor: (postUserId: string) => boolean;
 }
 
 const PostHeader: React.FC<PostHeaderProps> = ({
   postId,
-  userId,
-  date,
+  postUserId,
+  postDate,
   isAuthor,
 }) => {
   const handleDeletePost = async (postId: string) => {
@@ -43,13 +43,13 @@ const PostHeader: React.FC<PostHeaderProps> = ({
         className="w-12 h-12 rounded-full"
       />
       <div className="w-3/4 mr-24">
-        <div className="text-sm mt-2">{userId}</div>
-        <div className="text-sm">{date}</div>
+        <div className="text-sm mt-2">{postUserId}</div>
+        <div className="text-sm">{postDate}</div>
       </div>
       {/* isAuthor 함수를 직접 전달 */}
       <PostEditButton
         postId={postId}
-        isAuthor={isAuthor(userId)}
+        isAuthor={isAuthor(postUserId)}
         handleDeletePost={handleDeletePost}
       />
     </div>
