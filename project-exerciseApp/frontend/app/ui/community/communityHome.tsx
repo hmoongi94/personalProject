@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
-import PostEditButton from "./postEditButton";
+import PostHeader from "./postHeader";
 import Link from "next/link";
 import Search from "@/app/lib/utils/search";
 import Slider from "react-slick";
@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import "./community.css";
 import Comment from "./comment/comment";
+import PostEditButton from "./postEditButton";
 
 interface PostData {
   content: string;
@@ -158,27 +159,6 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
         // 로그인 페이지로 이동
         window.location.href = "/login";
       }
-    }
-  };
-
-  // * 게시물 삭제
-  const handleDeletePost = async (postId: string) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3560/community/deletepost/${postId}`,
-        {
-          method: "GET",
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("게시물을 삭제하는데 실패했습니다.");
-      }
-
-      // 삭제 성공 시 화면 갱신
-      window.location.reload();
-    } catch (error) {
-      console.error("게시물 삭제 중 오류가 발생했습니다:", error);
     }
   };
 
@@ -361,22 +341,12 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
           .reverse()
           .map((post, index) => (
             <div className="w-1/2 border" key={index}>
-              <div className="flex justify-between">
-                <img
-                  src="profile/기본프로필사진.webp"
-                  alt="프로필사진"
-                  className="w-12 h-12 rounded-full"
-                />
-                <div className="w-3/4 mr-24">
-                  <div className="text-sm mt-2">{post.userId}</div>
-                  <div className="text-sm">{post.date}</div>
-                </div>
-                <PostEditButton
-                  postId={post.postId}
-                  isAuthor={isAuthor(post.userId)}
-                  handleDeletePost={handleDeletePost}
-                />
-              </div>
+              <PostHeader
+                postId={post.postId}
+                userId={post.userId}
+                date={post.date}
+                isAuthor={() => isAuthor(post.userId)} // isAuthor 함수 전달
+              />
               <div className="mt-2">{post.content}</div>
               <div className="border w-full">
                 {post.imgurl &&
