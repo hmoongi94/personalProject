@@ -81,6 +81,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
               post.likeCount = String(Number(post.likeCount) - 1);
             }
             return post;
+            
           });
     
           setLikeStatus({ ...likeStatus, [postId]: false }); // 전역 좋아요 상태 업데이트
