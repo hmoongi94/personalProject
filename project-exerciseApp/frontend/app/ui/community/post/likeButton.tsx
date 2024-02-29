@@ -24,6 +24,7 @@ interface LikeButtonProps {
   userId: string | null;
   likedata: LikeData[];
   postdata: PostData[];
+  likeStatus: { [key: string]: boolean };
   setLikeStatus: React.Dispatch<
     React.SetStateAction<{ [key: string]: boolean }>
   >;
@@ -34,14 +35,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({
   userId,
   likedata,
   postdata,
+  likeStatus,
   setLikeStatus,
 }) => {
-  const [likeStatus, setLikeStatusLocally] = useState<{
-    [key: string]: boolean;
-  }>({
-    [postId]: false, // 해당 게시물의 좋아요 상태 초기값 설정
-  });
-
   useEffect(() => {
     const isLikedByCurrentUser = (postId: string, currentUser: string) => {
       const likedUserIds = likedata
@@ -50,11 +46,11 @@ const LikeButton: React.FC<LikeButtonProps> = ({
       return likedUserIds.includes(currentUser);
     };
 
-    setLikeStatusLocally((prevLikeStatus) => ({
+    setLikeStatus((prevLikeStatus) => ({
       ...prevLikeStatus,
       [postId]: isLikedByCurrentUser(postId, userId || ""),
     }));
-  }, [likedata, postId, userId]);
+  }, [likedata, postId, userId, setLikeStatus]);
 
   const handleLikeButtonClicked = async () => {
     if (userId) {
@@ -85,7 +81,6 @@ const LikeButton: React.FC<LikeButtonProps> = ({
             }
             return post;
           });
-          setLikeStatusLocally({ ...likeStatus, [postId]: false }); // 로컬 좋아요 상태 업데이트
           setLikeStatus({ ...likeStatus, [postId]: false }); // 전역 좋아요 상태 업데이트
         } catch (error) {
           console.error(
@@ -117,7 +112,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
             }
             return post;
           });
-          setLikeStatusLocally({ ...likeStatus, [postId]: true }); // 로컬 좋아요 상태 업데이트
+
           setLikeStatus({ ...likeStatus, [postId]: true }); // 전역 좋아요 상태 업데이트
         } catch (error) {
           console.error(
@@ -139,7 +134,9 @@ const LikeButton: React.FC<LikeButtonProps> = ({
 
   return (
     <button className="w-1/2 border" onClick={handleLikeButtonClicked}>
-      {likeStatus[postId] ? "좋아해요!" : "좋아요!"}
+      {likeStatus[postId] !== undefined && likeStatus[postId]
+        ? "좋아해요!"
+        : "좋아요!"}
     </button>
   );
 };
