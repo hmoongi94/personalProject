@@ -1,13 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
-import PostHeader from "./post/postHeader";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 import "./community.css";
 import Comment from "./comment/comment";
 import CommunityNavbar from "./communityNavbar";
+
+import PostHeader from "./post/postHeader";
+import PostContent from "./post/postContent";
 
 interface PostData {
   content: string;
@@ -336,34 +335,10 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                   isAuthor={() => isAuthor(post.userId)} // isAuthor 함수를 전달하면서 post의 userId를 함께 전달
                 />
               </div>
+
               {/* 컨텐츠 */}
-              <div className="border">
-                <div className="">{post.content}</div>
-                <div className="w-full">
-                  {post.imgurl &&
-                    (post.imgurl.split(",").length > 1 ? (
-                      <Slider {...settings}>
-                        {post.imgurl.split(",").map((url, idx) => (
-                          <div key={idx} className="w-full h-full">
-                            <img
-                              src={`/community/${url}`}
-                              alt="exerciseCardImage"
-                              className="w-full h-96 object-cover"
-                              loading="eager"
-                            />
-                          </div>
-                        ))}
-                      </Slider>
-                    ) : (
-                      <img
-                        src={`/community/${post.imgurl}`}
-                        alt="exerciseCardImage"
-                        className="w-full h-96 object-cover"
-                        loading="eager"
-                      />
-                    ))}
-                </div>
-              </div>
+              <PostContent content={post.content} imgurl={post.imgurl} />
+
               {/* 좋아요 */}
               <div>{post.likeCount}명이 좋아해요!</div>
               <div className="w-full">
