@@ -1,15 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
-import PostHeader from "./postHeader";
-import Link from "next/link";
-import Search from "@/app/lib/utils/search";
+import PostHeader from "./post/postHeader";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import "./community.css";
 import Comment from "./comment/comment";
-import PostEditButton from "./postEditButton";
+import CommunityNavbar from "./communityNavbar";
 
 interface PostData {
   content: string;
@@ -321,18 +319,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   return (
     <div className="instagram-main flex flex-col items-center w-3/5 mt-5 mb-5">
       {/* 네비게이션 바 */}
-      <nav className="navbar w-11/12">
-        <div className="container">
-          <div className="logo mr-5">Exercise Community</div>
-          <Search placeholder="검색" />
-          <button
-            className="ml-4 bg-blue-500 text-white px-4 py-2 rounded"
-            onClick={handleRegisterFeed}
-          >
-            피드 등록
-          </button>
-        </div>
-      </nav>
+      <CommunityNavbar handleRegisterFeed={handleRegisterFeed} />
 
       {/* 피드 */}
       <div className="feed w-full">
@@ -341,37 +328,43 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
           .reverse()
           .map((post, index) => (
             <div className="w-1/2 border" key={index}>
-              <PostHeader
-                postId={post.postId}
-                postUserId={post.userId}
-                postDate={post.date}
-                isAuthor={() => isAuthor(post.userId)}  // isAuthor 함수를 전달하면서 post의 userId를 함께 전달
-              />
-              <div className="mt-2">{post.content}</div>
-              <div className="border w-full">
-                {post.imgurl &&
-                  (post.imgurl.split(",").length > 1 ? (
-                    <Slider {...settings}>
-                      {post.imgurl.split(",").map((url, idx) => (
-                        <div key={idx} className="w-full h-full">
-                          <img
-                            src={`/community/${url}`}
-                            alt="exerciseCardImage"
-                            className="w-full h-96 object-cover"
-                            loading="eager"
-                          />
-                        </div>
-                      ))}
-                    </Slider>
-                  ) : (
-                    <img
-                      src={`/community/${post.imgurl}`}
-                      alt="exerciseCardImage"
-                      className="w-full h-96 object-cover"
-                      loading="eager"
-                    />
-                  ))}
+              <div className="border">
+                <PostHeader
+                  postId={post.postId}
+                  postUserId={post.userId}
+                  postDate={post.date}
+                  isAuthor={() => isAuthor(post.userId)} // isAuthor 함수를 전달하면서 post의 userId를 함께 전달
+                />
               </div>
+              {/* 컨텐츠 */}
+              <div className="border">
+                <div className="">{post.content}</div>
+                <div className="w-full">
+                  {post.imgurl &&
+                    (post.imgurl.split(",").length > 1 ? (
+                      <Slider {...settings}>
+                        {post.imgurl.split(",").map((url, idx) => (
+                          <div key={idx} className="w-full h-full">
+                            <img
+                              src={`/community/${url}`}
+                              alt="exerciseCardImage"
+                              className="w-full h-96 object-cover"
+                              loading="eager"
+                            />
+                          </div>
+                        ))}
+                      </Slider>
+                    ) : (
+                      <img
+                        src={`/community/${post.imgurl}`}
+                        alt="exerciseCardImage"
+                        className="w-full h-96 object-cover"
+                        loading="eager"
+                      />
+                    ))}
+                </div>
+              </div>
+              {/* 좋아요 */}
               <div>{post.likeCount}명이 좋아해요!</div>
               <div className="w-full">
                 <button
@@ -380,6 +373,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                 >
                   {likeStatus[post.postId] ? "좋아해요!" : "좋아요!"}
                 </button>
+                {/* 댓글 */}
                 <button
                   className="w-1/2 border"
                   onClick={() => handleCommentButtonClick(post.postId)}
