@@ -24,6 +24,7 @@ interface LikeButtonProps {
   userId: string | null;
   likedata: LikeData[];
   postdata: PostData[];
+  updatePostData: (postId: string, newLikeCount: number) => void;
 }
 
 const LikeButton: React.FC<LikeButtonProps> = ({
@@ -31,8 +32,8 @@ const LikeButton: React.FC<LikeButtonProps> = ({
   userId,
   likedata,
   postdata,
+  updatePostData,
 }) => {
-
   const [likeStatus, setLikeStatus] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
@@ -80,6 +81,10 @@ const LikeButton: React.FC<LikeButtonProps> = ({
           });
 
           setLikeStatus({ ...likeStatus, [postId]: false }); // 전역 좋아요 상태 업데이트
+
+          // 좋아요 카운트 업데이트
+          const newLikeCount = likeStatus ? 0 : 1; // 이미 좋아요 상태면 -1, 아니면 +1
+          updatePostData(postId, newLikeCount);
         } catch (error) {
           console.error(
             "데이터베이스에서 좋아요 정보 삭제 중 오류가 발생했습니다:",
@@ -112,6 +117,10 @@ const LikeButton: React.FC<LikeButtonProps> = ({
           });
 
           setLikeStatus({ ...likeStatus, [postId]: true }); // 전역 좋아요 상태 업데이트
+
+          // 좋아요 카운트 업데이트
+          const newLikeCount = likeStatus ? 0 : 1; // 이미 좋아요 상태면 -1, 아니면 +1
+          updatePostData(postId, newLikeCount);
         } catch (error) {
           console.error(
             "데이터베이스에 좋아요 정보 추가 중 오류가 발생했습니다:",

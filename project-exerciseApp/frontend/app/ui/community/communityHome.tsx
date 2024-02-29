@@ -7,7 +7,7 @@ import CommunityNavbar from "./communityNavbar";
 
 import PostHeader from "./post/postHeader";
 import PostContent from "./post/postContent";
-import LikeButton from "./post/likeButton"
+import LikeButton from "./post/likeButton";
 
 interface PostData {
   content: string;
@@ -41,6 +41,23 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   likedata,
   handleRegisterFeed,
 }) => {
+  const [postData, setPostData] = useState<PostData[]>(postdata);
+
+  // 부모 컴포넌트에서 postdata를 업데이트하는 함수
+  const updatePostData = (postId: string, newLikeCount: number) => {
+    setPostData((prevPostData) =>
+      prevPostData.map((post) => {
+        if (post.postId === postId) {
+          return {
+            ...post,
+            likeCount: String(newLikeCount),
+          };
+        }
+        return post;
+      })
+    );
+  };
+
   const settings = {
     dots: true,
     infinite: true,
@@ -238,11 +255,12 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
               {/* 좋아요 */}
               <div>{post.likeCount}명이 좋아해요!</div>
               <div className="w-full">
-              <LikeButton
+                <LikeButton
                   postId={post.postId}
                   userId={userId}
                   likedata={likedata}
-                  postdata={postdata}
+                  postdata={postData}
+                  updatePostData={updatePostData}
                 />
 
                 {/* 댓글 */}
