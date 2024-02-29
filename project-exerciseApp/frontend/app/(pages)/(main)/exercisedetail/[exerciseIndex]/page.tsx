@@ -4,11 +4,7 @@ import ExerciseDetailUI from "@/app/ui/exercisedetail/exercisedetail";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 
-interface ExerciseDetailProps {
-  imgurl: string;
-  name: string;
-  description: string;
-}
+import { ExerciseDetailProps } from "@/app/lib/interface";
 
 const ExerciseDetailpage = () => {
   const { exerciseIndex } = useParams();

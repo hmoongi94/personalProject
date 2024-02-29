@@ -6,6 +6,8 @@ import dynamic from "next/dynamic";
 import React, { Suspense } from "react";
 import "@/app/styles/activemenu.css"
 
+import { ExerciseData } from "@/app/lib/interface";
+
 const WorkoutHistory = dynamic(
   () => import("@/app/ui/mainpage/workoutHistory/workoutHistory")
 );
@@ -17,14 +19,6 @@ const Search = dynamic(() => import("@/app/lib/utils/search"));
 const CategoryNavigation = dynamic(
   () => import("@/app/ui/mainpage/exerciseguide/categoryNavigation")
 );
-
-interface ExerciseData {
-  exerciseIndex: number;
-  name: string;
-  category: string;
-  description: string;
-  imgurl: string;
-}
 
 const MainPage = () => {
   const [isToken, setIsToken] = useState(false);

@@ -2,11 +2,7 @@
 import React from "react";
 import './exercisedetail.css'
 
-interface ExerciseDetailProps {
-  name: string;
-  imgurl: string;
-  description: string;
-}
+import { ExerciseDetailProps } from "@/app/lib/interface";
 
 // ExerciseDetailUI 컴포넌트의 속성을 정의하는 인터페이스
 interface ExerciseDetailUIProps {

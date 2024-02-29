@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import '@/app/styles/globals.css';
 import React from 'react';
 
-import { ChildrenProp } from '@/app/interface/ChildrenProp';
+import { ChildrenProp } from '@/app/lib/interface'
 
 export const metadata: Metadata = {
   title: 'exerciseApp',

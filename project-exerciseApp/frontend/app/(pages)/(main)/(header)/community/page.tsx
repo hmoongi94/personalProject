@@ -5,24 +5,7 @@ import { useEffect, useState } from "react";
 import CommunityHome from "@/app/ui/community/communityHome";
 import { useSearchParams } from "next/navigation";
 
-interface PostData {
-  content: string;
-  date: string;
-  imgurl: string;
-  userId: string;
-  postId: string;
-  userIndex: number;
-  likeCount: string;
-  commentContents: string | null;
-  commentDates: string | null;
-  commentuserId: string | null;
-  commentIndexes: string | null;
-}
-
-interface LikeData {
-  userId: string;
-  postId: string;
-}
+import { PostData, LikeData } from "@/app/lib/interface";
 
 const Community = () => {
   const [postData, setpostData] = useState<PostData[]>([]);
@@ -44,8 +27,8 @@ const Community = () => {
     }
   };
 
-   // * PostData 가져오기
-   useEffect(() => {
+  // * PostData 가져오기
+  useEffect(() => {
     const fetchPostData = async () => {
       try {
         const queryParam = searchParams.get("query");

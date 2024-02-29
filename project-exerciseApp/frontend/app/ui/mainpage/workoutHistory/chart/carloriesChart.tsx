@@ -1,10 +1,7 @@
 import React from "react";
 import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
 
-interface CaloryEntry {
-  name: string;
-  caloryPerRepsTotal: number;
-}
+import { CaloryEntry } from "@/app/lib/interface";
 
 interface CaloriesChartProps {
   data: CaloryEntry[];

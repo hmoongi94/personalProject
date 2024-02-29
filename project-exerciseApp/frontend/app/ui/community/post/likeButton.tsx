@@ -1,23 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-interface PostData {
-  content: string;
-  date: string;
-  imgurl: string;
-  userId: string;
-  postId: string;
-  userIndex: number;
-  likeCount: string;
-  commentContents: string | null;
-  commentDates: string | null;
-  commentuserId: string | null;
-  commentIndexes: string | null;
-}
-
-interface LikeData {
-  userId: string;
-  postId: string;
-}
+import { PostData, LikeData } from "@/app/lib/interface";
 
 interface LikeButtonProps {
   postId: string;

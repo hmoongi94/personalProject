@@ -3,13 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-interface ExerciseData {
-  exerciseIndex: number;
-  name: string;
-  category: string;
-  description: string;
-  imgurl: string;
-}
+import { ExerciseData } from "@/app/lib/interface";
 
 interface ExerciseGuideProps {
   filteredExerciseData: ExerciseData[];

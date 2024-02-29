@@ -7,17 +7,7 @@ import SearchPeriod from "./calendar/searchPeriod";
 import WorkoutChart from "./chart/workoutChart";
 import CaloriesChart from "./chart/carloriesChart";
 
-interface WorkoutEntry {
-  id: number;
-  name: string;
-  totalReps: number;
-  totalSets: number;
-}
-
-interface CaloryEntry {
-  name: string;
-  caloryPerRepsTotal: number;
-}
+import { WorkoutEntry, CaloryEntry } from "@/app/lib/interface";
 
 interface CaloryData {
   result: CaloryEntry[];

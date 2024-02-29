@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-interface ExerciseData {
-  exerciseIndex: number;
-  name: string;
-  category: string;
-  description: string;
-  imgurl: string;
-}
+import { ExerciseData } from "@/app/lib/interface";
 
 interface TimerProps {
   initialExerciseData: ExerciseData[];

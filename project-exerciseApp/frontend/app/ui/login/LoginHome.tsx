@@ -59,8 +59,7 @@ const LoginHome = () => {
       <div className='h-2/5 flex flex-col justify-around items-center w-full'>
         <InputText
           title='ID'
-          inputchange={(value: string) => handleInputChange('userId', value)}
-        />
+          inputchange={(value: string) => handleInputChange('userId', value)} type={'text'}        />
         <InputPassword
           title='PASSWORD'
           inputchange={(value: string) => handleInputChange('userPassword', value)}

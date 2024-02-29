@@ -10,12 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-interface WorkoutEntry {
-  id: number;
-  name: string;
-  totalReps: number;
-  totalSets: number;
-}
+import { WorkoutEntry } from "@/app/lib/interface";
 
 interface ChartProps {
   data: WorkoutEntry[]; // 데이터 타입은 WorkoutEntry[]로 설정할 수 있습니다.
