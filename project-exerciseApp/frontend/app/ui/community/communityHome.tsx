@@ -55,9 +55,6 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
     return userId === postUserId;
   };
 
-  //* 좋아요 상태를 관리하는 상태 변수
-  const [likeStatus, setLikeStatus] = useState<{ [key: string]: boolean }>({});
-  
   // * 댓글관리
   // 댓글 입력과 관련된 상태 변수 및 함수
   const [commentInput, setCommentInput] = useState<{ [key: string]: string }>(
@@ -246,7 +243,6 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                   userId={userId}
                   likedata={likedata}
                   postdata={postdata}
-                  setLikeStatus={setLikeStatus}
                 />
 
                 {/* 댓글 */}
