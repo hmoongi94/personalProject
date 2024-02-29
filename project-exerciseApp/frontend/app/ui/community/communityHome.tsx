@@ -7,7 +7,7 @@ import CommunityNavbar from "./communityNavbar";
 
 import PostHeader from "./post/postHeader";
 import PostContent from "./post/postContent";
-import LikeButton from "./post/likeButton"
+import LikeButton from "./post/likeButton";
 
 interface PostData {
   content: string;
@@ -57,7 +57,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
 
   //* 좋아요 상태를 관리하는 상태 변수
   const [likeStatus, setLikeStatus] = useState<{ [key: string]: boolean }>({});
-  
+
   // * 댓글관리
   // 댓글 입력과 관련된 상태 변수 및 함수
   const [commentInput, setCommentInput] = useState<{ [key: string]: string }>(
@@ -241,13 +241,14 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
               {/* 좋아요 */}
               <div>{post.likeCount}명이 좋아해요!</div>
               <div className="w-full">
-              <LikeButton
+                <LikeButton
                   postId={post.postId}
                   userId={userId}
                   likedata={likedata}
                   postdata={postdata}
                   likeStatus={likeStatus}
                   setLikeStatus={setLikeStatus}
+                  likeStatus={{}}
                 />
 
                 {/* 댓글 */}
