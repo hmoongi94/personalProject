@@ -234,12 +234,16 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                   isAuthor={() => isAuthor(post.userId)} // isAuthor 함수를 전달하면서 post의 userId를 함께 전달
                 />
               </div>
-
               {/* 컨텐츠 */}
               <PostContent content={post.content} imgurl={post.imgurl} />
-
               {/* 좋아요 */}
               <div>{post.likeCount}명이 좋아해요!</div>
+              {/* 상황 사용자가 페이지를 열고 LikeButton을 클릭하여 좋아요를 누름. */}
+              {/* LikeButton 내부에서 likeStatus 상태 업데이트 및 postdata의 해당 */}
+              {/* postId의 likeCount 증가. postdata의 해당 부분이 변경되었으므로, 이 */}
+              {/* 부분을 사용하는 컴포넌트(CommunityHome 등)가 리렌더링 됨. 이로 */}
+              {/* 인해 CommunityHome 컴포넌트가 리렌더링되면서 변경된 postdata를 */}
+              {/* 가져와 UI에 반영됨. */}
               <div className="w-full">
                 <LikeButton
                   postId={post.postId}
