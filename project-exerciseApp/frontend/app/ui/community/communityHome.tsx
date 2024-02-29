@@ -267,7 +267,17 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                   className="w-1/2 border"
                   onClick={() => handleCommentButtonClick(post.postId)}
                 >
-                  {showCommentInput[post.postId] ? "댓글접기" : "댓글열기"}
+                  {showCommentInput[post.postId]
+                    ? `댓글닫기 (${
+                        post.commentContents
+                          ? post.commentContents.split(",").length
+                          : 0
+                      })`
+                    : `댓글열기 (${
+                        post.commentContents
+                          ? post.commentContents.split(",").length
+                          : 0
+                      })`}
                 </button>
                 {showCommentInput[post.postId] && (
                   <div>
