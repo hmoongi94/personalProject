@@ -2,12 +2,13 @@
 import React, { useState, useEffect } from "react";
 
 import "./community.css";
-import Comment from "./comment/comment";
 import CommunityNavbar from "./communityNavbar";
 
 import PostHeader from "./post/postHeader";
 import PostContent from "./post/postContent";
 import LikeButton from "./post/likeButton";
+import Comment from "./comment/comment";
+import CommentInput from "./comment/commentInput";
 
 interface PostData {
   content: string;
@@ -130,17 +131,19 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
 
       const updatedPostData = postdata.map((post) => {
         if (post.postId === postId) {
+          // 댓글 내용 업데이트
           const updatedCommentContent = post.commentContents
             ? `${post.commentContents},${commentInput[postId]}`
             : commentInput[postId];
           post.commentContents = updatedCommentContent;
 
-          // 추가된 부분
+          // 댓글단 사용자 업데이트
           const updatedCommentuserId = post.commentuserId
             ? `${post.commentuserId},${userId}`
             : userId;
           post.commentuserId = updatedCommentuserId;
 
+          // 댓글단 시간 업데이트
           const currentDate = new Date();
           const formattedDate = `${currentDate.getFullYear()}-${
             currentDate.getMonth() + 1
@@ -155,7 +158,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
             : formattedDate;
           post.commentDates = updatedCommentdate;
 
-          // 추가된 부분: data.commentIndex를 post의 commentIndexes에 추가
+          // 엔드포인트에 보낼 동적주소인 commentIndex도 업데이트
           const updatedCommentIndexes = post.commentIndexes
             ? `${post.commentIndexes},${data.commentIndex}`
             : `${data.commentIndex}`;
@@ -272,25 +275,14 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                         />
                       )}
                     </div>
-                    <div className="flex border-2">
-                      <input
-                        className="w-1/2 text-black"
-                        type="text"
-                        placeholder="댓글을 입력하세요"
-                        value={commentInput[post.postId] || ""}
-                        onChange={(e) =>
-                          handleCommentInputChange(post.postId, e.target.value)
-                        }
-                      />
-                      <div className="w-1/2 flex justify-center">
-                        <button
-                          className=""
-                          onClick={() => handleCommentSubmit(post.postId)}
-                        >
-                          댓글달기
-                        </button>
-                      </div>
-                    </div>
+                    <CommentInput
+                      postId={post.postId}
+                      value={commentInput[post.postId] || ""}
+                      onChange={(value) =>
+                        handleCommentInputChange(post.postId, value)
+                      }
+                      onSubmit={() => handleCommentSubmit(post.postId)}
+                    />
                   </div>
                 )}
               </div>
