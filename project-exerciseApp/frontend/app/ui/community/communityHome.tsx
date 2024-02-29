@@ -246,6 +246,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                   userId={userId}
                   likedata={likedata}
                   postdata={postdata}
+                  likeStatus={likeStatus}
                   setLikeStatus={setLikeStatus}
                 />
 
