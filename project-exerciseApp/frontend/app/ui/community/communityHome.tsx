@@ -177,6 +177,11 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
   // * 댓글 삭제
   const handleDeleteComment = async (postId: string, commentIndex: number) => {
     try {
+      const confirmDelete = window.confirm("정말로 댓글을 삭제하시겠습니까?");
+      if (!confirmDelete) {
+        return; // 취소되면 함수 종료
+      }
+
       const response = await fetch(
         `http://localhost:3560/community/deleteComment/${postId}/${commentIndex}`,
         {
