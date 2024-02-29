@@ -248,7 +248,6 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
                   postdata={postdata}
                   likeStatus={likeStatus}
                   setLikeStatus={setLikeStatus}
-                  likeStatus={{}}
                 />
 
                 {/* 댓글 */}
