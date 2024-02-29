@@ -7,6 +7,7 @@ import CommunityNavbar from "./communityNavbar";
 
 import PostHeader from "./post/postHeader";
 import PostContent from "./post/postContent";
+import LikeButton from "./post/likeButton"
 
 interface PostData {
   content: string;
@@ -56,109 +57,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
 
   //* 좋아요 상태를 관리하는 상태 변수
   const [likeStatus, setLikeStatus] = useState<{ [key: string]: boolean }>({});
-
-  useEffect(() => {
-    const isLikedByCurrentUser = (postId: string, currentUser: string) => {
-      // 현재 사용자가 좋아요를 누른 게시물인지 확인하는 함수
-      const likedUserIds = likedata
-        .filter((like) => like.postId === postId)
-        .map((like) => like.userId);
-      return likedUserIds.includes(currentUser);
-    };
-    // 게시물 별로 좋아요 상태 초기화
-    const initialLikeStatus: { [key: string]: boolean } = {};
-    postdata.forEach((post) => {
-      initialLikeStatus[post.postId] = isLikedByCurrentUser(
-        post.postId,
-        userId || ""
-      );
-    });
-    setLikeStatus(initialLikeStatus);
-  }, [likedata, postdata, userId]);
-
-  //* 좋아요 버튼 클릭 시 동작하는 함수
-  const handleLikeButtonClicked = async (postId: string) => {
-    // 사용자가 로그인한 상태인지 확인
-    if (userId) {
-      // 좋아요를 이미 눌렀는지 확인
-      const alreadyLiked = likeStatus[postId];
-      if (alreadyLiked) {
-        // 이미 좋아요를 눌렀으면 데이터베이스에서 해당 정보 삭제
-        try {
-          const response = await fetch(
-            `http://localhost:3560/community/deleteLikeData/${postId}/${userId}`,
-            {
-              method: "DELETE",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          if (!response.ok) {
-            throw new Error(
-              "데이터베이스에서 좋아요 정보 삭제에 실패했습니다."
-            );
-          }
-          console.log("데이터베이스에서 좋아요 정보를 삭제했습니다.");
-
-          // Update like count locally by decrementing it
-          const updatedPostData = postdata.map((post) => {
-            if (post.postId === postId) {
-              post.likeCount = String(Number(post.likeCount) - 1);
-            }
-            return post;
-          });
-          setLikeStatus({ ...likeStatus, [postId]: false }); // 좋아요 상태 업데이트
-        } catch (error) {
-          console.error(
-            "데이터베이스에서 좋아요 정보 삭제 중 오류가 발생했습니다:",
-            error
-          );
-        }
-      } else {
-        // 좋아요를 누르지 않았으면 데이터베이스에 좋아요 정보 추가
-        try {
-          const response = await fetch(
-            `http://localhost:3560/community/addLikeData/${postId}/${userId}`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          if (!response.ok) {
-            throw new Error("데이터베이스에 좋아요 정보 추가에 실패했습니다.");
-          }
-          console.log("데이터베이스에 좋아요 정보를 추가했습니다.");
-
-          // Update like count locally by incrementing it
-          const updatedPostData = postdata.map((post) => {
-            if (post.postId === postId) {
-              post.likeCount = String(Number(post.likeCount) + 1);
-            }
-            return post;
-          });
-          setLikeStatus({ ...likeStatus, [postId]: true }); // 좋아요 상태 업데이트
-        } catch (error) {
-          console.error(
-            "데이터베이스에 좋아요 정보 추가 중 오류가 발생했습니다:",
-            error
-          );
-        }
-      }
-    } else {
-      // 사용자가 로그인하지 않은 상태라면 로그인 페이지로 이동 여부 확인
-      const confirmLogin = window.confirm(
-        "로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?"
-      );
-      if (confirmLogin) {
-        // 로그인 페이지로 이동
-        window.location.href = "/login";
-      }
-    }
-  };
-
+  
   // * 댓글관리
   // 댓글 입력과 관련된 상태 변수 및 함수
   const [commentInput, setCommentInput] = useState<{ [key: string]: string }>(
@@ -342,12 +241,14 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
               {/* 좋아요 */}
               <div>{post.likeCount}명이 좋아해요!</div>
               <div className="w-full">
-                <button
-                  className="w-1/2 border"
-                  onClick={() => handleLikeButtonClicked(post.postId)}
-                >
-                  {likeStatus[post.postId] ? "좋아해요!" : "좋아요!"}
-                </button>
+              <LikeButton
+                  postId={post.postId}
+                  userId={userId}
+                  likedata={likedata}
+                  postdata={postdata}
+                  setLikeStatus={setLikeStatus}
+                />
+
                 {/* 댓글 */}
                 <button
                   className="w-1/2 border"
