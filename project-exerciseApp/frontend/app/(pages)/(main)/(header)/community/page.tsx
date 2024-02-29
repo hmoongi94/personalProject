@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import CommunityHome from "@/app/ui/community/communityHome";
+import { useSearchParams } from "next/navigation";
 
 interface PostData {
   content: string;
@@ -29,6 +30,7 @@ const Community = () => {
   const [likeData, setlikeData] = useState<LikeData[]>([]);
 
   const [refreshData, setRefreshData] = useState(false);
+  const searchParams = useSearchParams();
 
   const handleRegisterFeed = () => {
     const token = localStorage.getItem("token");
@@ -42,28 +44,34 @@ const Community = () => {
     }
   };
 
-  // * PostData가져오기
-  useEffect(() => {
-    const fetchInitialPostData = async () => {
+   // * PostData 가져오기
+   useEffect(() => {
+    const fetchPostData = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3560/community/postData"
-        );
-        const postData = await response.json();
+        const queryParam = searchParams.get("query");
 
-        if (!Array.isArray(postData)) {
+        let url = "http://localhost:3560/community/postData";
+
+        if (queryParam) {
+          url += `?query=${queryParam}`;
+        }
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
         }
 
-        console.log(postData)
-        setpostData(postData);
+        console.log(data);
+        setpostData(data);
       } catch (error) {
         console.error("데이터를 불러오는 동안 에러발생:", error);
       }
     };
 
-    fetchInitialPostData();
-  }, [refreshData]);
+    fetchPostData();
+  }, [searchParams, refreshData]);
 
   const handleRefreshData = () => {
     // 버튼 클릭 시 refreshData를 토글하여 useEffect를 다시 실행
