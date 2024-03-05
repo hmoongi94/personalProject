@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import CommunityHome from "@/app/ui/community/communityHome";
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { PostData, LikeData } from "@/app/lib/interface";
@@ -121,12 +122,14 @@ const Community = () => {
 
   return (
     <div className="w-screen h-[86vh] flex justify-center">
+      <Suspense fallback={<div className="text-white">Loading...</div>}>
       <CommunityHome
         postdata={postData}
         userId={userId}
         likedata={likeData}
         handleRegisterFeed={handleRegisterFeed}
       />
+      </Suspense>
     </div>
   );
 };
