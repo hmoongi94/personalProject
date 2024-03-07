@@ -136,9 +136,8 @@ const MainPage = () => {
         return (
           <div className="w-full h-full">
             <div className="flex justify-center">Exercise Guide</div>
-            <Suspense fallback={<div className="text-white">Loading...</div>}>
             <Search placeholder="Search..." />
-            </Suspense>
+           
             <CategoryNavigation
               categories={primaryCategories}
               selectedCategory={selectedCategory}

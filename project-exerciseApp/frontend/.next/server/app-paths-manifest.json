@@ -1,11 +1,6 @@
 {
-  "/_not-found": "app/_not-found.js",
-  "/(pages)/(main)/(header)/airoutine/page": "app/(pages)/(main)/(header)/airoutine/page.js",
-  "/(pages)/(main)/(header)/community/page": "app/(pages)/(main)/(header)/community/page.js",
-  "/(pages)/(main)/(header)/community/editpost/[postId]/page": "app/(pages)/(main)/(header)/community/editpost/[postId]/page.js",
-  "/(pages)/(main)/(header)/community/registerfeed/page": "app/(pages)/(main)/(header)/community/registerfeed/page.js",
+  "/(pages)/(main)/page": "app/(pages)/(main)/page.js",
   "/(pages)/(main)/(header)/login/page": "app/(pages)/(main)/(header)/login/page.js",
-  "/(pages)/(main)/(header)/signup/page": "app/(pages)/(main)/(header)/signup/page.js",
-  "/(pages)/(main)/exercisedetail/[exerciseIndex]/page": "app/(pages)/(main)/exercisedetail/[exerciseIndex]/page.js",
-  "/(pages)/(main)/page": "app/(pages)/(main)/page.js"
+  "/(pages)/(main)/(header)/community/page": "app/(pages)/(main)/(header)/community/page.js",
+  "/(pages)/(main)/(header)/airoutine/page": "app/(pages)/(main)/(header)/airoutine/page.js"
 }

@@ -1,89 +1,37 @@
 {
   "pages": {
-    "/_not-found": [
-      "static/chunks/webpack-c701079218af780c.js",
-      "static/chunks/fd9d1056-fba60bf8ead9587d.js",
-      "static/chunks/69-74bc5dd3710899b3.js",
-      "static/chunks/main-app-1b0c40630b29cb2b.js",
-      "static/chunks/app/_not-found-a188f05785d60e7b.js"
+    "/(pages)/(main)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(pages)/(main)/layout.js"
     ],
     "/layout": [
-      "static/chunks/webpack-c701079218af780c.js",
-      "static/chunks/fd9d1056-fba60bf8ead9587d.js",
-      "static/chunks/69-74bc5dd3710899b3.js",
-      "static/chunks/main-app-1b0c40630b29cb2b.js",
-      "static/css/f4534b832b6d19e2.css",
-      "static/chunks/app/layout-57553b58707fd088.js"
-    ],
-    "/(pages)/(main)/(header)/airoutine/page": [
-      "static/chunks/webpack-c701079218af780c.js",
-      "static/chunks/fd9d1056-fba60bf8ead9587d.js",
-      "static/chunks/69-74bc5dd3710899b3.js",
-      "static/chunks/main-app-1b0c40630b29cb2b.js",
-      "static/chunks/app/(pages)/(main)/(header)/airoutine/page-38c0c2f52c596ccb.js"
-    ],
-    "/(pages)/(main)/layout": [
-      "static/chunks/webpack-c701079218af780c.js",
-      "static/chunks/fd9d1056-fba60bf8ead9587d.js",
-      "static/chunks/69-74bc5dd3710899b3.js",
-      "static/chunks/main-app-1b0c40630b29cb2b.js",
-      "static/chunks/792-85f5ff97278af252.js",
-      "static/chunks/app/(pages)/(main)/layout-a4058414535e06c8.js"
-    ],
-    "/(pages)/(main)/(header)/community/page": [
-      "static/chunks/webpack-c701079218af780c.js",
-      "static/chunks/fd9d1056-fba60bf8ead9587d.js",
-      "static/chunks/69-74bc5dd3710899b3.js",
-      "static/chunks/main-app-1b0c40630b29cb2b.js",
-      "static/chunks/792-85f5ff97278af252.js",
-      "static/chunks/654-0735897b13ecadcf.js",
-      "static/css/1b675bb6226f14e1.css",
-      "static/chunks/app/(pages)/(main)/(header)/community/page-95b0aafb1bd37faf.js"
-    ],
-    "/(pages)/(main)/(header)/community/editpost/[postId]/page": [
-      "static/chunks/webpack-c701079218af780c.js",
-      "static/chunks/fd9d1056-fba60bf8ead9587d.js",
-      "static/chunks/69-74bc5dd3710899b3.js",
-      "static/chunks/main-app-1b0c40630b29cb2b.js",
-      "static/chunks/app/(pages)/(main)/(header)/community/editpost/[postId]/page-0a33ee354ffa1517.js"
-    ],
-    "/(pages)/(main)/(header)/community/registerfeed/page": [
-      "static/chunks/webpack-c701079218af780c.js",
-      "static/chunks/fd9d1056-fba60bf8ead9587d.js",
-      "static/chunks/69-74bc5dd3710899b3.js",
-      "static/chunks/main-app-1b0c40630b29cb2b.js",
-      "static/chunks/app/(pages)/(main)/(header)/community/registerfeed/page-e830c0d159ba65c3.js"
-    ],
-    "/(pages)/(main)/(header)/login/page": [
-      "static/chunks/webpack-c701079218af780c.js",
-      "static/chunks/fd9d1056-fba60bf8ead9587d.js",
-      "static/chunks/69-74bc5dd3710899b3.js",
-      "static/chunks/main-app-1b0c40630b29cb2b.js",
-      "static/chunks/792-85f5ff97278af252.js",
-      "static/chunks/app/(pages)/(main)/(header)/login/page-969d69420df6661e.js"
-    ],
-    "/(pages)/(main)/(header)/signup/page": [
-      "static/chunks/webpack-c701079218af780c.js",
-      "static/chunks/fd9d1056-fba60bf8ead9587d.js",
-      "static/chunks/69-74bc5dd3710899b3.js",
-      "static/chunks/main-app-1b0c40630b29cb2b.js",
-      "static/chunks/app/(pages)/(main)/(header)/signup/page-ed568e3c150f6260.js"
-    ],
-    "/(pages)/(main)/exercisedetail/[exerciseIndex]/page": [
-      "static/chunks/webpack-c701079218af780c.js",
-      "static/chunks/fd9d1056-fba60bf8ead9587d.js",
-      "static/chunks/69-74bc5dd3710899b3.js",
-      "static/chunks/main-app-1b0c40630b29cb2b.js",
-      "static/css/feda47e68d211446.css",
-      "static/chunks/app/(pages)/(main)/exercisedetail/[exerciseIndex]/page-07c87abe59ba5d05.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ],
     "/(pages)/(main)/page": [
-      "static/chunks/webpack-c701079218af780c.js",
-      "static/chunks/fd9d1056-fba60bf8ead9587d.js",
-      "static/chunks/69-74bc5dd3710899b3.js",
-      "static/chunks/main-app-1b0c40630b29cb2b.js",
-      "static/css/f22672d5f766e7d0.css",
-      "static/chunks/app/(pages)/(main)/page-9631605d43133e40.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(pages)/(main)/page.css",
+      "static/chunks/app/(pages)/(main)/page.js"
+    ],
+    "/(pages)/(main)/(header)/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(pages)/(main)/(header)/login/page.js"
+    ],
+    "/(pages)/(main)/(header)/community/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(pages)/(main)/(header)/community/page.css",
+      "static/chunks/app/(pages)/(main)/(header)/community/page.js"
+    ],
+    "/(pages)/(main)/(header)/airoutine/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(pages)/(main)/(header)/airoutine/page.js"
     ]
   }
 }
