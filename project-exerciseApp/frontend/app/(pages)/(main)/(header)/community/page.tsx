@@ -13,7 +13,7 @@ const Community = () => {
   const [likeData, setlikeData] = useState<LikeData[]>([]);
 
   const [refreshData, setRefreshData] = useState(false);
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
   const handleRegisterFeed = () => {
     const token = localStorage.getItem("token");
@@ -31,13 +31,13 @@ const Community = () => {
   useEffect(() => {
     const fetchPostData = async () => {
       try {
-        const queryParam = searchParams.get("query");
+        // const queryParam = searchParams.get("query");
 
         let url = "http://localhost:3560/community/postData";
 
-        if (queryParam) {
-          url += `?query=${queryParam}`;
-        }
+        // if (queryParam) {
+        //   url += `?query=${queryParam}`;
+        // }
 
         const response = await fetch(url);
         const data = await response.json();
@@ -54,7 +54,7 @@ const Community = () => {
     };
 
     fetchPostData();
-  }, [searchParams, refreshData]);
+  }, [refreshData]);
 
   const handleRefreshData = () => {
     // 버튼 클릭 시 refreshData를 토글하여 useEffect를 다시 실행
