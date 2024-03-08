@@ -8,7 +8,7 @@ recordData.post("/recordData", async (req, res) => {
   // * 토큰 있는지 확인하는 로직
   const userIndex = tokenChecker(req, res);
 
-  const { totalReps, selectedExercise, executionCount } = req.body;
+  const { totalReps, totalWeights, selectedExercise, executionCount } = req.body;
 
   let conn;
 
@@ -34,8 +34,8 @@ recordData.post("/recordData", async (req, res) => {
 
     // * record 테이블에 insert
     const insertResult = await conn.query(
-      "INSERT INTO record (userIndex, exerciseIndex, totalReps, totalSets, date) VALUES (?, ?, ?, ?, ?)",
-      [userIndex, exerciseIndex, totalReps, executionCount, formattedDate]
+      "INSERT INTO record (userIndex, exerciseIndex, totalReps, totalWeights, totalSets, date) VALUES (?, ?, ?, ?, ?, ?)",
+      [userIndex, exerciseIndex, totalReps, totalWeights, executionCount, formattedDate]
     );
 
     res.status(200).json({ success: true, message: "Recorded successfully" });
