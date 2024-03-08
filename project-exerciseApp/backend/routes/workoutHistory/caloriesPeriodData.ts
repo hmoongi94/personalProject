@@ -13,12 +13,14 @@ caloryPeriodData.post("/workoutHistory/periodData/calories", async (req, res) =>
     if (!userIndex) return;
 
     const { startDate, endDate } = req.query;
+    console.log(startDate)
+    console.log(endDate)
 
     // Fetch calories data for the selected date
     conn = await pool.getConnection();
 
     const rawData = await conn.query(
-      "SELECT e.name, SUM(e.caloryPerReps * r.totalReps * (r.totalWeights * 0.01)) as caloryPerRepsTotal, SUM(r.totalReps) as totalReps, SUM(r.totalSets) as totalSets FROM record r JOIN exercise e ON r.exerciseIndex = e.exerciseIndex WHERE r.userIndex = ? AND r.date = ? GROUP BY e.name",
+      "SELECT e.name, SUM(e.caloryPerReps * r.totalReps * (r.totalWeights * 0.01)) as caloryPerRepsTotal, SUM(r.totalReps) as totalReps, SUM(r.totalSets) as totalSets FROM record r JOIN exercise e ON r.exerciseIndex = e.exerciseIndex WHERE r.userIndex = ? AND r.date BETWEEN ? AND ? GROUP BY e.name",
       [userIndex, startDate, endDate]
     );
     // console.log(rawData)
