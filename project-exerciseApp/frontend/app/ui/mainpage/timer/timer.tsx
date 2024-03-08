@@ -18,6 +18,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   const [executionCount, setExecutionCount] = useState(0);
   const [selectedExercise, setSelectedExercise] = useState<string | null>(null);
   const [repsValue, setRepsValue] = useState<number>(0);
+  const [weightsValue, setWeightsValue] = useState<number>(0);
 
   // * 새로고침
   const handleRefresh = () => {
@@ -27,8 +28,10 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
     setExecutionCount(0);
     setSelectedExercise(null);
     setRepsValue(0);
+    setWeightsValue(0);
     setTags([]);
     setTotalReps(0);
+    setTotalWeights(0);
   };
 
   // * 타이머 동작
@@ -64,12 +67,14 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   //* 태그를 관리하기 위한 state 추가
   const [tags, setTags] = useState<React.ReactElement[]>([]);
   const [totalReps, setTotalReps] = useState(0);
+  const [totalWeights, setTotalWeights] = useState(0);
 
   const createPTagForSet = (
     setCount: number,
-    repsValue: number
+    repsValue: number,
+    weightsValue: number
   ): React.ReactElement => {
-    const tagContent = `${setCount}세트: ${repsValue} reps`;
+    const tagContent = `${setCount}세트: ${repsValue} reps, ${weightsValue} kg`;
     return (
       <p key={`set-${setCount}`} className="mb-2">
         {tagContent}
@@ -95,11 +100,12 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
     ) {
       setExecutionCount((prevCount) => prevCount + 1);
 
-      const tag = createPTagForSet(executionCount + 1, repsValue);
+      const tag = createPTagForSet(executionCount + 1, repsValue, weightsValue);
       setTags((prevTags) => [...prevTags, tag]);
 
       // Total Reps 갱신
       setTotalReps((prevTotalReps) => prevTotalReps + repsValue);
+      setTotalWeights((prevTotalWeights) => prevTotalWeights + weightsValue);
     }
 
     if (isActive === false && initialCountdown === 0) {
@@ -118,8 +124,10 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
 
   const handleExecutionReset = () => {
     setRepsValue(0);
+    setWeightsValue(0);
     setExecutionCount(0);
     setTotalReps(0);
+    setTotalWeights(0);
     setSelectedExercise(null);
     setTags([]);
   };
@@ -137,6 +145,11 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   const handleRepsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
     setRepsValue(Math.max(newValue, 0)); // Ensure the reps value is not below 0
+  };
+
+  const handleWeightsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = Number(e.target.value);
+    setWeightsValue(Math.max(newValue, 0)); // Ensure the Weights value is not below 0
   };
 
   // * 기록할 데이터 서버로 보내주기
@@ -168,6 +181,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
+        totalWeights,
         totalReps,
         selectedExercise,
         executionCount,
@@ -181,10 +195,12 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
 
           // 여기서 값 초기화 로직 추가
           setRepsValue(0);
+          setWeightsValue(0);
           setExecutionCount(0);
           setSelectedExercise(null);
           setTags([]);
           setTotalReps(0);
+          setTotalWeights(0);
         } else {
           // 서버 응답이 실패인 경우
           const error = await response.json();
@@ -224,7 +240,6 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
         </button>
       </div>
       <div>
-        {/* 운동 종류 선택 */}
         <label className="flex items-center mb-4">
           Select Exercise:
           <select
@@ -241,7 +256,6 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
               </option>
             ))}
           </select>
-          {/* 세트당 Reps값 입력 */}
         </label>
         <label className="flex items-center mb-4">
           Enter Reps:
@@ -252,14 +266,21 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
             onChange={handleRepsChange}
           />
         </label>
+        <label className="flex items-center mb-4">
+          Enter Weights:
+          <input
+            className="ml-2 p-2 border border-gray-300 rounded text-slate-950"
+            type="number"
+            value={weightsValue}
+            onChange={handleWeightsChange}
+          />
+        </label>
 
         {tags.map((tag, index) => (
           <React.Fragment key={index}>{tag}</React.Fragment>
         ))}
-
         <p>Total Reps: {totalReps}</p>
-
-        {/* 데이터 서버로 보내기 */}
+        <p>Total Weights: {totalWeights} kg</p>
         <div className="flex space-x-4 ml-20">
           <button
             className="bg-purple-500 text-white px-4 py-2 rounded"
@@ -267,8 +288,6 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
           >
             Record
           </button>
-
-          {/* 표시 된 값 Reset하기 */}
           <button
             className="bg-red-500 text-white px-4 py-2 rounded"
             onClick={handleExecutionReset}
@@ -277,8 +296,6 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
           </button>
         </div>
       </div>
-
-      {/* 휴식 타이머 */}
       <div>
         <h1 className="text-2xl font-bold mb-4">
           BreakTime: {formatTime(countdown)}
