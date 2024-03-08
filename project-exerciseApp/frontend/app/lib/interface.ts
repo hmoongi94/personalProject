@@ -26,6 +26,7 @@ export interface WorkoutEntry {
   id: number;
   name: string;
   totalReps: number;
+  totalWeights: number;
   totalSets: number;
 }
 

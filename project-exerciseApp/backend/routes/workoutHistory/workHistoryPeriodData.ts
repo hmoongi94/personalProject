@@ -23,11 +23,12 @@ workoutHistoryPeriodData.post(
       interface GroupedEntry {
         name: string;
         totalReps: number;
+        totalWeights: number;
         totalSets: number;
       }
 
       const rawData = await conn.query(
-        "SELECT e.name, e.caloryPerReps, r.totalReps, r.totalSets FROM record r JOIN exercise e ON r.exerciseIndex = e.exerciseIndex WHERE r.userIndex = ? AND r.date BETWEEN ? AND ?",
+        "SELECT e.name, e.caloryPerReps, r.totalReps, r.totalWeights, r.totalSets FROM record r JOIN exercise e ON r.exerciseIndex = e.exerciseIndex WHERE r.userIndex = ? AND r.date BETWEEN ? AND ?",
         [userIndex, startDate, endDate]
       );
       // console.log(rawData);
@@ -38,11 +39,13 @@ workoutHistoryPeriodData.post(
 
           if (existingEntry) {
             existingEntry.totalReps += entry.totalReps;
+            existingEntry.totalWeights += entry.totalWeights;
             existingEntry.totalSets += entry.totalSets;
           } else {
             acc.push({
               name: entry.name,
               totalReps: entry.totalReps,
+              totalWeights: entry.totalWeights,
               totalSets: entry.totalSets,
             });
           }

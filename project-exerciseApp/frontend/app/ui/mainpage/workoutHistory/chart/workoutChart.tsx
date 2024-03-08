@@ -28,8 +28,9 @@ const ChartComponent: React.FC<ChartProps> = ({ data }) => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="totalReps" fill="#8884d8" />
-        <Bar dataKey="totalSets" fill="#82ca9d" />
+        <Bar dataKey="totalSets" fill="#ffc952" /> {/* 새로운 색상: 노란색 */}
+        <Bar dataKey="totalReps" fill="#ff6f61" /> {/* 새로운 색상: 빨간색 */}
+        <Bar dataKey="totalWeights" fill="#67b7dc" /> {/* 새로운 색상: 파란색 */}
       </BarChart>
     </ResponsiveContainer>
   );
