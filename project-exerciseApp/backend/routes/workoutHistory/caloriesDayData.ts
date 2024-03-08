@@ -18,7 +18,7 @@ caloryDayData.post("/workoutHistory/daydata/calories", async (req, res) => {
     conn = await pool.getConnection();
 
     const rawData = await conn.query(
-      "SELECT e.name, SUM(e.caloryPerReps * r.totalReps) as caloryPerRepsTotal, SUM(r.totalReps) as totalReps, SUM(r.totalSets) as totalSets FROM record r JOIN exercise e ON r.exerciseIndex = e.exerciseIndex WHERE r.userIndex = ? AND r.date = ? GROUP BY e.name",
+      "SELECT e.name, SUM(e.caloryPerReps * r.totalReps * (r.totalWeights * 0.01)) as caloryPerRepsTotal, SUM(r.totalReps) as totalReps, SUM(r.totalSets) as totalSets FROM record r JOIN exercise e ON r.exerciseIndex = e.exerciseIndex WHERE r.userIndex = ? AND r.date = ? GROUP BY e.name",
       [userIndex, date]
     );
 
