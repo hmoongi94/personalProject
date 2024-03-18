@@ -43,7 +43,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
         try {
           // 좋아요 취소 요청
           const response = await fetch(
-            `http://localhost:3560/community/deleteLikeData/${postId}/${userId}`,
+            `http://43.200.231.255:3560/community/deleteLikeData/${postId}/${userId}`,
             {
               method: "DELETE",
               headers: {
@@ -78,7 +78,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
         try {
           // 좋아요 추가 요청
           const response = await fetch(
-            `http://localhost:3560/community/addLikeData/${postId}/${userId}`,
+            `http://43.200.231.255:3560/community/addLikeData/${postId}/${userId}`,
             {
               method: "POST",
               headers: {
