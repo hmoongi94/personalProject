@@ -17,7 +17,7 @@ const EditPostPage = () => {
     const fetchPostData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3560/community/editpost/${postId}`
+          `http://43.200.231.255:3560/community/editpost/${postId}`
         );
         const data = await response.json();
 

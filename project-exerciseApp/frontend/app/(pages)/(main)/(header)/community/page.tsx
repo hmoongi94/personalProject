@@ -33,7 +33,7 @@ const Community = () => {
       try {
         // const queryParam = searchParams.get("query");
 
-        let url = "http://localhost:3560/community/postData";
+        let url = "http://43.200.231.255:3560/community/postData";
 
         // if (queryParam) {
         //   url += `?query=${queryParam}`;
@@ -70,7 +70,7 @@ const Community = () => {
           throw new Error("토큰이 없습니다.");
         }
 
-        const response = await fetch("http://localhost:3560/userId", {
+        const response = await fetch("http://43.200.231.255:3560/userId", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -100,7 +100,7 @@ const Community = () => {
     const fetchLikeData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3560/community/likeData"
+          "http://43.200.231.255:3560/community/likeData"
         );
 
         const likeData = await response.json();
