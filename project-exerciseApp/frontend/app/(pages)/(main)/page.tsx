@@ -56,7 +56,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchInitialExerciseData = async () => {
       try {
-        const response = await fetch("http://localhost:3560/exercisedata");
+        const response = await fetch("http://ec2-43-200-231-255.ap-northeast-2.compute.amazonaws.com:3560/exercisedata");
         const data = await response.json();
 
         if (!Array.isArray(data)) {
@@ -89,7 +89,7 @@ const MainPage = () => {
 
         if (!queryParam) {
           // If the query is empty, fetch initial data
-          const response = await fetch("http://localhost:3560/exercisedata");
+          const response = await fetch("http://ec2-43-200-231-255.ap-northeast-2.compute.amazonaws.com:3560/exercisedata");
           const data = await response.json();
 
           if (!Array.isArray(data)) {
@@ -100,7 +100,7 @@ const MainPage = () => {
         } else {
           // If the query is not empty, fetch searched data
           const response = await fetch(
-            `http://localhost:3560/searchexercisedata?query=${queryParam}`
+            `http://ec2-43-200-231-255.ap-northeast-2.compute.amazonaws.com:3560/searchexercisedata?query=${queryParam}`
           );
           const data = await response.json();
 
