@@ -10,7 +10,7 @@ workoutHistoryDayData.post("/workoutHistory/daydata", async (req: Request, res: 
   try {
     // Check for a valid token
     const userIndex = tokenChecker(req, res);
-    console.log(userIndex);
+    // console.log(userIndex);
     if (!userIndex) return;
 
     const { date } = req.query;
