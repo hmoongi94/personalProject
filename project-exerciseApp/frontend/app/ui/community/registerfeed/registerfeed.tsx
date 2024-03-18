@@ -76,7 +76,7 @@ const ImageUpload: React.FC = () => {
       }
 
       const response = await fetch(
-        "http://localhost:3560/community/registerFeed",
+        "http://43.200.231.255:3560/community/registerFeed",
         {
           method: "POST",
           headers: {

@@ -93,7 +93,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
       }
 
       const response = await fetch(
-        `http://localhost:3560/community/addComment/${postId}/${userId}`,
+        `http://43.200.231.255:3560/community/addComment/${postId}/${userId}`,
         {
           method: "POST",
           headers: {
@@ -166,7 +166,7 @@ const CommunityHome: React.FC<CommunityHomeProps> = ({
       }
 
       const response = await fetch(
-        `http://localhost:3560/community/deleteComment/${postId}/${commentIndex}`,
+        `http://43.200.231.255:3560/community/deleteComment/${postId}/${commentIndex}`,
         {
           method: "DELETE",
           headers: {
