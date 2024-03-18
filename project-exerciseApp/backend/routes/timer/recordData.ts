@@ -8,7 +8,7 @@ recordData.post("/recordData", async (req, res) => {
   // * 토큰 있는지 확인하는 로직
   const userIndex = tokenChecker(req, res);
 
-  const { totalReps, totalWeights, selectedExercise, executionCount } = req.body;
+  const { totalReps, totalWeights, selectedExercise, executionCount, formattedDate } = req.body;
 
   let conn;
 
@@ -29,8 +29,8 @@ recordData.post("/recordData", async (req, res) => {
     // console.log(exerciseIndex);
 
     // * 현재 날짜 및 시간을 생성 (년 월 일 형식)
-    const currentDate = new Date();
-    const formattedDate = currentDate.toLocaleDateString()
+    // const currentDate = new Date();
+    // const formattedDate = currentDate.toLocaleDateString()
 
     // * record 테이블에 insert
     const insertResult = await conn.query(

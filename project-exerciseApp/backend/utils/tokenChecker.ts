@@ -24,7 +24,7 @@ export const tokenChecker = (req: Request, res: Response) => {
     const decoded = jwt.verify(token, "1234") as JwtPayload;
     userIndex = decoded.userIndex as string;
     // 로그 추가: 토큰 검증 및 userIndex 추출
-    console.log("Token verified, userIndex:", userIndex);
+    // console.log("Token verified, userIndex:", userIndex);
     return userIndex;
   } catch (err) {
     console.error("Token verification error:", err);

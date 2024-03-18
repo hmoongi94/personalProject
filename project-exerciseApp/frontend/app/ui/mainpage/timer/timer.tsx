@@ -155,6 +155,8 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
   // * 기록할 데이터 서버로 보내주기
   const handleRecord = () => {
     const token = localStorage.getItem("token"); // 사용자 토큰 가져오기
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString()
 
     // 아직 보낼 데이터가 없을 때 조건 걸기.
     if (totalReps === 0) {
@@ -185,6 +187,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
         totalReps,
         selectedExercise,
         executionCount,
+        formattedDate
       }),
     })
       .then(async (response) => {
