@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import React, { Suspense } from "react";
 import "@/app/styles/activemenu.css"
@@ -31,7 +31,7 @@ const MainPage = () => {
     ExerciseData[]
   >([]);
   // SearchParams
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   // Define primaryCategories
   const [primaryCategories, setPrimaryCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -82,41 +82,41 @@ const MainPage = () => {
   }, []);
 
   // * 검색으로 운동 데이터 불러오기.
-  useEffect(() => {
-    const fetchSearchedExerciseData = async () => {
-      try {
-        const queryParam = searchParams.get("query");
+  // useEffect(() => {
+  //   const fetchSearchedExerciseData = async () => {
+  //     try {
+  //       const queryParam = searchParams.get("query");
 
-        if (!queryParam) {
-          // If the query is empty, fetch initial data
-          const response = await fetch("http://localhost:3560/exercisedata");
-          const data = await response.json();
+  //       if (!queryParam) {
+  //         // If the query is empty, fetch initial data
+  //         const response = await fetch("http://localhost:3560/exercisedata");
+  //         const data = await response.json();
 
-          if (!Array.isArray(data)) {
-            throw new Error("데이터 형식 오류: 배열이 아닙니다.");
-          }
+  //         if (!Array.isArray(data)) {
+  //           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
+  //         }
 
-          setExtractexerciseData(data);
-        } else {
-          // If the query is not empty, fetch searched data
-          const response = await fetch(
-            `http://localhost:3560/searchexercisedata?query=${queryParam}`
-          );
-          const data = await response.json();
+  //         setExtractexerciseData(data);
+  //       } else {
+  //         // If the query is not empty, fetch searched data
+  //         const response = await fetch(
+  //           `http://localhost:3560/searchexercisedata?query=${queryParam}`
+  //         );
+  //         const data = await response.json();
 
-          if (!Array.isArray(data)) {
-            throw new Error("데이터 형식 오류: 배열이 아닙니다.");
-          }
+  //         if (!Array.isArray(data)) {
+  //           throw new Error("데이터 형식 오류: 배열이 아닙니다.");
+  //         }
 
-          setExtractexerciseData(data);
-        }
-      } catch (error) {
-        console.error("데이터를 불러오는 동안 에러발생:", error);
-      }
-    };
+  //         setExtractexerciseData(data);
+  //       }
+  //     } catch (error) {
+  //       console.error("데이터를 불러오는 동안 에러발생:", error);
+  //     }
+  //   };
 
-    fetchSearchedExerciseData();
-  }, [searchParams]);
+  //   fetchSearchedExerciseData();
+  // }, [searchParams]);
 
   // * Filter exercise data based on selectedCategory
   useEffect(() => {
