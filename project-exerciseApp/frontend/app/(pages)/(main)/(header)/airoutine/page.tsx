@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import Survey from "@/app/ui/airoutine/survey";
+
 const AiRoutinePage = () => {
   const [question, setQuestion] = useState("");
   const [generatedQuestion, setGeneratedQuestion] = useState("");
@@ -47,6 +49,7 @@ const AiRoutinePage = () => {
           <p>{generatedQuestion}</p>
         </div>
       )}
+      <Survey />
     </div>
   );
 };
