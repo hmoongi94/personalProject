@@ -13,15 +13,15 @@ const AiRoutinePage = () => {
     }
 
     try {
-      const formData = new FormData();
-      formData.append("question", question);
+      // const formData = new FormData();
+      // formData.append("question", question);
 
-      const response = await fetch("/api/gptapi", {
+      const gptApiResponse = await fetch("/api/gptapitest", {
         method: "POST",
-        body: formData,
+        body: JSON.stringify({ question })
       });
 
-      const data = await response.json();
+      const data = await gptApiResponse.json();
       setGeneratedQuestion(data.result);
     } catch (error) {
       console.error("Error:", error);
