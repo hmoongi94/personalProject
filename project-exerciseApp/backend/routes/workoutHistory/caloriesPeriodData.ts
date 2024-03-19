@@ -13,8 +13,8 @@ caloryPeriodData.post("/workoutHistory/periodData/calories", async (req, res) =>
     if (!userIndex) return;
 
     const { startDate, endDate } = req.query;
-    console.log(startDate)
-    console.log(endDate)
+    // console.log(startDate)
+    // console.log(endDate)
 
     // Fetch calories data for the selected date
     conn = await pool.getConnection();
