@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import Survey from "@/app/ui/airoutine/survey";
+import {Button} from '@nextui-org/button'; 
 
 const AiRoutinePage = () => {
   const [question, setQuestion] = useState("");
@@ -50,6 +51,7 @@ const AiRoutinePage = () => {
         </div>
       )}
       <Survey />
+      <Button>Click me</Button>
     </div>
   );
 };
