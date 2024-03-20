@@ -47,7 +47,7 @@ const AiRoutinePage: React.FC = () => {
     setCurrentQuestion((prev) => prev - 1);
   };
 
-  // 질문에 대한 답변 저장
+  //* 질문에 대한 답변 저장
   const handleAnswer = (question: string, answer: string) => {
     if (question === "question2") {
       // 복수 선택이 가능한 경우
@@ -69,12 +69,29 @@ const AiRoutinePage: React.FC = () => {
     }
   };
 
-  // 모달 제출 함수
-  const handleSubmit = () => {
+  //* 모달 제출 함수
+  const handleSubmit = async () => {
     // 여기에 모달 제출 로직 추가
-    // 예를 들어, openapi에 answers 보내기
-    alert("답변을 제출합니다!");
     console.log(answers); // 제출할 답변 확인
+    const requestAnswer = `헬스장가서 운동을 할건데, 헬스장에서 할 수 있는 운동으로 루틴을 짜줘. 운동의 목적은 ${answers.question1}이고, 일주일에 ${answers.question4} 운동할거야, 운동시간은 ${answers.question3}이고, 운동부위는 골고루 운동할 수 있게 루틴을 짜되 집중적으로 운동하고 싶은 부위는 ${answers.question2}이야. 일별로 키값을 가지고 루틴을 만들어서 json객체로 응답해.`
+
+    try {
+      const formData = new FormData();
+      formData.append("question", requestAnswer);
+
+      const response = await fetch("/api/gptapi", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      console.log(data)
+      
+    } catch (error) {
+      console.error("Error:", error);
+    }
+    
+    alert("답변을 제출합니다!");
     closeModal(); // 모달 닫기
     // 상태 초기화
     setCurrentQuestion(1);
@@ -142,7 +159,7 @@ const AiRoutinePage: React.FC = () => {
                       answers[
                         `question${currentQuestion}` as keyof Answer
                       ]?.includes(option)
-                        ? "bg-blue-700 text-white" // 선택된 항목은 강조 스타일
+                        ? "bg-blue-700 text-white"
                         : "bg-blue-500 text-white"
                     } hover:bg-blue-600`}
                     onClick={() =>
