@@ -15,6 +15,7 @@ const openai = new OpenAI({
 export async function POST(req:NextRequest) {
       const formData = await req.formData()
       const question = formData.get('question')
+      console.log(question)
 
       const userQuestion = question ? String(question) : '';
 

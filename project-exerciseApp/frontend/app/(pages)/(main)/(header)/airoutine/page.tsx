@@ -82,7 +82,7 @@ const AiRoutinePage: React.FC = () => {
 
     // 여기에 모달 제출 로직 추가
     // console.log(answers); // 제출할 답변 확인
-    const requestAnswer = `헬스장가서 운동을 할건데, 헬스장에서 할 수 있는 운동으로 루틴을 짜. 운동의 목적은 ${answers.question1}이고, 일주일에 ${answers.question4} 운동할거야. 평균 운동시간은 ${answers.question3}이고 운동시간에 맞게 루틴에 운동개수를 적절히 넣어줘. 운동부위는 골고루 운동할 수 있게 루틴을 짜되 집중적으로 운동하고 싶은 부위는 ${answers.question2}이야. 일별로 키값을 세트 수와 운동횟수를 포함해서 json객체로 응답해.`;
+    const requestAnswer = `헬스장가서 운동을 할거야. 헬스장에서 할 수 있는 운동으로 다음에 설명하는 내 조건들에 맞게 루틴을 짤건데, 운동의 목적은 ${answers.question1}이고, 일주일에 ${answers.question4}만 운동할거야. 평균 운동시간은 ${answers.question3}이고 운동부위는 골고루 운동할 수 있게 루틴을 짜되 집중적으로 운동하고 싶은 부위는 ${answers.question2}이야. 실제 json데이터만 응답, 운동일정은 내가 일주일에 운동할 수 있는 일수를 고려해서 응답할 것, 배열 속 객체들은 운동종류:세트수x횟수로 응답할 것. 내 운동시간에 맞게 적절하게 운동개수를 루틴에 포함시킬 것. ex) {day1: [{벤치프레스: "3x10"},{스쿼트:"3x10"},{데드리프트:"3x10"}], day2:[{풀업:"3x10"}]}`
     // console.log(requestAnswer)
 
     try {
@@ -95,9 +95,10 @@ const AiRoutinePage: React.FC = () => {
       });
 
       const data = await response.json();
-      // console.log(data)
+      console.log(data)
 
-      // 받은 데이터를 JSON 형식으로 파싱하여 상태에 저장
+     // 받은 데이터를 JSON 형식으로 파싱하여 상태에 저장
+     console.log(JSON.parse(data.result))
       setGeneratedRoutine(JSON.parse(data.result));
     } catch (error) {
       console.error("Error:", error);
@@ -213,13 +214,9 @@ const AiRoutinePage: React.FC = () => {
         {/* 생성된 운동 루틴 표시 */}
         {Object.keys(generatedRoutine).length > 0 && (
           <div className="mt-8">
-            <h2 className="text-xl text-black font-bold mb-2">
-              생성된 운동 루틴
-            </h2>
+            <h2 className="text-xl text-black font-bold mb-2">생성된 운동 루틴</h2>
             <div className="bg-white p-4 rounded-lg shadow-md">
-              <pre className="text-black">
-                {JSON.stringify(generatedRoutine, null, 2)}
-              </pre>
+              <pre className="text-black">{JSON.stringify(generatedRoutine, null, 2)}</pre>
             </div>
           </div>
         )}
