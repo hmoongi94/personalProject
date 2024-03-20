@@ -58,7 +58,7 @@ const ExerciseSurvey: React.FC<ExerciseSurveyProps> = () => {
   };
 
   return (
-    <div>
+    <div className='w-full h-full'>
       <h1>Exercise Survey</h1>
       <form onSubmit={handleSubmit}>
         <div>
