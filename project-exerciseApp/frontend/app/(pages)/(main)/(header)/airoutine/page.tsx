@@ -1,10 +1,9 @@
 "use client";
-
 import React, { useState } from "react";
 
 interface Answer {
   question1?: string;
-  question2?: string;
+  question2?: string[];
   question3?: string;
   question4?: string;
 }
@@ -28,15 +27,46 @@ const AiRoutinePage: React.FC = () => {
 
   // 다음 질문으로 넘어가기
   const nextQuestion = () => {
+    // 현재 질문에 대한 답변 확인
+    const currentAnswer = answers[`question${currentQuestion}` as keyof Answer];
+
+    // 선택된 답변이 없는 경우
+    if (
+      !currentAnswer ||
+      (Array.isArray(currentAnswer) && currentAnswer.length === 0)
+    ) {
+      alert("답변을 선택해주세요!"); // 경고창 띄우기
+      return; // 함수 종료
+    }
+
     setCurrentQuestion((prev) => prev + 1);
+  };
+
+  // 이전 질문으로 돌아가기
+  const previousQuestion = () => {
+    setCurrentQuestion((prev) => prev - 1);
   };
 
   // 질문에 대한 답변 저장
   const handleAnswer = (question: string, answer: string) => {
-    setAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      [question]: answer,
-    }));
+    if (question === "question2") {
+      // 복수 선택이 가능한 경우
+      const currentAnswers = answers[question] || [];
+      const updatedAnswers = currentAnswers.includes(answer)
+        ? currentAnswers.filter((ans) => ans !== answer) // 이미 선택된 항목이면 제거
+        : [...currentAnswers, answer]; // 선택되지 않은 항목이면 추가
+
+      setAnswers((prevAnswers) => ({
+        ...prevAnswers,
+        [question]: updatedAnswers,
+      }));
+    } else {
+      // 복수 선택이 불가능한 경우
+      setAnswers((prevAnswers) => ({
+        ...prevAnswers,
+        [question]: answer,
+      }));
+    }
   };
 
   // 모달 제출 함수
@@ -55,30 +85,32 @@ const AiRoutinePage: React.FC = () => {
   const questions = [
     {
       id: 1,
-      question: "첫 번째 질문: ...",
-      options: ["선택지 1", "선택지 2", "선택지 3"],
+      question: "운동의 목적을 정해주세요.",
+      options: ["근육량 증가", "체지방 감소", "건강한 몸"],
     },
     {
       id: 2,
-      question: "두 번째 질문: ...",
-      options: ["선택지 A", "선택지 B", "선택지 C"],
+      question: "특별히 집중하고 싶은 운동 부위를 골라주세요.(복수선택 가능)",
+      options: ["골고루", "등", "팔", "가슴", "복근", "하체"],
     },
     {
       id: 3,
-      question: "세 번째 질문: ...",
-      options: ["선택지 X", "선택지 Y", "선택지 Z"],
+      question: "운동시간을 정해주세요.",
+      options: ["30분", "60분", "90분", "120분"],
     },
     {
       id: 4,
-      question: "네 번째 질문: ...",
-      options: ["선택지 A1", "선택지 B2", "선택지 C3"],
+      question: "일주일에 운동할 수 있는 일 수를 정해주세요.",
+      options: ["1일", "2일", "3일", "4일", "5일", "6일", "7일"],
     },
   ];
 
   return (
     <div className="flex items-center justify-center">
       <div className="bg-pink-500 p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h1 className="text-2xl text-black font-bold mb-4">나만의 운동 루틴 만들기</h1>
+        <h1 className="text-2xl text-black font-bold mb-4">
+          나만의 운동 루틴 만들기
+        </h1>
         <button
           className="bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-blue-600"
           onClick={openModal}
@@ -99,22 +131,39 @@ const AiRoutinePage: React.FC = () => {
               <h2 className="text-black text-xl font-bold mb-4">
                 질문 {currentQuestion}
               </h2>
-              <p className="text-black mb-4">{questions[currentQuestion - 1].question}</p>
-              <div className="flex justify-between">
+              <p className="text-black mb-4">
+                {questions[currentQuestion - 1].question}
+              </p>
+              <div className="flex flex-wrap gap-2">
                 {questions[currentQuestion - 1].options.map((option, index) => (
                   <button
                     key={index}
                     className={`px-4 py-2 rounded-lg shadow-md ${
-                      answers[`question${currentQuestion}` as keyof Answer] === option
-                        ? "bg-blue-700 text-white"
+                      answers[
+                        `question${currentQuestion}` as keyof Answer
+                      ]?.includes(option)
+                        ? "bg-blue-700 text-white" // 선택된 항목은 강조 스타일
                         : "bg-blue-500 text-white"
-                    } hover:bg-blue-600 mr-2`}
-                    onClick={() => handleAnswer(`question${currentQuestion}` as keyof Answer, option)}
+                    } hover:bg-blue-600`}
+                    onClick={() =>
+                      handleAnswer(
+                        `question${currentQuestion}` as keyof Answer,
+                        option
+                      )
+                    }
                   >
                     {option}
                   </button>
                 ))}
               </div>
+              {currentQuestion > 1 && (
+                <button
+                  className="bg-gray-500 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-gray-600"
+                  onClick={previousQuestion}
+                >
+                  이전
+                </button>
+              )}
               {currentQuestion < questions.length ? (
                 <button
                   className="bg-pink-500 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-pink-700"
@@ -133,7 +182,6 @@ const AiRoutinePage: React.FC = () => {
             </div>
           </div>
         )}
-
       </div>
     </div>
   );
