@@ -8,10 +8,17 @@ interface Answer {
   question4?: string;
 }
 
+interface GeneratedRoutine {
+  [key: string]: string;
+}
+
 const AiRoutinePage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [currentQuestion, setCurrentQuestion] = useState<number>(1);
   const [answers, setAnswers] = useState<Answer>({});
+  const [generatedRoutine, setGeneratedRoutine] = useState<GeneratedRoutine>(
+    {}
+  );
 
   // 모달 열기
   const openModal = () => {
@@ -71,9 +78,12 @@ const AiRoutinePage: React.FC = () => {
 
   //* 모달 제출 함수
   const handleSubmit = async () => {
+    closeModal(); // 모달 닫기
+
     // 여기에 모달 제출 로직 추가
-    console.log(answers); // 제출할 답변 확인
-    const requestAnswer = `헬스장가서 운동을 할건데, 헬스장에서 할 수 있는 운동으로 루틴을 짜줘. 운동의 목적은 ${answers.question1}이고, 일주일에 ${answers.question4} 운동할거야, 운동시간은 ${answers.question3}이고, 운동부위는 골고루 운동할 수 있게 루틴을 짜되 집중적으로 운동하고 싶은 부위는 ${answers.question2}이야. 일별로 키값을 가지고 루틴을 만들어서 json객체로 응답해.`
+    // console.log(answers); // 제출할 답변 확인
+    const requestAnswer = `헬스장가서 운동을 할건데, 헬스장에서 할 수 있는 운동으로 루틴을 짜. 운동의 목적은 ${answers.question1}이고, 일주일에 ${answers.question4} 운동할거야. 평균 운동시간은 ${answers.question3}이고 운동시간에 맞게 루틴에 운동개수를 적절히 넣어줘. 운동부위는 골고루 운동할 수 있게 루틴을 짜되 집중적으로 운동하고 싶은 부위는 ${answers.question2}이야. 일별로 키값을 세트 수와 운동횟수를 포함해서 json객체로 응답해.`;
+    // console.log(requestAnswer)
 
     try {
       const formData = new FormData();
@@ -85,14 +95,14 @@ const AiRoutinePage: React.FC = () => {
       });
 
       const data = await response.json();
-      console.log(data)
-      
+      // console.log(data)
+
+      // 받은 데이터를 JSON 형식으로 파싱하여 상태에 저장
+      setGeneratedRoutine(JSON.parse(data.result));
     } catch (error) {
       console.error("Error:", error);
     }
-    
-    alert("답변을 제출합니다!");
-    closeModal(); // 모달 닫기
+
     // 상태 초기화
     setCurrentQuestion(1);
     setAnswers({});
@@ -108,7 +118,7 @@ const AiRoutinePage: React.FC = () => {
     {
       id: 2,
       question: "특별히 집중하고 싶은 운동 부위를 골라주세요.(복수선택 가능)",
-      options: ["골고루", "등", "팔", "가슴", "복근", "하체"],
+      options: ["등", "팔", "가슴", "복근", "하체"],
     },
     {
       id: 3,
@@ -196,6 +206,20 @@ const AiRoutinePage: React.FC = () => {
                   제출
                 </button>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* 생성된 운동 루틴 표시 */}
+        {Object.keys(generatedRoutine).length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-xl text-black font-bold mb-2">
+              생성된 운동 루틴
+            </h2>
+            <div className="bg-white p-4 rounded-lg shadow-md">
+              <pre className="text-black">
+                {JSON.stringify(generatedRoutine, null, 2)}
+              </pre>
             </div>
           </div>
         )}

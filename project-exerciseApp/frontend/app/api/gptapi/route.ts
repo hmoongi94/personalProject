@@ -30,6 +30,7 @@ export async function POST(req:NextRequest) {
       for await (const chunk of stream) {
         result += chunk.choices[0]?.delta?.content || "";
       }
+      console.log(result)
 
       return NextResponse.json({result}, {status:200})
   }
