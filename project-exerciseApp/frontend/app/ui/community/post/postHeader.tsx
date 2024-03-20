@@ -23,7 +23,7 @@ const PostHeader: React.FC<PostHeaderProps> = ({
       }
 
       const response = await fetch(
-        `http://localhost:3560/community/deletepost/${postId}`,
+        `http://43.200.231.255:3560/community/deletepost/${postId}`,
         {
           method: "GET",
         }

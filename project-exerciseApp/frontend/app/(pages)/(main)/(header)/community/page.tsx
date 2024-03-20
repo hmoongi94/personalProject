@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import CommunityHome from "@/app/ui/community/communityHome";
 // import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 
 import { PostData, LikeData } from "@/app/lib/interface";
 
@@ -13,6 +14,7 @@ const Community = () => {
   const [likeData, setlikeData] = useState<LikeData[]>([]);
 
   const [refreshData, setRefreshData] = useState(false);
+  // const searchParams = useSearchParams();
   // const searchParams = useSearchParams();
 
   const handleRegisterFeed = () => {
@@ -32,8 +34,9 @@ const Community = () => {
     const fetchPostData = async () => {
       try {
         // const queryParam = searchParams.get("query");
+        // const queryParam = searchParams.get("query");
 
-        let url = "http://localhost:3560/community/postData";
+        let url = "http://43.200.231.255:3560/community/postData";
 
         // if (queryParam) {
           // url += `?query=${queryParam}`;
@@ -55,6 +58,7 @@ const Community = () => {
 
     fetchPostData();
   }, [refreshData]);
+  }, [refreshData]);
 
   const handleRefreshData = () => {
     // 버튼 클릭 시 refreshData를 토글하여 useEffect를 다시 실행
@@ -70,7 +74,7 @@ const Community = () => {
           throw new Error("토큰이 없습니다.");
         }
 
-        const response = await fetch("http://localhost:3560/userId", {
+        const response = await fetch("http://43.200.231.255:3560/userId", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -100,7 +104,7 @@ const Community = () => {
     const fetchLikeData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3560/community/likeData"
+          "http://43.200.231.255:3560/community/likeData"
         );
 
         const likeData = await response.json();

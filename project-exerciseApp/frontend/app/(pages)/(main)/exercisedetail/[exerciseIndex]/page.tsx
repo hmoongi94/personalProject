@@ -17,7 +17,7 @@ const ExerciseDetailpage = () => {
     const fetchProductData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3560/exercisedetail/${exerciseIndex}`
+          `http://43.200.231.255:3560/exercisedetail/${exerciseIndex}`
         );
         const data = await response.json();
         console.log(data);

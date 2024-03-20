@@ -56,7 +56,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchInitialExerciseData = async () => {
       try {
-        const response = await fetch("http://localhost:3560/exercisedata");
+        const response = await fetch("http://43.200.231.255:3560/exercisedata");
         const data = await response.json();
 
         if (!Array.isArray(data)) {

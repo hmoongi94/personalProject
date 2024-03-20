@@ -74,7 +74,7 @@ const EditPost: React.FC<EditPostProps> = ({
       };
 
       const response = await fetch(
-        `http://localhost:3560/community/editFeed/${postId}`,
+        `http://43.200.231.255:3560/community/editFeed/${postId}`,
         {
           method: "POST",
           headers: {

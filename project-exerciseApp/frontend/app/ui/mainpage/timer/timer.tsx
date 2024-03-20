@@ -176,7 +176,7 @@ const Timer: React.FC<TimerProps> = ({ initialExerciseData }) => {
     }
 
     // Send the data to the server (replace the URL with your actual server endpoint)
-    fetch("http://localhost:3560/recordData", {
+    fetch("http://43.200.231.255:3560/recordData", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
