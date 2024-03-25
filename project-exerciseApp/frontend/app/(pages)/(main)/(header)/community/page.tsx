@@ -58,7 +58,6 @@ const Community = () => {
 
     fetchPostData();
   }, [refreshData]);
-  }, [refreshData]);
 
   const handleRefreshData = () => {
     // 버튼 클릭 시 refreshData를 토글하여 useEffect를 다시 실행
