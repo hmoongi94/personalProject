@@ -8,7 +8,7 @@ const pool = mariadb.createPool({
   // 집에서 하기 위해 잠깐 바꿧습니다.
   host: process.env.db_host,
   port: 3306,
-  user: "root",
+  user: "admin",
   password: process.env.db_password,
   database: "personalproject_1",
   connectionLimit: 5,
